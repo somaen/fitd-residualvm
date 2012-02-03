@@ -19,7 +19,7 @@
  */
 
 // seg 55
-
+#include "filestream.h"
 #include "common.h"
 
 namespace Fitd {
@@ -61,16 +61,11 @@ unsigned int PAK_getNumFiles(char* name)
 	strcpy(bufferName, name); // temporary until makeExtention is coded
 	strcat(bufferName,".PAK");
 	
-	fileHandle = fopen(bufferName,"rb");
+	Common::ReadFileStream file(bufferName);
+	file.seek(4, SEEK_CUR);
+	fileOffset = file.readUint32LE();
 	
-	ASSERT(fileHandle);
-	
-	fseek(fileHandle,4,SEEK_CUR);
-	fread(&fileOffset,4,1,fileHandle);
-#ifdef MACOSX
-	fileOffset = READ_LE_UINT32(&fileOffset);
-#endif
-	fclose(fileHandle);
+	file.close();
 	
 	return((fileOffset/4)-2);
 }
@@ -83,18 +78,16 @@ int loadPakToPtr(char* name, int index, char* ptr)
 	int size;
 	
 	sprintf(buffer,"%s/%04X.OUT",name,index);
-	
-	fHandle = fopen(buffer,"rb");
-	
-	if(!fHandle)
+
+	Common::ReadFileStream file(buffer);
+
+	if(!file.isOpen())
 		return(0);
 	
-	fseek(fHandle,0L,SEEK_END);
-	size = ftell(fHandle);
-	fseek(fHandle,0L,SEEK_SET);
+	size = file.size();
 	
-	fread(ptr,size,1,fHandle);
-	fclose(fHandle);
+	file.read(ptr, size);
+	file.close();
 	
 	return(1);
 #else
@@ -110,8 +103,7 @@ int loadPakToPtr(char* name, int index, char* ptr)
 #endif
 }
 
-int getPakSize(char* name, int index)
-{
+int getPakSize(char* name, int index) {
 #ifdef USE_UNPACKED_DATA
 	char buffer[256];
 	FILE* fHandle;
@@ -119,16 +111,13 @@ int getPakSize(char* name, int index)
 	
 	sprintf(buffer,"%s/%04X.OUT",name,index);
 	
-	fHandle = fopen(buffer,"rb");
-	
-	if(!fHandle)
+	ReadFileStream file(buffer);
+
+	if (!file.isOpen())
 		return(0);
-	
-	fseek(fHandle,0L,SEEK_END);
-	size = ftell(fHandle);
-	fseek(fHandle,0L,SEEK_SET);
-	
-	fclose(fHandle);
+
+	size = file.size();	
+	file.close();
 	
 	return (size);
 #else
@@ -143,41 +132,30 @@ int getPakSize(char* name, int index)
 	strcpy(bufferName, name); // temporary until makeExtention is coded
 	strcat(bufferName,".PAK");
 	
-	fileHandle = fopen(bufferName,"rb");
+	Common::ReadFileStream file(bufferName);
 	
-	if(fileHandle) // a bit stupid, should return NULL right away
+	if(file.isOpen()) // a bit stupid, should return NULL right away
 	{
-		fseek(fileHandle,(index+1)*4,SEEK_SET);
+		file.seek((index + 1) * 4, SEEK_SET);
+	
+		fileOffset = file.readUint32LE();
+		file.seek(fileOffset, SEEK_SET);
 		
-		fread(&fileOffset,4,1,fileHandle);
-#ifdef MACOSX
-		fileOffset = READ_LE_UINT32(&fileOffset);
-#endif
-		fseek(fileHandle,fileOffset,SEEK_SET);
-		
-		fread(&additionalDescriptorSize,4,1,fileHandle);
-#ifdef MACOSX
-		additionalDescriptorSize = READ_LE_UINT32(&additionalDescriptorSize);
-#endif
+		additionalDescriptorSize = file.readUint32LE();
 		
 		readPakInfo(&pakInfo,fileHandle);
+	
+		file.seek(pakInfo.offset, SEEK_CUR);
 		
-		fseek(fileHandle,pakInfo.offset,SEEK_CUR);
-		
-		if(pakInfo.compressionFlag == 0) // uncompressed
-		{
+		if(pakInfo.compressionFlag == 0) {// uncompressed
 			size = pakInfo.discSize;
-		}
-		else if(pakInfo.compressionFlag == 1) // compressed
-		{
+		} else if(pakInfo.compressionFlag == 1) { // compressed
 			size = pakInfo.uncompressedSize;
-		}
-		else if(pakInfo.compressionFlag == 4)
-		{
+		} else if(pakInfo.compressionFlag == 4)	{
 			size = pakInfo.uncompressedSize;
 		}
 		
-		fclose(fileHandle);
+		file.close();
 	}
 	
 	return size;
@@ -193,20 +171,18 @@ char* loadPak(const char* name, int index)
 	char* ptr;
 	
 	sprintf(buffer,"%s/%04X.OUT",name,index);
-	
-	fHandle = fopen(buffer,"rb");
-	
-	if(!fHandle)
+
+	Common::ReadFileStream file(buffer);
+
+	if(!file.isOpen())
 		return NULL;
+
+	size = file.size();
 	
-	fseek(fHandle,0L,SEEK_END);
-	size = ftell(fHandle);
-	fseek(fHandle,0L,SEEK_SET);
-	
-	ptr = (char*)malloc(size);
-	
-	fread(ptr,size,1,fHandle);
-	fclose(fHandle);
+	ptr = new char[size];
+
+	file.read(ptr, size);
+	file.close();
 	
 	return ptr;
 #else
@@ -220,43 +196,31 @@ char* loadPak(const char* name, int index)
 	//makeExtention(bufferName, name, ".PAK");
 	strcpy(bufferName, name); // temporary until makeExtention is coded
 	strcat(bufferName,".PAK");
-	
-	fileHandle = fopen(bufferName,"rb");
-	
-	if(fileHandle) // a bit stupid, should return NULL right away
-	{
+
+	Common::ReadFileStream file(bufferName);
+
+	if(file.isOpen()) { // a bit stupid, should return NULL right away
 		char nameBuffer[256];
 		
-		fseek(fileHandle,(index+1)*4,SEEK_SET);
+		file.seek((index + 1) * 4, SEEK_SET);
+	
+		fileOffset = file.readUint32LE();
 		
-		fread(&fileOffset,4,1,fileHandle);
-		
-#ifdef MACOSX
-		fileOffset = READ_LE_UINT32(&fileOffset);
-#endif
-		
-		fseek(fileHandle,fileOffset,SEEK_SET);
-		
-		fread(&additionalDescriptorSize,4,1,fileHandle);
-		
-#ifdef MACOSX
-		additionalDescriptorSize = READ_LE_UINT32(&additionalDescriptorSize);
-#endif
+		file.seek(fileOffset, SEEK_SET);
+
+		additionalDescriptorSize = file.readUint32LE();
 		
 		readPakInfo(&pakInfo,fileHandle);
 		
-		if(pakInfo.offset)
-		{
+		if(pakInfo.offset) {
 			ASSERT(pakInfo.offset<256);
-			
-			fread(nameBuffer,pakInfo.offset,1,fileHandle);
+		
+			file.read(nameBuffer, pakInfo.offset);
 #ifdef INTERNAL_DEBUGGER
 			printf("Loading %s/%s\n", name,nameBuffer+2);
 #endif
-		}
-		else
-		{
-			fseek(fileHandle,pakInfo.offset,SEEK_CUR);
+		} else {
+			file.seek(pakInfo.offset, SEEK_CUR);
 		}
 		
 		switch(pakInfo.compressionFlag)
@@ -264,33 +228,33 @@ char* loadPak(const char* name, int index)
 			case 0:
 			{
 				ptr = (char*)malloc(pakInfo.discSize);
-				fread(ptr,pakInfo.discSize,1,fileHandle);
+				file.read(ptr, pakInfo.discSize);
 				break;
 			}
 			case 1:
 			{
 				char * compressedDataPtr = (char *) malloc(pakInfo.discSize);
-				fread(compressedDataPtr, pakInfo.discSize, 1, fileHandle);
-				ptr = (char *) malloc(pakInfo.uncompressedSize);
-				
+				file.read(compressedDataPtr, pakInfo.discSize);
+				ptr = new char[pakInfo.uncompressedSize];
+
 				PAK_explode((unsigned char*)compressedDataPtr, (unsigned char*)ptr, pakInfo.discSize, pakInfo.uncompressedSize, pakInfo.info5);
 				
-				free(compressedDataPtr);
+				delete[] compressedDataPtr;
 				break;
 			}
 			case 4:
 			{
 				char * compressedDataPtr = (char *) malloc(pakInfo.discSize);
-				fread(compressedDataPtr, pakInfo.discSize, 1, fileHandle);
-				ptr = (char *) malloc(pakInfo.uncompressedSize);
+				file.read(compressedDataPtr, pakInfo.discSize);
+				ptr = new char[pakInfo.uncompressedSize];
 				
 				PAK_deflate((unsigned char*)compressedDataPtr, (unsigned char*)ptr, pakInfo.discSize, pakInfo.uncompressedSize);
 				
-				free(compressedDataPtr);
+				delete[] compressedDataPtr;
 				break;
 			}
 		}
-		fclose(fileHandle);
+		file.close();
 	}
 	
 	return ptr;

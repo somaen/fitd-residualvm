@@ -22,62 +22,39 @@
 #include "resource.h"
 #include "pak.h"
 #include "fileAccess.h"
+#include "filestream.h"
 
 namespace Fitd {
 
 ResourceLoader* g_resourceLoader;
 
 bool ResourceLoader::getFileExists(const char *name) {
-	FILE* fHandle;
-	
-	fHandle = fopen(name,"rb");
-	
-	if(fHandle)
-	{
-		fclose(fHandle);
-		return 1;
-	}
-	return 0;
+	Common::ReadFileStream file(name);
+	return file.isOpen();
 }
 
-char* ResourceLoader::loadFromItd(const char* name)
-{
-	FILE* fHandle;
-	char* ptr;
-	fHandle = fopen(name,"rb");
-	if(!fHandle)
-	{
-		theEnd(0,name);
+char* ResourceLoader::loadFromItd(const char* name) {
+	Common::ReadFileStream file(name);
+	if(!file.isOpen()) {
+		theEnd(0, name);
 		return NULL;
 	}
-	fseek(fHandle,0,SEEK_END);
-	int fileSize = ftell(fHandle);
-	fseek(fHandle,0,SEEK_SET);
-	ptr = new char[fileSize];
-	
-	if(!ptr)
-	{
-		theEnd(1,name);
+	int filesize = file.size();
+	char *ptr;
+	ptr = new char[filesize];
+
+	if (!ptr) {
+		theEnd(1, name);
 		return NULL;
 	}
-	fread(ptr,fileSize,1,fHandle);
-	fclose(fHandle);
-	return(ptr);
+	file.read(ptr,filesize);
+	file.close();
+	return ptr;
 }
 	
 int ResourceLoader::getFileSize(const char* name) {
-	FILE* fHandle;
-	char* ptr;
-	fHandle = fopen(name,"rb");
-	if(!fHandle)
-	{
-		theEnd(0,name);
-		return NULL;
-	}
-	fseek(fHandle,0,SEEK_END);
-	int fileSize;
-	fileSize = ftell(fHandle);
-	return fileSize;
+	Common::ReadFileStream file(name);
+	return file.size();
 }
 
 char* ResourceLoader::loadPakSafe(const char* name, int index)

@@ -6,7 +6,7 @@ common.h \
 actorList.cpp actorList.h aitdBox.cpp aitdBox.h animAction.cpp animAction.h \
 anim.cpp anim.h common.h config.h cosTable.cpp cosTable.h debugFont.cpp debugFont.h \
 debugger.cpp debugger.h evalVar.cpp evalVar.h fileAccess.cpp fileAccess.h \
-fitd.cpp fitd.h floor.cpp floor.h fmopl.cpp fmopl.h font.cpp font.h hqr.cpp hqr.h input.cpp input.h \
+filestream.cpp fitd.cpp fitd.h floor.cpp floor.h fmopl.cpp fmopl.h font.cpp font.h hqr.cpp hqr.h input.cpp input.h \
 inventory.cpp inventory.h life.cpp lifeMacroTable.cpp life.h life_2.cpp life_2.h lines.cpp main.cpp main.h \
 mainLoop.cpp mainLoop.h music.cpp music.h object.cpp object.h \
 osystem.h osystemSDL.cpp osystemSDL_GL.cpp pak.cpp pak.h polys.cpp \
