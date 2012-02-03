@@ -66,16 +66,4 @@ char* loadPakSafe(char* name, int index)
 	return ptr;
 }
 
-int fileExists(char* name) {
-	FILE* fHandle;
-	
-	fHandle = fopen(name,"rb");
-	
-	if(fHandle)
-	{
-		fclose(fHandle);
-		return 1;
-	}
-	return 0;
-}
 } // end of namespace Fitd

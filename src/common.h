@@ -129,9 +129,6 @@ int triangulate_polygon(int ncontours,int cntr[],double (*vertices)[2],int (*tri
 #include "life_2.h"
 #include "evalVar.h"
 
-#include "osystem.h"
-
-
 ////
 
 // Disable byte-swapping for now.

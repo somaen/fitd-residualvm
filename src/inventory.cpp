@@ -18,6 +18,7 @@
  *
  */
 
+#include "osystem.h"
 #include "common.h"
 
 namespace Fitd {
@@ -175,9 +176,9 @@ void makeStatusScreen(void)
 	while(!exitMenu)
 	{
 #ifdef USE_GL
-		osystem_CopyBlockPhys((unsigned char*)screen,0,0,320,200);
-		osystem_startFrame();
-		osystem_cleanScreenKeepZBuffer();
+		g_driver->CopyBlockPhys((unsigned char*)screen,0,0,320,200);
+		g_driver->startFrame();
+		g_driver->cleanScreenKeepZBuffer();
 #endif
 		
 		readKeyboard();

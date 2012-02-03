@@ -27,6 +27,8 @@
 
 // seg002
 #include "fitd.h"
+#include "resource.h"
+#include "osystem.h"
 #include "common.h"
 
 namespace Fitd {
@@ -37,9 +39,6 @@ FitdEngine *g_fitd;
 char scaledScreen[640*400];
 
 int input5;
-
-// Quickfix: 
-int fileExists(char* name);
 
 enumCVars AITD1KnownCVars[]=
 {
@@ -345,7 +344,7 @@ void allocTextes(void)
 			strcpy(tempString,languageNameTable[i]);
 			strcat(tempString,".PAK");
 			
-			if(fileExists(tempString))
+			if(g_resourceLoader->getFileExists(tempString))
 			{
 				strcpy(languageNameString,languageNameTable[i]);
 				break;
@@ -1438,7 +1437,7 @@ void loadCamera(int cameraIdx)
 			convertPaletteIfRequired((unsigned char*)palette);
 		}
 		
-		osystem_setPalette(palette);
+		g_driver->setPalette(palette);
 	}
 }
 
@@ -2566,7 +2565,7 @@ void drawProjectedLine(int x1, int y1, int z1, int x2, int y2, int z2,int c)
 	
 #ifdef USE_GL
 	if(z1>0 && z2>0)
-		osystem_draw3dLine(transformedX1,transformedY1,z1,transformedX2,transformedY2,z2,c);
+		g_driver->draw3dLine(transformedX1,transformedY1,z1,transformedX2,transformedY2,z2,c);
 #else
 	if(z1>0 && z2>0)
 		line(transformedX1,transformedY1,transformedX2,transformedY2,c);
@@ -2709,10 +2708,10 @@ void drawProjectedQuad(float x1,float x2, float x3, float x4, float y1,float y2,
 	
 	if(z1>DEPTH_THRESHOLD && z2>DEPTH_THRESHOLD && z3>DEPTH_THRESHOLD && z4>DEPTH_THRESHOLD)
 	{
-		osystem_draw3dQuad(transformedX1,transformedY1,z1, transformedX2,transformedY2,z2, transformedX3,transformedY3,z3, transformedX4,transformedY4,z4, color, transprency);
+		g_driver->draw3dQuad(transformedX1,transformedY1,z1, transformedX2,transformedY2,z2, transformedX3,transformedY3,z3, transformedX4,transformedY4,z4, color, transprency);
 	}
 	
-    //osystem_draw3dQuad(x1,y1,z1, x2,y2,z2, x3,y3,z3, x4,y4,z4, color);
+    //g_driver->draw3dQuad(x1,y1,z1, x2,y2,z2, x3,y3,z3, x4,y4,z4, color);
 }
 #endif
 
@@ -3079,7 +3078,7 @@ void drawBgOverlaySub2(int size)
 	
 	direction = 1;
 	
-	osystem_startBgPoly();
+	g_driver->startBgPoly();
 	
 	do
 	{
@@ -3093,9 +3092,9 @@ void drawBgOverlaySub2(int size)
 		
 #ifdef INTERNAL_DEBUGGER
 		/*  if(backgroundMode == backgroundModeEnum_2D)
-		 osystem_draw3dLine(tempBxPtr, tempCxPtr, 0, saveDx,saveAx, 0, 130); */
+		 g_driver->draw3dLine(tempBxPtr, tempCxPtr, 0, saveDx,saveAx, 0, 130); */
 #endif
-		osystem_addBgPolyPoint(tempBxPtr, tempCxPtr);
+		g_driver->addBgPolyPoint(tempBxPtr, tempCxPtr);
 		
 		dx = saveDx;
 		ax = saveAx;
@@ -3179,7 +3178,7 @@ void drawBgOverlaySub2(int size)
 		tempBxPtr = saveDx;
 	}while(--overlaySize1);
 	
-	osystem_endBgPoly();
+	g_driver->endBgPoly();
 }
 
 void drawBgOverlay(actorStruct* actorPtr)
@@ -3338,7 +3337,7 @@ void mainDraw(int mode)
 	int i;
 #ifdef USE_GL
 	if(mode == 2)
-		osystem_CopyBlockPhys((unsigned char*)screen,0,0,320,200);
+		g_driver->CopyBlockPhys((unsigned char*)screen,0,0,320,200);
 #endif
 	
 	
@@ -3353,14 +3352,14 @@ void mainDraw(int mode)
 	}
 	
 #ifdef USE_GL
-	osystem_startFrame();
+	g_driver->startFrame();
 #endif
 	
 	setClipSize(0,0,319,199);
 	genVar6 = 0;
 	
 #ifdef USE_GL
-	osystem_cleanScreenKeepZBuffer();
+	g_driver->cleanScreenKeepZBuffer();
 #endif
 	
 #ifdef INTERNAL_DEBUGGER
@@ -3379,7 +3378,7 @@ void mainDraw(int mode)
 	
 	
 #ifdef USE_GL
-	osystem_startModelRender();
+	g_driver->startModelRender();
 #endif
 	
 	for(i=0;i<numActorInList;i++)
@@ -3468,7 +3467,7 @@ void mainDraw(int mode)
 	}
 	
 #ifdef USE_GL
-	osystem_stopModelRender();
+	g_driver->stopModelRender();
 #endif
 	
 	if(drawTextOverlay())
@@ -3506,7 +3505,7 @@ void mainDraw(int mode)
 #endif
 	
 #ifdef USE_GL
-	osystem_stopFrame();
+	g_driver->stopFrame();
 #endif
 	
 	flipScreen();
@@ -3747,9 +3746,9 @@ void foundObject(int objIdx, int param)
 	while(!var_C)
 	{
 #ifdef USE_GL
-		osystem_CopyBlockPhys((unsigned char*)screen,0,0,320,200);
-		osystem_startFrame();
-		osystem_cleanScreenKeepZBuffer();
+		g_driver->CopyBlockPhys((unsigned char*)screen,0,0,320,200);
+		g_driver->startFrame();
+		g_driver->cleanScreenKeepZBuffer();
 #endif
 		
 		process_events();
@@ -5336,8 +5335,7 @@ void cleanupAndExit(void)
 
 using namespace Fitd;
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
 	int startupMenuResult;
 	//  int protectionToBeDone = 1;
 	char version[256];
@@ -5345,26 +5343,25 @@ int main(int argc, char** argv)
 	getVersion(version);
 	
 	printf(version);
-	
-	osystem_init();
-	osystem_initBuffer(scaledScreen,640,400);
+
+	g_fitd = new FitdEngine();
+
+	g_driver->init();
+	g_driver->initBuffer(scaledScreen,640,400);
 	startThreadTimer();
 	
-	g_fitd = new FitdEngine();
 	g_fitd->run();
 
 	paletteFill(palette,0,0,0);
 	
 	preloadResource();
 	
-	switch(g_fitd->getGameType())
-	{
-		case GType_AITD1:
+	switch(g_fitd->getGameType()) {
+		case GType_AITD1: 
 		{
 			fadeIn(palette);
 			
-			if(!make3dTatou())
-			{
+			if(!make3dTatou()) {
 				makeIntroScreens();
 			}
 			break;
@@ -5392,12 +5389,10 @@ int main(int argc, char** argv)
 		}
 	}
 	
-	while(1)
-	{
+	while(1) {
 		startupMenuResult = processStartupMenu();
 		
-		switch(startupMenuResult)
-		{
+		switch(startupMenuResult) {
 			case -1: // timeout
 			{
 				CVars[getCVarsIdx(CHOOSE_PERSO)] = rand()&1;

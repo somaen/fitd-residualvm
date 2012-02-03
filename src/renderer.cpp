@@ -18,6 +18,7 @@
  *
  */
 
+#include "osystem.h"
 #include "common.h"
 
 namespace Fitd {
@@ -1143,14 +1144,14 @@ void line(int x1, int y1, int x2, int y2, char c);
 
 void renderStyle0(primEntryStruct* pEntry) // line
 {
-	osystem_draw3dLine( pEntry->lineEntry.points[0].X,pEntry->lineEntry.points[0].Y,pEntry->lineEntry.points[0].Z,
+	g_driver->draw3dLine( pEntry->lineEntry.points[0].X,pEntry->lineEntry.points[0].Y,pEntry->lineEntry.points[0].Z,
 					   pEntry->lineEntry.points[1].X,pEntry->lineEntry.points[1].Y,pEntry->lineEntry.points[1].Z,
 					   pEntry->lineEntry.color);
 }
 
 void renderStyle1(primEntryStruct* pEntry) // poly
 {
-	osystem_fillPoly((float*)pEntry->polyEntry.firstPointPtr,pEntry->polyEntry.numOfPoints, pEntry->polyEntry.color, pEntry->polyEntry.polyType);
+	g_driver->fillPoly((float*)pEntry->polyEntry.firstPointPtr,pEntry->polyEntry.numOfPoints, pEntry->polyEntry.color, pEntry->polyEntry.polyType);
 }
 
 void renderStyle2(primEntryStruct* pEntry) // point
@@ -1159,7 +1160,7 @@ void renderStyle2(primEntryStruct* pEntry) // point
 	
 	transformedSize = ((5.f * (float)cameraY) / (float)(pEntry->pointEntry.Z+cameraX));
 	
-	osystem_drawSphere(pEntry->pointEntry.X,pEntry->pointEntry.Y,pEntry->pointEntry.Z,pEntry->pointEntry.color,transformedSize);
+	g_driver->drawSphere(pEntry->pointEntry.X,pEntry->pointEntry.Y,pEntry->pointEntry.Z,pEntry->pointEntry.color,transformedSize);
 }
 
 void renderStyle3(primEntryStruct* pEntry)
@@ -1168,7 +1169,7 @@ void renderStyle3(primEntryStruct* pEntry)
 	
 	transformedSize = (((float)pEntry->discEntry.size * (float)cameraY) / (float)(pEntry->discEntry.Z+cameraX));
 	
-	osystem_drawSphere(pEntry->discEntry.X,pEntry->discEntry.Y,pEntry->discEntry.Z,pEntry->discEntry.color,transformedSize);
+	g_driver->drawSphere(pEntry->discEntry.X,pEntry->discEntry.Y,pEntry->discEntry.Z,pEntry->discEntry.color,transformedSize);
 }
 
 

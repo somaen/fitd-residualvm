@@ -20,6 +20,7 @@
 
 // seg 048
 
+#include "osystem.h"
 #include "common.h"
 
 namespace Fitd {
@@ -43,7 +44,7 @@ void flipScreen()
 	char* outPtr = scaledScreen;
 	char* inPtr = unkScreenVar;
 #ifdef USE_GL
-	osystem_flip(NULL);
+	g_driver->flip(NULL);
 	return;
 #endif
 	
@@ -79,8 +80,8 @@ void flipScreen()
 		
 	}
 	
-	//osystem_setPalette(paletteRGBA);
-	osystem_flip((unsigned char*)scaledScreen);
+	//g_driver->setPalette(paletteRGBA);
+	g_driver->flip((unsigned char*)scaledScreen);
 }
 
 void flushScreen(void)

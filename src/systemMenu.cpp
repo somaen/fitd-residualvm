@@ -18,6 +18,7 @@
  *
  */
 
+#include "osystem.h"
 #include "common.h"
 
 namespace Fitd {
@@ -98,8 +99,8 @@ void processSystemMenu(void)
 		flushScreen();
 		
 		drawSystemMenuLayout(currentSelectedEntry);
-		osystem_CopyBlockPhys((unsigned char*)screen,0,0,320,200);
-		osystem_startFrame();
+		g_driver->CopyBlockPhys((unsigned char*)screen,0,0,320,200);
+		g_driver->startFrame();
 		
 		if(lightVar1)
 		{

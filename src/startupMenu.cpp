@@ -18,6 +18,7 @@
  *
  */
 
+#include "osystem.h"
 #include "common.h"
 
 namespace Fitd {
@@ -56,9 +57,9 @@ int processStartupMenu(void)
 	
 	drawStartupMenu(0);
 #ifdef USE_GL
-	osystem_startFrame();
-	osystem_stopFrame();
-	osystem_CopyBlockPhys((unsigned char*)screen,0,0,320,200);
+	g_driver->startFrame();
+	g_driver->stopFrame();
+	g_driver->CopyBlockPhys((unsigned char*)screen,0,0,320,200);
 #endif
 	flipScreen();
 	make3dTatouUnk1(16,0);
@@ -67,8 +68,8 @@ int processStartupMenu(void)
 	while(evalChrono(&chrono) <= 0x10000) // exit loop only if time out or if choice made
 	{
 #ifdef USE_GL
-		osystem_CopyBlockPhys((unsigned char*)screen,0,0,320,200);
-		osystem_startFrame();
+		g_driver->CopyBlockPhys((unsigned char*)screen,0,0,320,200);
+		g_driver->startFrame();
 #endif
 		
 		if(selectedEntry!=-1 || evalChrono(&chrono) > 0x10000)
@@ -127,7 +128,7 @@ int processStartupMenu(void)
 			selectedEntry = currentSelectedEntry;
 		}
 #ifdef USE_GL
-		osystem_stopFrame();
+		g_driver->stopFrame();
 		flipScreen();
 #endif
 	}

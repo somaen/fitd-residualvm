@@ -20,11 +20,13 @@
 
 #include "fitd.h"
 #include "resource.h"
+#include "osystem.h"
 
 namespace Fitd {
 	
 FitdEngine::FitdEngine() {
-	g_resourceLoader = new ResourceLoader();	
+	g_resourceLoader = new ResourceLoader();
+	g_driver = new GFXSystem();
 }
 	
 void FitdEngine::run() {

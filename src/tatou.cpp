@@ -20,6 +20,7 @@
 
 // seg 4
 
+#include "osystem.h"
 #include "common.h"
 
 #ifdef PCLIKE
@@ -107,7 +108,7 @@ void blitPalette(char* palettePtr,unsigned char startColor,unsigned char nbColor
 	char* outPtr = scaledScreen;
 	char* inPtr = unkScreenVar;
 	
-	osystem_getPalette(paletteRGBA);
+	g_driver->getPalette(paletteRGBA);
 	
 	for(i=startColor;i<startColor+nbColor;i++)
 	{
@@ -136,8 +137,8 @@ void blitPalette(char* palettePtr,unsigned char startColor,unsigned char nbColor
 		
 	}
 	
-	osystem_setPalette(paletteRGBA);
-	osystem_flip((unsigned char*)scaledScreen);
+	g_driver->setPalette(paletteRGBA);
+	g_driver->flip((unsigned char*)scaledScreen);
 }
 
 void flipOtherPalette(char* palettePtr)
@@ -147,7 +148,7 @@ void flipOtherPalette(char* palettePtr)
 	char* outPtr = scaledScreen;
 	char* inPtr = unkScreenVar;
 	
-	osystem_getPalette(paletteRGBA);
+	g_driver->getPalette(paletteRGBA);
 	
 	for(i=0;i<256;i++)
 	{
@@ -176,8 +177,8 @@ void flipOtherPalette(char* palettePtr)
 		
 	}
 	
-	osystem_setPalette(paletteRGBA);
-	osystem_flip((unsigned char*)scaledScreen);
+	g_driver->setPalette(paletteRGBA);
+	g_driver->flip((unsigned char*)scaledScreen);
 }
 
 void computeProportionalPalette(unsigned char* inPalette, unsigned char* outPalette, int coef)
@@ -255,7 +256,7 @@ void flip()
 	char paletteRGBA[256*4];
 	
 #ifdef USE_GL
-	osystem_flip(NULL);
+	g_driver->flip(NULL);
 	return;
 #endif
 	
@@ -286,8 +287,8 @@ void flip()
 		
 	}
 	
-	osystem_setPalette(paletteRGBA);
-	osystem_flip((unsigned char*)scaledScreen);
+	g_driver->setPalette(paletteRGBA);
+	g_driver->flip((unsigned char*)scaledScreen);
 }
 
 #ifdef PCLIKE
@@ -369,7 +370,7 @@ void playSound(int num)
 	char* ptr = HQR_Get(listSamp,num);
 	
 #ifndef NO_SOUND
-	osystem_playSample(ptr,size);
+	g_driver->playSample(ptr,size);
 #endif
 }
 
@@ -409,7 +410,7 @@ int make3dTatou(void)
 	copyToScreen(unkScreenVar,aux2);
 	
 #ifdef USE_GL
-	osystem_CopyBlockPhys((unsigned char*)unkScreenVar,0,0,320,200);
+	g_driver->CopyBlockPhys((unsigned char*)unkScreenVar,0,0,320,200);
 	flip();
 #endif
 	
@@ -425,7 +426,7 @@ int make3dTatou(void)
 		if(evalChrono(&localChrono)<=180) // avant eclair
 		{
 #ifdef USE_GL
-			osystem_startFrame();
+			g_driver->startFrame();
 #endif
 			
 			if(input2 || input1)
@@ -434,7 +435,7 @@ int make3dTatou(void)
 			}
 			
 #ifdef USE_GL
-			osystem_stopFrame();
+			g_driver->stopFrame();
 			flip();
 #endif
 		}
@@ -460,7 +461,7 @@ int make3dTatou(void)
 			
 			blitScreenTatou();
 #ifdef USE_GL
-			osystem_CopyBlockPhys((unsigned char*)unkScreenVar,0,0,320,200);
+			g_driver->CopyBlockPhys((unsigned char*)unkScreenVar,0,0,320,200);
 #endif
 			
 			copyPalette(tatouPal,palette);
@@ -480,7 +481,7 @@ int make3dTatou(void)
 				clearScreenTatou();
 				
 #ifdef USE_GL
-				osystem_startFrame();
+				g_driver->startFrame();
 #endif
 				
 				rotateModel(0,0,0,unk1,rotation,0,time);
@@ -490,7 +491,7 @@ int make3dTatou(void)
 				blitScreenTatou();
 				
 #ifdef USE_GL
-				osystem_stopFrame();
+				g_driver->stopFrame();
 #endif
 				
 				flip();

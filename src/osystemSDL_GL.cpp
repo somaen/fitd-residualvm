@@ -49,11 +49,10 @@ namespace Fitd {
 #include <GL/gl.h>      // Header File For The OpenGL32 Library
 #include <GL/glu.h>     // Header File For The GLu32 Library
 
-int osystem_mouseRight;
-int osystem_mouseLeft;
-
 unsigned int ditherTexture;
 unsigned int gouraudTexture=0;
+
+GFXSystem *g_driver;
 
 struct quadStruct
 {
@@ -112,12 +111,12 @@ GLdouble tesselateList[100][6];
 
 GLUquadricObj* sphere;
 
-void osystem_delay(int time)
+void GFXSystem::delay(int time)
 {
     SDL_Delay(time);
 }
 
-void osystem_updateImage()
+void GFXSystem::updateImage()
 {
 }
 
@@ -192,7 +191,7 @@ void Sound_Quit(void)
 }
 
 
-void osystem_init()  // that's the constructor of the system dependent
+void GFXSystem::init()  // that's the constructor of the system dependent
 					 // object used for the SDL port
 {
     unsigned char *keyboard;
@@ -265,8 +264,8 @@ void osystem_init()  // that's the constructor of the system dependent
 		exit(1);
 	}
 	
-    osystem_mouseLeft = 0;
-    osystem_mouseRight = 0;
+    _mouseLeft = 0;
+    _mouseRight = 0;
 	
 	glEnable(GL_TEXTURE_2D);
 	//glEnable(GL_CULL_FACE);
@@ -368,7 +367,7 @@ void osystem_init()  // that's the constructor of the system dependent
 	sphere = gluNewQuadric();
 }
 
-void osystem_setPalette(byte * palette)
+void GFXSystem::setPalette(byte * palette)
 {
 	
 	int i;
@@ -397,7 +396,7 @@ void osystem_setPalette(byte * palette)
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void osystem_getPalette(char* palette)
+void GFXSystem::getPalette(char* palette)
 {
 	memcpy(palette,RGBA_Pal,256*4);
 }
@@ -414,7 +413,7 @@ float fov = 0;
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-void osystem_flip(unsigned char *videoBuffer)
+void GFXSystem::flip(unsigned char *videoBuffer)
 {
 	int i;
 	int j;
@@ -579,7 +578,7 @@ void osystem_flip(unsigned char *videoBuffer)
 	//glTranslated(-cameraX,-cameraY,-cameraZ);
 }
 
-void osystem_startFrame()
+void GFXSystem::startFrame()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	
@@ -615,7 +614,7 @@ void osystem_startFrame()
 
 char tempBuffer3[320*200*3];
 
-void osystem_CopyBlockPhys(unsigned char *videoBuffer, int left, int top, int right, int bottom)
+void GFXSystem::CopyBlockPhys(unsigned char *videoBuffer, int left, int top, int right, int bottom)
 {
 	char* out = tempBuffer3;
 	char* in = (char*)videoBuffer + left + top * 320;
@@ -652,7 +651,7 @@ void osystem_CopyBlockPhys(unsigned char *videoBuffer, int left, int top, int ri
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void osystem_initBuffer(char *buffer, int width, int height)
+void GFXSystem::initBuffer(char *buffer, int width, int height)
 {   
 	memset(tempBuffer2,0,1024*512*3);
 	glGenTextures(1, &backTexture);
@@ -662,7 +661,7 @@ void osystem_initBuffer(char *buffer, int width, int height)
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
 }
 
-void osystem_crossFade(char *buffer, char *palette)
+void GFXSystem::crossFade(char *buffer, char *palette)
 {
 }
 
@@ -688,7 +687,7 @@ void my_audio_callback(void *userdata, Uint8 *stream, int len)
 }
 
 #ifdef USE_UNPACKED_DATA
-void osystem_playSampleFromName(char* sampleName)
+void GFXSystem::playSampleFromName(char* sampleName)
 {
 	
 	Mix_Chunk *sample;
@@ -707,7 +706,7 @@ void osystem_playSampleFromName(char* sampleName)
 	}
 }
 #else
-void osystem_playSample(char* samplePtr,int size)
+void GFXSystem::playSample(char* samplePtr,int size)
 {
 	
 	Mix_Chunk *sample;
@@ -729,7 +728,7 @@ void osystem_playSample(char* samplePtr,int size)
 
 int tesselatePosition = 0;
 
-void osystem_startBgPoly()
+void GFXSystem::startBgPoly()
 {
 	// glDisable(GL_DEPTH_TEST);
 	glDepthMask(GL_FALSE);
@@ -742,7 +741,7 @@ void osystem_startBgPoly()
 	tesselatePosition = 0;
 }
 
-void osystem_endBgPoly()
+void GFXSystem::endBgPoly()
 {
 	gluTessEndContour(tobj);
 	gluTessEndPolygon(tobj);
@@ -753,7 +752,7 @@ void osystem_endBgPoly()
 	
 }
 
-void osystem_addBgPolyPoint(int x, int y)
+void GFXSystem::addBgPolyPoint(int x, int y)
 {
 	tesselateList[tesselatePosition][0] = x;
 	tesselateList[tesselatePosition][1] = y;
@@ -768,21 +767,21 @@ void osystem_addBgPolyPoint(int x, int y)
 }
 
 
-void osystem_stopFrame()
+void GFXSystem::stopFrame()
 {
 }
 
-void osystem_startModelRender()
+void GFXSystem::startModelRender()
 {
 	//glNewList(modelsDisplayList, GL_COMPILE);
 }
 
-void osystem_stopModelRender()
+void GFXSystem::stopModelRender()
 {
 	//glEndList();
 }
 
-void osystem_fillPoly(float* buffer, int numPoint, unsigned char color,uint8 polyType)
+void GFXSystem::fillPoly(float* buffer, int numPoint, unsigned char color,uint8 polyType)
 {
 	int i;
 	
@@ -1016,7 +1015,7 @@ void osystem_fillPoly(float* buffer, int numPoint, unsigned char color,uint8 pol
 	}
 }
 
-void osystem_draw3dLine(float x1, float y1, float z1, float x2, float y2, float z2, unsigned char color)
+void GFXSystem::draw3dLine(float x1, float y1, float z1, float x2, float y2, float z2, unsigned char color)
 {
 	glColor4ub(palette[color*3],palette[color*3+1],palette[color*3+2],255);
 	
@@ -1028,7 +1027,7 @@ void osystem_draw3dLine(float x1, float y1, float z1, float x2, float y2, float 
 	glEnd();
 }
 
-void osystem_cleanScreenKeepZBuffer()
+void GFXSystem::cleanScreenKeepZBuffer()
 {
 	return;
 	glClear(GL_COLOR_BUFFER_BIT );
@@ -1057,7 +1056,7 @@ void osystem_cleanScreenKeepZBuffer()
 	glEnable(GL_DEPTH_TEST);
 }
 
-void osystem_draw3dQuad(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4, unsigned char color, int transparency)
+void GFXSystem::draw3dQuad(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4, unsigned char color, int transparency)
 {
 	glColor4ub(palette[(color+3)*3],palette[(color+3)*3+1],palette[(color+3)*3+2],255);
 	glBegin(GL_LINE_LOOP);
@@ -1120,7 +1119,7 @@ void osystem_draw3dQuad(float x1, float y1, float z1, float x2, float y2, float 
 	}
 }
 
-void osystem_drawSphere(float X, float Y, float Z, uint8 color, float size)
+void GFXSystem::drawSphere(float X, float Y, float Z, uint8 color, float size)
 {
 	glMatrixMode(GL_MODELVIEW);
 	
@@ -1135,7 +1134,7 @@ void osystem_drawSphere(float X, float Y, float Z, uint8 color, float size)
 }
 
 #ifdef INTERNAL_DEBUGGER
-void osystem_drawDebugText(const u32 X, const u32 Y, const u8* string)
+void GFXSystem::drawDebugText(const u32 X, const u32 Y, const u8* string)
 {
 #if 0
 	u32 currentX = X;

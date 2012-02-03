@@ -237,7 +237,7 @@ void playSequence(int sequenceIdx, int fadeStart, int fadeOutVar)
 					 flipOtherPalette(palette);
 					 } */
 					
-					osystem_setPalette((char*)localPalette);
+					g_driver->setPalette((char*)localPalette);
 					copyPalette((char*)localPalette,palette);
 				}
 			}
@@ -268,8 +268,8 @@ void playSequence(int sequenceIdx, int fadeStart, int fadeOutVar)
 			// TODO: here, timming management
 			// TODO: fade management
 			
-			osystem_CopyBlockPhys((unsigned char*)aux,0,0,320,200);
-			osystem_startFrame();
+			g_driver->CopyBlockPhys((unsigned char*)aux,0,0,320,200);
+			g_driver->startFrame();
 			flipScreen();
 			
 			si++;

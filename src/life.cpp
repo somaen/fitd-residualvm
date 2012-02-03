@@ -19,6 +19,7 @@
  */
 
 #include "fitd.h"
+#include "osystem.h"
 #include "common.h"
 
 namespace Fitd {
@@ -1914,7 +1915,7 @@ void processLife(int lifeNum)
 						fadeOut(0x10,0);
 						fadeIn(lpalette);
 						
-						osystem_setPalette((char*)lpalette);
+						g_driver->setPalette((char*)lpalette);
 						copyPalette((char*)lpalette,palette);
 						
 						copyToScreen(aux,screen);
@@ -1927,8 +1928,8 @@ void processLife(int lifeNum)
 							process_events();
 							readKeyboard();
 							
-							osystem_CopyBlockPhys((unsigned char*)screen,0,0,320,200);
-							osystem_startFrame();
+							g_driver->CopyBlockPhys((unsigned char*)screen,0,0,320,200);
+							g_driver->startFrame();
 							flipScreen();
 							
 							timeGlobal++;
