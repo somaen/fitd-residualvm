@@ -2,16 +2,19 @@
 #define FITD_GFXSYSTEM_H
 
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+// TODO: Remember to clean this out before merging
+#ifndef UNIX
+#define UNIX
+#endif
+
 #ifdef HAVE_CONFIG_H
 #undef HAVE_CONFIG_H
-#define UNIX
 #include "common/endian.h"
 #define HAVE_CONFIG_H
 #else
-#define UNIX
 #include "common/endian.h"
 #endif
 #ifdef INTERNAL_DEBUGGER
