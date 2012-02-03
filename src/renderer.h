@@ -14,14 +14,14 @@ extern short int pointBuffer[NUM_MAX_POINT_IN_POINT_BUFFER*3];
 extern int numOfPoints;
 
 #ifdef USE_GL
-void transformPoint(float* ax, float* bx, float* cx);
+void transformPoint(float *ax, float *bx, float *cx);
 #else
-void transformPoint(int* ax, int* bx, int* cx);
+void transformPoint(int *ax, int *bx, int *cx);
 #endif
 
-int renderModel(int var0,int var1,int var2,int var3,int var4,int var5,void* modelPtr);
+int renderModel(int var0, int var1, int var2, int var3, int var4, int var5, void *modelPtr);
 
-void computeScreenBox(int x, int y, int z, int alpha, int beta, int gamma, char* bodyPtr);
+void computeScreenBox(int x, int y, int z, int alpha, int beta, int gamma, char *bodyPtr);
 
 } // end of namespace Fitd
 

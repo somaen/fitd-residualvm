@@ -3,15 +3,15 @@
  * ResidualVM is the legal property of its developers, whose names
  * are too numerous to list here. Please refer to the AUTHORS
  * file distributed with this source distribution.
- 
+
  <TODO: Add in GPLv2-notice, need to make sure if we are v2-only, or v2-or-later,
  we are atleast v2>
- 
+
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- 
+
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -22,32 +22,32 @@
 
 namespace Fitd {
 
-char* currentFoundBody;
+char *currentFoundBody;
 int currentFoundBodyIdx;
 int statusVar1;
 
-hqrEntryStruct* hqrUnk;
+hqrEntryStruct *hqrUnk;
 
 int videoMode;
 int musicConfigured;
 int musicEnabled;
 
-char* aux;
-char* aux2;
-char* bufferAnim;
+char *aux;
+char *aux2;
+char *bufferAnim;
 
-char* screen;
+char *screen;
 
 int screenBufferSize;
 int unkScreenVar2;
 
-short int* CVars;
+short int *CVars;
 
-char* priority;
+char *priority;
 
-char* fontData;
+char *fontData;
 
-char* aitdBoxGfx;
+char *aitdBoxGfx;
 
 char palette[256*3];
 
@@ -65,8 +65,8 @@ int currentMenuTop;
 int currentMenuRight;
 int currentMenuBottom;
 
-textEntryStruct* tabTextes;
-char* systemTextes;
+textEntryStruct *tabTextes;
+char *systemTextes;
 
 char inputKey = 0;
 char input1 = 0;
@@ -75,8 +75,7 @@ char input3;
 char input4;
 char button;
 
-char* languageNameTable[] =
-{
+char *languageNameTable[] = {
 	"FRANCAIS",
 	"ITALIANO",
 	"ENGLISH",
@@ -93,11 +92,11 @@ int readVar;
 
 int hqrKeyGen = 0;
 
-char* screenSm1;
-char* screenSm2;
-char* screenSm3;
-char* screenSm4;
-char* screenSm5;
+char *screenSm1;
+char *screenSm2;
+char *screenSm3;
+char *screenSm4;
+char *screenSm5;
 
 actorStruct actorTable[NUM_MAX_ACTOR];
 
@@ -105,17 +104,17 @@ short int currentCameraTarget;
 
 int fileSize;
 
-hqrEntryStruct* listBody;
-hqrEntryStruct* listAnim;
-hqrEntryStruct* listLife;
-hqrEntryStruct* listTrack;
-hqrEntryStruct* listMatrix;
+hqrEntryStruct *listBody;
+hqrEntryStruct *listAnim;
+hqrEntryStruct *listLife;
+hqrEntryStruct *listTrack;
+hqrEntryStruct *listMatrix;
 
 short int maxObjects;
 
-objectStruct* objectTable;
+objectStruct *objectTable;
 
-short int* vars;
+short int *vars;
 
 int varSize;
 
@@ -143,25 +142,25 @@ int soundVar1;
 int soundVar2;
 short int statusScreenAllowed;
 
-char* etageVar0 = NULL;
-char* etageVar1 = NULL;
+char *etageVar0 = NULL;
+char *etageVar1 = NULL;
 
 int changeFloor;
 short int currentCamera;
 short int currentEtage;
 int needChangeRoom;
 
-char* cameraPtr;
-roomDefStruct* pCurrentRoomData;
+char *cameraPtr;
+roomDefStruct *pCurrentRoomData;
 
 short int currentDisplayedRoom;
 int mainVar1;
 int numCameraInRoom;
 int numCameraZone;
-char* cameraZoneData;
+char *cameraZoneData;
 int numRoomZone;
-char* roomZoneData;
-char* roomVar5[NUM_MAX_CAMERA_IN_ROOM];
+char *roomZoneData;
+char *roomVar5[NUM_MAX_CAMERA_IN_ROOM];
 int startGameVar1;
 
 int transformX;
@@ -192,13 +191,13 @@ char currentCameraVisibilityList[30];
 int actorTurnedToObj = 0;
 
 int currentProcessedActorIdx;
-actorStruct* currentProcessedActorPtr;
+actorStruct *currentProcessedActorPtr;
 
 int currentLifeActorIdx;
-actorStruct* currentLifeActorPtr;
+actorStruct *currentLifeActorPtr;
 int currentLifeNum;
 
-char* currentLifePtr;
+char *currentLifePtr;
 
 int setupCameraVar1;
 
@@ -225,9 +224,9 @@ int animMoveZ;
 int animRot1;
 int animRot2;
 int animRot3;
-char* animVar1;
-char* animVar3;
-char* animVar4;
+char *animVar1;
+char *animVar3;
+char *animVar4;
 
 short int newFloor;
 
@@ -238,9 +237,9 @@ char cameraBuffer2[256];
 char cameraBuffer3[400];
 char cameraBuffer4[400];
 
-char* cameraBufferPtr = cameraBuffer;
-char* cameraBuffer2Ptr = cameraBuffer2;
-char* cameraBuffer3Ptr = cameraBuffer3;
+char *cameraBufferPtr = cameraBuffer;
+char *cameraBuffer2Ptr = cameraBuffer2;
+char *cameraBuffer3Ptr = cameraBuffer3;
 
 int overlaySize1;
 int overlaySize2;
@@ -255,19 +254,19 @@ short int shakeVar1;
 short int shakingAmplitude;
 unsigned int timerFreeze1;
 
-hardColStruct* hardColTable[10];
+hardColStruct *hardColTable[10];
 
 short int hardColVar1;
 short int hardColVar2;
 
 ZVStruct hardClip;
 
-char* listBodySelect[] = {
+char *listBodySelect[] = {
 	"LISTBODY",
 	"LISTBOD2",
 };
 
-char* listAnimSelect[] = {
+char *listAnimSelect[] = {
 	"LISTANIM",
 	"LISTANI2",
 };
@@ -283,8 +282,8 @@ int clipTop = 0;
 int clipRight = 319;
 int clipBottom = 119;
 
-hqrEntryStruct* listMus;
-hqrEntryStruct* listSamp;
+hqrEntryStruct *listMus;
+hqrEntryStruct *listSamp;
 
 #ifdef INTERNAL_DEBUGGER
 backgroundModeEnum backgroundMode = backgroundModeEnum_2D;

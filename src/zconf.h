@@ -1,6 +1,6 @@
 /* zconf.h -- configuration of the zlib compression library
  * Copyright (C) 1995-1998 Jean-loup Gailly.
- * For conditions of distribution and use, see copyright notice in zlib.h 
+ * For conditions of distribution and use, see copyright notice in zlib.h
  */
 
 /* @(#) $Id: zconf.h 139 2004-10-13 23:54:59Z yazoo $ */
@@ -13,39 +13,39 @@
  * compile with -DZ_PREFIX. The "standard" zlib should be compiled without it.
  */
 #ifdef Z_PREFIX
-#  define deflateInit_	z_deflateInit_
-#  define deflate	z_deflate
-#  define deflateEnd	z_deflateEnd
-#  define inflateInit_ 	z_inflateInit_
-#  define inflate	z_inflate
-#  define inflateEnd	z_inflateEnd
-#  define deflateInit2_	z_deflateInit2_
+#  define deflateInit_  z_deflateInit_
+#  define deflate   z_deflate
+#  define deflateEnd    z_deflateEnd
+#  define inflateInit_  z_inflateInit_
+#  define inflate   z_inflate
+#  define inflateEnd    z_inflateEnd
+#  define deflateInit2_ z_deflateInit2_
 #  define deflateSetDictionary z_deflateSetDictionary
-#  define deflateCopy	z_deflateCopy
-#  define deflateReset	z_deflateReset
-#  define deflateParams	z_deflateParams
-#  define inflateInit2_	z_inflateInit2_
+#  define deflateCopy   z_deflateCopy
+#  define deflateReset  z_deflateReset
+#  define deflateParams z_deflateParams
+#  define inflateInit2_ z_inflateInit2_
 #  define inflateSetDictionary z_inflateSetDictionary
-#  define inflateSync	z_inflateSync
+#  define inflateSync   z_inflateSync
 #  define inflateSyncPoint z_inflateSyncPoint
-#  define inflateReset	z_inflateReset
-#  define compress	z_compress
-#  define compress2	z_compress2
-#  define uncompress	z_uncompress
-#  define adler32	z_adler32
-#  define crc32		z_crc32
+#  define inflateReset  z_inflateReset
+#  define compress  z_compress
+#  define compress2 z_compress2
+#  define uncompress    z_uncompress
+#  define adler32   z_adler32
+#  define crc32     z_crc32
 #  define get_crc_table z_get_crc_table
 
-#  define Byte		z_Byte
-#  define uInt		z_uInt
-#  define uLong		z_uLong
-#  define Bytef	        z_Bytef
-#  define charf		z_charf
-#  define intf		z_intf
-#  define uIntf		z_uIntf
-#  define uLongf	z_uLongf
-#  define voidpf	z_voidpf
-#  define voidp		z_voidp
+#  define Byte      z_Byte
+#  define uInt      z_uInt
+#  define uLong     z_uLong
+#  define Bytef         z_Bytef
+#  define charf     z_charf
+#  define intf      z_intf
+#  define uIntf     z_uIntf
+#  define uLongf    z_uLongf
+#  define voidpf    z_voidpf
+#  define voidp     z_voidp
 #endif
 
 #if (defined(_WIN32) || defined(__WIN32__)) && !defined(WIN32)
@@ -128,7 +128,7 @@
  for small objects.
 */
 
-                        /* Type declarations */
+/* Type declarations */
 
 #ifndef OF /* function prototypes */
 #  ifdef STDC
@@ -145,7 +145,7 @@
  * just define FAR to be empty.
  */
 #if (defined(M_I86SM) || defined(M_I86MM)) && !defined(__32BIT__)
-   /* MSC small or medium model */
+/* MSC small or medium model */
 #  define SMALL_MEDIUM
 #  ifdef _MSC_VER
 #    define FAR _far
@@ -217,10 +217,10 @@ typedef unsigned int   uInt;  /* 16 bits or more */
 typedef unsigned long  uLong; /* 32 bits or more */
 
 #ifdef SMALL_MEDIUM
-   /* Borland C/C++ and some old MSC versions ignore FAR inside typedef */
+/* Borland C/C++ and some old MSC versions ignore FAR inside typedef */
 #  define Bytef Byte FAR
 #else
-   typedef Byte  FAR Bytef;
+typedef Byte  FAR Bytef;
 #endif
 typedef char  FAR charf;
 typedef int   FAR intf;
@@ -228,11 +228,11 @@ typedef uInt  FAR uIntf;
 typedef uLong FAR uLongf;
 
 #ifdef STDC
-   typedef void FAR *voidpf;
-   typedef void     *voidp;
+typedef void FAR *voidpf;
+typedef void     *voidp;
 #else
-   typedef Byte FAR *voidpf;
-   typedef Byte     *voidp;
+typedef Byte FAR *voidpf;
+typedef Byte     *voidp;
 #endif
 
 #ifdef HAVE_UNISTD_H

@@ -2,7 +2,7 @@
 #define _FLOOR_H_
 namespace Fitd {
 
-extern cameraDataStruct* globalCameraDataTable;
+extern cameraDataStruct *globalCameraDataTable;
 extern unsigned long int etageVar0Size;
 extern unsigned long int numGlobalCamera;
 

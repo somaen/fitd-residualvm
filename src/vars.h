@@ -6,108 +6,96 @@
 #pragma pack(1)
 namespace Fitd {
 
-extern char* currentFoundBody;
+extern char *currentFoundBody;
 extern int currentFoundBodyIdx;
 extern int statusVar1;
 
-struct point3dStruct
-{
-  short int x;
-  short int y;
-  short int z;
+struct point3dStruct {
+	short int x;
+	short int y;
+	short int z;
 };
 
-struct textEntryStruct
-{
+struct textEntryStruct {
 	short int index;
-	char* textPtr;
+	char *textPtr;
 	short int width;
 };
 
-struct messageStruct
-{
-	textEntryStruct* string;
+struct messageStruct {
+	textEntryStruct *string;
 	short int time;
 };
 
-struct saveEntry
-{
-	void* ptr;
+struct saveEntry {
+	void *ptr;
 	unsigned int size;
 };
 
-struct regularTextEntryStruct
-{
-	char* textPtr;
+struct regularTextEntryStruct {
+	char *textPtr;
 	short int width;
 };
 
-struct hqrSubEntryStruct
-{
+struct hqrSubEntryStruct {
 	short int key;
 	short int size;
 	unsigned int lastTimeUsed;
-  char* ptr;
+	char *ptr;
 };
 
-struct hqrEntryStruct
-{
+struct hqrEntryStruct {
 	char string[10];
 	unsigned short int maxFreeData;
 	unsigned short int sizeFreeData;
 	unsigned short int numMaxEntry;
 	unsigned short int numUsedEntry;
-	hqrSubEntryStruct* entries;
+	hqrSubEntryStruct *entries;
 };
 
-struct ZVStruct
-{
-	 int32 ZVX1;
-	 int32 ZVX2;
-	 int32 ZVY1;
-	 int32 ZVY2;
-	 int32 ZVZ1;
-	 int32 ZVZ2;
+struct ZVStruct {
+	int32 ZVX1;
+	int32 ZVX2;
+	int32 ZVY1;
+	int32 ZVY2;
+	int32 ZVZ1;
+	int32 ZVZ2;
 };
 
-struct rotateStruct
-{
+struct rotateStruct {
 	short int oldAngle;
 	short int newAngle;
 	short int param;
 	short int timeOfRotate;
 };
 
-struct actorFlags
-{
-  uint16 flag0x0001:1;
-  uint16 flag0x0002:1;
-  uint16 flag0x0004:1;
-  uint16 flag0x0008:1;
-  uint16 flag0x0010:1;
-  uint16 flag0x0020:1;
-  uint16 flag0x0040:1;
-  uint16 tackable:1;
-  uint16 flag0x0100:1;
-  uint16 flag0x0200:1;
-  uint16 flag0x0400:1;
-  uint16 flag0x0800:1;
-  uint16 flag0x1000:1;
-  uint16 flag0x2000:1;
-  uint16 flag0x4000:1;
-  uint16 flag0x8000:1;
+struct actorFlags {
+	uint16 flag0x0001: 1;
+	uint16 flag0x0002: 1;
+	uint16 flag0x0004: 1;
+	uint16 flag0x0008: 1;
+	uint16 flag0x0010: 1;
+	uint16 flag0x0020: 1;
+	uint16 flag0x0040: 1;
+	uint16 tackable: 1;
+	uint16 flag0x0100: 1;
+	uint16 flag0x0200: 1;
+	uint16 flag0x0400: 1;
+	uint16 flag0x0800: 1;
+	uint16 flag0x1000: 1;
+	uint16 flag0x2000: 1;
+	uint16 flag0x4000: 1;
+	uint16 flag0x8000: 1;
 };
 
 
-struct actorStruct // used to read data from file too
-{
+struct actorStruct { // used to read data from file too
 	short int field_0;
 	short int bodyNum;
-  union
-  {
-	  short int flags;
-    actorFlags bitField;
-  };
+	union {
+		short int flags;
+		actorFlags bitField;
+	};
 	short int dynFlags;
 	ZVStruct zv;
 	short int field_14;
@@ -166,22 +154,20 @@ struct actorStruct // used to read data from file too
 	short int animActionParam;
 	short int hitForce;
 	short int field_98;
-  point3dStruct hotPoint;
+	point3dStruct hotPoint;
 
-  // aitd2
-  short int hardMat;
+	// aitd2
+	short int hardMat;
 };
 
-struct objectStruct
-{
+struct objectStruct {
 	short int ownerIdx;
 	short int body;
-  union
-  {
-	  short int flags;
-    actorFlags bitField;
-  };
-  short int field_6;
+	union {
+		short int flags;
+		actorFlags bitField;
+	};
+	short int field_6;
 	short int foundBody;
 	short int foundName;
 	short int flags2;
@@ -205,12 +191,11 @@ struct objectStruct
 	short int trackNumber;
 	short int positionInTrack;
 
-  // AITD2
-  short int mark;
+	// AITD2
+	short int mark;
 };
 
-struct boxStruct
-{
+struct boxStruct {
 	short int var0;
 	short int var1;
 	short int var2;
@@ -219,8 +204,7 @@ struct boxStruct
 
 typedef struct boxStruct boxStruct;
 
-struct roomDefStruct
-{
+struct roomDefStruct {
 	short int offsetToCameraDef; // 0
 	short int offsetToPosDef; // 2
 	short int worldX;//4
@@ -231,31 +215,31 @@ struct roomDefStruct
 
 typedef struct roomDefStruct roomDefStruct;
 
-extern hqrEntryStruct* hqrUnk;
+extern hqrEntryStruct *hqrUnk;
 
-extern hqrEntryStruct* listMus;
-extern hqrEntryStruct* listSamp;
+extern hqrEntryStruct *listMus;
+extern hqrEntryStruct *listSamp;
 
 extern int videoMode;
 extern int musicConfigured;
 extern int musicEnabled;
 
-extern char* aux;
-extern char* aux2;
-extern char* bufferAnim;
+extern char *aux;
+extern char *aux2;
+extern char *bufferAnim;
 
-extern char* screen;
+extern char *screen;
 
 extern int screenBufferSize;
 extern int unkScreenVar2;
 
-extern short int* CVars;
+extern short int *CVars;
 
-extern char* priority;
+extern char *priority;
 
-extern char* fontData;
+extern char *fontData;
 
-extern char* aitdBoxGfx;
+extern char *aitdBoxGfx;
 
 extern char palette[0x300];
 
@@ -273,8 +257,8 @@ extern int currentMenuTop;
 extern int currentMenuRight;
 extern int currentMenuBottom;
 
-extern textEntryStruct* tabTextes;
-extern char* systemTextes;
+extern textEntryStruct *tabTextes;
+extern char *systemTextes;
 
 extern char inputKey;
 extern char input1;
@@ -284,7 +268,7 @@ extern char input4;
 extern char button;
 
 extern char languageNameString[];
-extern char* languageNameTable[];
+extern char *languageNameTable[];
 
 extern regularTextEntryStruct textTable[40];
 
@@ -292,29 +276,29 @@ extern int readVar;
 
 extern int hqrKeyGen;
 
-extern char* screenSm1;
-extern char* screenSm2;
-extern char* screenSm3;
-extern char* screenSm4;
-extern char* screenSm5;
+extern char *screenSm1;
+extern char *screenSm2;
+extern char *screenSm3;
+extern char *screenSm4;
+extern char *screenSm5;
 
 extern actorStruct actorTable[NUM_MAX_ACTOR];
 
 extern short int currentCameraTarget;
 
-	//extern int fileSize;
+//extern int fileSize;
 
-extern hqrEntryStruct* listBody;
-extern hqrEntryStruct* listAnim;
-extern hqrEntryStruct* listLife;
-extern hqrEntryStruct* listTrack;
-extern hqrEntryStruct* listMatrix;
+extern hqrEntryStruct *listBody;
+extern hqrEntryStruct *listAnim;
+extern hqrEntryStruct *listLife;
+extern hqrEntryStruct *listTrack;
+extern hqrEntryStruct *listMatrix;
 
 extern short int maxObjects;
 
-extern objectStruct* objectTable; // may be less
+extern objectStruct *objectTable; // may be less
 
-extern short int* vars;
+extern short int *vars;
 
 extern int varSize;
 
@@ -342,24 +326,24 @@ extern int soundVar1;
 extern int soundVar2;
 extern short int statusScreenAllowed;
 
-extern char* etageVar0;
-extern char* etageVar1;
+extern char *etageVar0;
+extern char *etageVar1;
 
 extern int changeFloor;
 extern short int currentCamera;
 extern short int currentEtage;
 extern int needChangeRoom;
 
-extern char* cameraPtr;
-extern roomDefStruct* pCurrentRoomData;
+extern char *cameraPtr;
+extern roomDefStruct *pCurrentRoomData;
 extern short int currentDisplayedRoom;
 extern int mainVar1;
 extern int numCameraInRoom;
 extern int numCameraZone;
-extern char* cameraZoneData;
+extern char *cameraZoneData;
 extern int numRoomZone;
-extern char* roomZoneData;
-extern char* roomVar5[NUM_MAX_CAMERA_IN_ROOM];
+extern char *roomZoneData;
+extern char *roomVar5[NUM_MAX_CAMERA_IN_ROOM];
 extern int startGameVar1;
 
 extern int transformX;
@@ -390,13 +374,13 @@ extern char currentCameraVisibilityList[30];
 extern int actorTurnedToObj;
 
 extern int currentProcessedActorIdx;
-extern actorStruct* currentProcessedActorPtr;
+extern actorStruct *currentProcessedActorPtr;
 
 extern int currentLifeActorIdx;
-extern actorStruct* currentLifeActorPtr;
+extern actorStruct *currentLifeActorPtr;
 extern int currentLifeNum;
 
-extern char* currentLifePtr;
+extern char *currentLifePtr;
 
 extern int setupCameraVar1;
 
@@ -423,9 +407,9 @@ extern int animMoveZ;
 extern int animRot1;
 extern int animRot2;
 extern int animRot3;
-extern char* animVar1;
-extern char* animVar3;
-extern char* animVar4;
+extern char *animVar1;
+extern char *animVar3;
+extern char *animVar4;
 
 extern short int newFloor;
 
@@ -436,9 +420,9 @@ extern char cameraBuffer2[256];
 extern char cameraBuffer3[400];
 extern char cameraBuffer4[400];
 
-extern char* cameraBufferPtr;
-extern char* cameraBuffer2Ptr;
-extern char* cameraBuffer3Ptr;
+extern char *cameraBufferPtr;
+extern char *cameraBuffer2Ptr;
+extern char *cameraBuffer3Ptr;
 
 extern int overlaySize1;
 extern int overlaySize2;
@@ -447,8 +431,8 @@ extern int bgOverlayVar1;
 
 extern short int newRoom;
 
-extern char* listBodySelect[];
-extern char* listAnimSelect[];
+extern char *listBodySelect[];
+extern char *listAnimSelect[];
 
 extern short int inventory[30];
 
@@ -456,7 +440,7 @@ extern short int shakeVar1;
 extern short int shakingAmplitude;
 extern unsigned int timerFreeze1;
 
-extern hardColStruct* hardColTable[10];
+extern hardColStruct *hardColTable[10];
 
 extern short int hardColVar1;
 extern short int hardColVar2;
@@ -475,10 +459,9 @@ extern int clipRight;
 extern int clipBottom;
 
 #ifdef INTERNAL_DEBUGGER
-enum backgroundModeEnum
-{
-  backgroundModeEnum_2D,
-  backgroundModeEnum_3D,
+enum backgroundModeEnum {
+	backgroundModeEnum_2D,
+	backgroundModeEnum_3D,
 };
 
 extern backgroundModeEnum backgroundMode;

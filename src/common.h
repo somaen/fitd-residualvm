@@ -85,7 +85,7 @@
 // temp triangulation stuff
 //#include <bool.h>
 //#include <geometry.h>
-int triangulate_polygon(int ncontours,int cntr[],double (*vertices)[2],int (*triangles)[3]);
+int triangulate_polygon(int ncontours, int cntr[], double(*vertices)[2], int (*triangles)[3]);
 #include "room.h"
 #include "vars.h"
 #include "main.h"
@@ -136,26 +136,23 @@ int triangulate_polygon(int ncontours,int cntr[],double (*vertices)[2],int (*tri
 #undef BIG_ENDIAN
 #endif
 
-FORCEINLINE uint16 READ_BE_U16(void *ptr)
-{
+FORCEINLINE uint16 READ_BE_U16(void *ptr) {
 #ifdef BIG_ENDIAN
-  return *(u16*)ptr;
+	return *(u16 *)ptr;
 #else
-  return (((uint8*)ptr)[1]<<8)|((uint8*)ptr)[0];
+	return (((uint8 *)ptr)[1] << 8) | ((uint8 *)ptr)[0];
 #endif
 }
 
-FORCEINLINE int16 READ_BE_S16(void *ptr)
-{
-  return (int16)READ_BE_S16(ptr);
+FORCEINLINE int16 READ_BE_S16(void *ptr) {
+	return (int16)READ_BE_S16(ptr);
 }
 
-FORCEINLINE uint32 READ_BE_U32(void *ptr)
-{
+FORCEINLINE uint32 READ_BE_U32(void *ptr) {
 #ifdef BIG_ENDIAN
-  return *(u32*)ptr;
+	return *(u32 *)ptr;
 #else
-  return (((uint8*)ptr)[3]<<24)|(((uint8*)ptr)[2]<<16)|(((uint8*)ptr)[1]<<8)|((uint8*)ptr)[0];
+	return (((uint8 *)ptr)[3] << 24) | (((uint8 *)ptr)[2] << 16) | (((uint8 *)ptr)[1] << 8) | ((uint8 *)ptr)[0];
 #endif
 }
 

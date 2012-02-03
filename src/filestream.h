@@ -17,12 +17,12 @@
 namespace Common {
 
 class ReadFileStream {
-void *_fileHandle;
+	void *_fileHandle;
 public:
 	ReadFileStream();
-	ReadFileStream(const char* filename);
+	ReadFileStream(const char *filename);
 	~ReadFileStream();
-	bool open(const char* filename);
+	bool open(const char *filename);
 	bool isOpen();
 	uint32 read(byte *target, uint32 size);
 	uint32 readUint32LE();

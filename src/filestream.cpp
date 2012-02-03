@@ -7,7 +7,7 @@ namespace Common {
 ReadFileStream::ReadFileStream() {
 	_fileHandle = NULL;
 }
-ReadFileStream::ReadFileStream(const char* filename) {
+ReadFileStream::ReadFileStream(const char *filename) {
 	_fileHandle = NULL;
 	open(filename);
 }
@@ -16,9 +16,9 @@ ReadFileStream::~ReadFileStream() {
 	close();
 }
 
-bool ReadFileStream::open(const char* filename) {
-	_fileHandle = fopen(_fileHandle,"rb");
-	if (_fileHandle)
+bool ReadFileStream::open(const char *filename) {
+	_fileHandle = fopen(_fileHandle, "rb");
+	if(_fileHandle)
 		return true;
 	else
 		return false;
@@ -38,7 +38,7 @@ void ReadFileStream::close() {
 
 uint32 ReadFileStream::readUint32LE() {
 	uint32 retval;
-	read((byte*)&retval, 4);
+	read((byte *)&retval, 4);
 	return READ_LE_UINT32(retval);
 }
 
@@ -51,7 +51,7 @@ int32 ReadFileStream::size() {
 }
 
 bool ReadFileStream::isOpen() {
-	return (_fileHandle?true:false);
+	return (_fileHandle ? true : false);
 }
 
 } // end of namespace Common

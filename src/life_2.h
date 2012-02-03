@@ -4,10 +4,9 @@
 #define NUM_MAX_SEQUENCE_PARAM 30
 namespace Fitd {
 
-struct sequenceParamStruct
-{
-  unsigned int frame;
-  unsigned int sample;
+struct sequenceParamStruct {
+	unsigned int frame;
+	unsigned int sample;
 };
 
 typedef struct sequenceParamStruct sequenceParamStruct;
@@ -21,7 +20,7 @@ extern int numSequenceParam;
 extern sequenceParamStruct sequenceParams[NUM_MAX_SEQUENCE_PARAM];
 
 void processLife2(int lifeNum);
-void convertPaletteIfRequired(unsigned char* lpalette);
+void convertPaletteIfRequired(unsigned char *lpalette);
 
 extern short int numObjInInventoryTable[2];
 extern short int inHandTable[2];
