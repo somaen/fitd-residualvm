@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 
 AC_INIT(fitd,0.1)
-AC_CONFIG_SRCDIR(src/anim.c)
+AC_CONFIG_SRCDIR(src/anim.cpp)
 
 # check host/target systems
 # (build  = system we're building on,

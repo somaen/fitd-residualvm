@@ -3,17 +3,17 @@ bin_PROGRAMS = fitd
 	$(CXXCOMPILE) $<
 fitd_SOURCES = \
 common.h \
-actorList.c actorList.h aitdBox.c aitdBox.h animAction.c animAction.h \
-anim.c anim.h common.h config.h cosTable.c cosTable.h debugFont.c debugFont.h \
-debugger.c debugger.h evalVar.c evalVar.h fileAccess.c fileAccess.h \
-floor.c floor.h fmopl.c fmopl.h font.c font.h hqr.c hqr.h input.c input.h \
-inventory.c inventory.h life.c lifeMacroTable.c life.h life_2.c life_2.h lines.c main.c main.h \
-mainLoop.c mainLoop.h music.c music.h object.c object.h \
-osystem.h osystemSDL.c osystemSDL_GL.c pak.c pak.h polys.c \
-renderer.c renderer.h room.c room.h sequence.c save.c save.h screen.c screen.h \
-startupMenu.c startupMenu.h systemMenu.c systemMenu.h tatou.c tatou.h \
-threadCode.c threadCode.h \
-time.c ourtime.h track.c track.h unpack.c unpack.h vars.c vars.h \
-version.c version.h videoMode.c videoMode.h zv.c zv.h 
+actorList.cpp actorList.h aitdBox.cpp aitdBox.h animAction.cpp animAction.h \
+anim.cpp anim.h common.h config.h cosTable.cpp cosTable.h debugFont.cpp debugFont.h \
+debugger.cpp debugger.h evalVar.cpp evalVar.h fileAccess.cpp fileAccess.h \
+fitd.cpp fitd.h floor.cpp floor.h fmopl.cpp fmopl.h font.cpp font.h hqr.cpp hqr.h input.cpp input.h \
+inventory.cpp inventory.h life.cpp lifeMacroTable.cpp life.h life_2.cpp life_2.h lines.cpp main.cpp main.h \
+mainLoop.cpp mainLoop.h music.cpp music.h object.cpp object.h \
+osystem.h osystemSDL.cpp osystemSDL_GL.cpp pak.cpp pak.h polys.cpp \
+resource.cpp resource.h renderer.cpp renderer.h room.cpp room.h sequence.cpp save.cpp save.h screen.cpp screen.h \
+startupMenu.cpp startupMenu.h systemMenu.cpp systemMenu.h tatou.cpp tatou.h \
+threadCode.cpp threadCode.h \
+time.cpp ourtime.h track.cpp track.h unpack.cpp unpack.h vars.cpp vars.h \
+version.cpp version.h videoMode.cpp videoMode.h zv.cpp zv.h 
 
 
