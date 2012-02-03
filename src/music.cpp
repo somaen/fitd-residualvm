@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 int musicVolume = 0x7F;
 
 unsigned int musicChrono;
@@ -1312,3 +1314,5 @@ void destroyMusicDriver(void)
 {
 	YM3812Shutdown();
 }
+
+} // end of namespace Fitd

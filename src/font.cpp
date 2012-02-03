@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 char* fontVar1 = NULL;
 short int fontSm1 = 0;
 short int fontSm2 = 0x1234;
@@ -239,3 +241,5 @@ void drawText(int x, int y, int index, int color)
 	
 	renderText(x,y+1,screen,textPtr);
 }
+	
+} // end of namespace Fitd

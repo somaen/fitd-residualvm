@@ -14,7 +14,7 @@
 #define bool char
 #define true 1
 #define false 0
-
+namespace Fitd {
 /*
 class OSystem
 {
@@ -74,5 +74,7 @@ class OSystem
 /*
   private:
 };*/
+
+} // end of namespace Fitd
 
 #endif

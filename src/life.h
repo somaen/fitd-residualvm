@@ -1,5 +1,6 @@
 #ifndef _LIFE_
 #define _LIFE_
+namespace Fitd {
 
 enum enumLifeMacro
 {
@@ -127,5 +128,7 @@ void fire(int fireAnim, int X, int Y, int Z, int hitForce, int nextAnim);
 void put(int x,int y,int z,int room,int stage,int alpha,int beta,int gamma,int idx);
 void getHardClip();
 void throwObj(int animThrow, int frameThrow, int arg_4, int objToThrowIdx, int throwRotated, int throwForce, int animNext);
+
+} // end of namespace Fitd
 
 #endif

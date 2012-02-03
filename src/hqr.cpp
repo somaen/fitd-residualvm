@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 hqrSubEntryStruct* quickFindEntry(int index, int numMax, hqrSubEntryStruct* ptr) // no RE. Original was probably faster
 {
 	int i;
@@ -330,3 +332,5 @@ void HQR_Free(hqrEntryStruct* hqrPtr)
 	
 	free(hqrPtr);
 }
+
+} // end of namespace Fitd

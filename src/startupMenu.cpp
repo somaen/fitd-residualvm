@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 void drawStartupMenu(int selectedEntry)
 {
 	int currentY = 76;
@@ -143,3 +145,5 @@ int processStartupMenu(void)
 	
 	return(selectedEntry);
 }
+
+} // end of namespace Fitd

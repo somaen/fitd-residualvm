@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 struct rendererPointStruct
 {
 	float X;
@@ -1429,3 +1431,5 @@ void computeScreenBox(int x, int y, int z, int alpha, int beta, int gamma, char*
 		computeModel(x,y,z,alpha,beta,gamma,bodyPtr,ptr);
 	}
 }
+	
+} // end of namespace Fitd

@@ -1,5 +1,6 @@
 #ifndef _MAIN_
 #define _MAIN_
+namespace Fitd {
 
 extern int input5;
 
@@ -71,6 +72,9 @@ int drawTextOverlay(void);
 short int setInterAnimObjet(int frame, char* animPtr, char* bodyPtr);
 
 void getZvRot(char* bodyPtr, ZVStruct* zvPtr, int alpha, int beta, int gamma);
+
+} // end of namespace Fitd
+
 
 #endif
 

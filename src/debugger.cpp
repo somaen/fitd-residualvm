@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 #ifdef INTERNAL_DEBUGGER
 
 typedef struct
@@ -90,3 +92,5 @@ void debugger_draw(void)
 }
 
 #endif
+	
+} // end of namespace Fitd

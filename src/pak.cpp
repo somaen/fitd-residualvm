@@ -22,6 +22,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 typedef struct pakInfoStruct // warning: allignement unsafe
 {
 	long int discSize;
@@ -294,3 +296,5 @@ char* loadPak(char* name, int index)
 	return ptr;
 #endif
 }
+	
+} // end of namespace Fitd

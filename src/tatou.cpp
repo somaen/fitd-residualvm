@@ -26,6 +26,7 @@
 #include "SDL.h"
 #endif
 
+namespace Fitd {
 
 //////////// stuff to move
 void clearScreenTatou(void)
@@ -523,3 +524,5 @@ int make3dTatou(void)
 	
 	return(0);
 }
+
+} // end of namespace Fitd

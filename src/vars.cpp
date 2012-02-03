@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 enum gameTypeEnum gameId;
 
 char* currentFoundBody;
@@ -290,3 +292,5 @@ hqrEntryStruct* listSamp;
 #ifdef INTERNAL_DEBUGGER
 backgroundModeEnum backgroundMode = backgroundModeEnum_2D;
 #endif
+
+} // end of namespace Fitd

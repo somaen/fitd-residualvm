@@ -21,6 +21,8 @@
 #include "common.h"
 #include <SDL.h>
 
+namespace Fitd {
+
 extern float nearVal;
 extern float farVal;
 extern float cameraZoom;
@@ -150,3 +152,5 @@ void readKeyboard(void)
 	}
 #endif
 }
+	
+} // end of namespace Fitd

@@ -108,7 +108,7 @@ enum enumCVars
   UNKNOWN_CVAR = -1 // for table padding, shouldn't be called !
 };
 
-typedef enum enumCVars enumCVars;
+namespace Fitd {
 
 extern enumCVars AITD1KnownCVars[];
 extern enumCVars AITD2KnownCVars[];
@@ -116,6 +116,8 @@ extern enumCVars AITD2KnownCVars[];
 extern enumCVars* currentCVarTable;
 
 int getCVarsIdx(enumCVars);
+
+} // end of namespace Fitd
 
 //////////////////////
 /*

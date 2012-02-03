@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 int mainLoopSwitch = 0;
 
 void updatePendingEvents(void)
@@ -342,3 +344,5 @@ void mainLoop(int allowSystemMenu)
 	//  stopShaking();
 	//  stopSounds();
 }
+	
+} // end of namespace Fitd

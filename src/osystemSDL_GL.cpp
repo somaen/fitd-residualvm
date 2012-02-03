@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 #ifdef USE_GL
 
 /***************************************************************************
@@ -1190,3 +1192,5 @@ void osystem_drawDebugText(const u32 X, const u32 Y, const u8* string)
 #endif
 
 #endif
+	
+} // end of namespace Fitd

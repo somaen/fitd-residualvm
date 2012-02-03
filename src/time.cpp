@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 bool timerSaved = false;
 unsigned int timerSavedValue = 0;
 
@@ -40,3 +42,5 @@ void unfreezeTime(void)
 		timerSaved = false;
 	}
 }
+
+} // end of namespace Fitd

@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 typedef char ColorP;
 void hline(int x1, int x2, int y, ColorP c);
 void line(int x1, int y1, int x2, int y2, ColorP c);
@@ -160,3 +162,5 @@ void fillpoly(short int * datas, int n, ColorP c) {
 		}
     }
 }
+	
+} // end of namespace Fitd

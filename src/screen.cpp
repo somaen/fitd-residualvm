@@ -22,6 +22,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 void setupScreen(void)
 {
 	screen = (char*)malloc(64800);
@@ -94,3 +96,5 @@ void flushScreen(void)
 		}
 	}
 }
+
+} // end of namespace Fitd

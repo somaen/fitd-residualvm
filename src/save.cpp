@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 unsigned int currentSaveEntrySize;
 
 void* getSaveEntry(int index)
@@ -1001,3 +1003,4 @@ int makeSave(int arg0)
 	return(makeSaveFile(0));
 }
 
+} // end of namespace Fitd

@@ -4,6 +4,7 @@
 #include "osystem.h"
 
 #pragma pack(1)
+namespace Fitd {
 
 extern char* currentFoundBody;
 extern int currentFoundBodyIdx;
@@ -27,8 +28,6 @@ struct point3dStruct
   short int z;
 };
 
-typedef struct point3dStruct point3dStruct;
-
 struct textEntryStruct
 {
 	short int index;
@@ -36,15 +35,11 @@ struct textEntryStruct
 	short int width;
 };
 
-typedef struct textEntryStruct textEntryStruct;
-
 struct messageStruct
 {
 	textEntryStruct* string;
 	short int time;
 };
-
-typedef struct messageStruct messageStruct;
 
 struct saveEntry
 {
@@ -52,15 +47,11 @@ struct saveEntry
 	unsigned int size;
 };
 
-typedef struct saveEntry saveEntry;
-
 struct regularTextEntryStruct
 {
 	char* textPtr;
 	short int width;
 };
-
-typedef struct regularTextEntryStruct regularTextEntryStruct;
 
 struct hqrSubEntryStruct
 {
@@ -69,8 +60,6 @@ struct hqrSubEntryStruct
 	unsigned int lastTimeUsed;
   char* ptr;
 };
-
-typedef struct hqrSubEntryStruct hqrSubEntryStruct;
 
 struct hqrEntryStruct
 {
@@ -82,8 +71,6 @@ struct hqrEntryStruct
 	hqrSubEntryStruct* entries;
 };
 
-typedef struct hqrEntryStruct hqrEntryStruct;
-
 struct ZVStruct
 {
 	 s32 ZVX1;
@@ -94,8 +81,6 @@ struct ZVStruct
 	 s32 ZVZ2;
 };
 
-typedef struct ZVStruct ZVStruct;
-
 struct rotateStruct
 {
 	short int oldAngle;
@@ -103,8 +88,6 @@ struct rotateStruct
 	short int param;
 	short int timeOfRotate;
 };
-
-typedef struct rotateStruct rotateStruct;
 
 struct actorFlags
 {
@@ -126,8 +109,6 @@ struct actorFlags
   u16 flag0x8000:1;
 };
 
-
-typedef struct actorFlags actorFlags;
 
 struct actorStruct // used to read data from file too
 {
@@ -202,8 +183,6 @@ struct actorStruct // used to read data from file too
   short int hardMat;
 };
 
-typedef struct actorStruct actorStruct;
-
 struct objectStruct
 {
 	short int ownerIdx;
@@ -240,8 +219,6 @@ struct objectStruct
   // AITD2
   short int mark;
 };
-
-typedef struct objectStruct objectStruct;
 
 struct boxStruct
 {
@@ -516,9 +493,9 @@ enum backgroundModeEnum
   backgroundModeEnum_3D,
 };
 
-typedef enum backgroundModeEnum backgroundModeEnum;
-
 extern backgroundModeEnum backgroundMode;
 #endif
+
+} // end of namespace Fitd
 
 #endif

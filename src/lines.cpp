@@ -27,6 +27,8 @@
 #include <math.h>
 #include <stdlib.h>
 
+namespace Fitd {
+
 void swapFunc(int* a, int* b)
 {
 	int temp;
@@ -202,3 +204,5 @@ void line(int x1, int y1, int x2, int y2, ColorP c) {
 		bsubline_3(x1, y1, x2, y2, c);
     } 
 }
+
+} // end of namespace Fitd

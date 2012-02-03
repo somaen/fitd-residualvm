@@ -21,8 +21,11 @@
 // seg 35
 
 #include "common.h"
+namespace Fitd {
 
 void setupVideoMode(void)
 {
 	videoMode = 1;
 }
+
+} // end of namespace Fitd

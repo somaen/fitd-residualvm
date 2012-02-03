@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 int sortCompareFunction(const void* param1, const void* param2)
 {
 	int distance1 = 0;
@@ -156,3 +158,5 @@ void sortActorList()
 {
 	qsort(sortedActorTable, numActorInList, sizeof(int), sortCompareFunction);
 }
+
+} // end of namespace Fitd

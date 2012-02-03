@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 /*
  Room data:
  
@@ -213,3 +215,5 @@ void loadRoom(int roomNumber)
 	needChangeRoom = 0;
 	unfreezeTime();
 }
+	
+} // end of namespace Fitd

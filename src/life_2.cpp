@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 #if 0
 
 void processLife2(int lifeNum)
@@ -1332,3 +1334,5 @@ void processLife2(int lifeNum)
 }
 
 #endif
+	
+} // end of namespace Fitd

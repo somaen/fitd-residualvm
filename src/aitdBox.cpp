@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 void drawPartOfAITDBox(int left, int top, int index, char* gfxData)
 {
 	char* outPtr;
@@ -146,3 +148,5 @@ void drawAITDBox(int x, int y, int width, int height)
 	setClipSize(currentMenuLeft,currentMenuTop,currentMenuRight,currentMenuBottom);
 	
 }
+
+} // end of namespace Fitd

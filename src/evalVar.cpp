@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 int getPosRelTable[] = {4,1,8,2,4,1,8,0};
 
 int getMatrix(int param1, int actorIdx, int param2)
@@ -969,3 +971,4 @@ int evalVar2(void)
 		}
 }
 
+} // end of namespace Fitd

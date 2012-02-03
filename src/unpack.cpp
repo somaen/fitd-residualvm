@@ -46,6 +46,8 @@
 #define PAK_N_MAX 288
 #define PAK_WSIZE 0x8000
 
+namespace Fitd {
+
 typedef struct {
 	unsigned long csize;
 	unsigned long ucsize;
@@ -565,3 +567,5 @@ void PAK_Error(char * txt) {
 	getchar();
 	exit(0);
 }
+
+} // end of namespace Fitd

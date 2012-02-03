@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 void convertPaletteIfRequired(unsigned char* lpalette)
 {
 	if(gameId >= JACK && gameId < AITD3)
@@ -293,3 +295,6 @@ void playSequence(int sequenceIdx, int fadeStart, int fadeOutVar)
 		}
 	}
 }
+
+
+} // end of namespace Fitd

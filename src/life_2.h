@@ -2,6 +2,7 @@
 #define _LIFE2_
 
 #define NUM_MAX_SEQUENCE_PARAM 30
+namespace Fitd {
 
 struct sequenceParamStruct
 {
@@ -25,6 +26,8 @@ void convertPaletteIfRequired(unsigned char* lpalette);
 extern short int numObjInInventoryTable[2];
 extern short int inHandTable[2];
 extern short int currentInHand;
+
+} // end of namespace Fitd
 
 #endif
 

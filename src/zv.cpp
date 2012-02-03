@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 void getZvCube(char* bodyPtr, ZVStruct* zvPtr)
 {
 	short int* ptr;
@@ -94,3 +96,5 @@ void getZvMax(char* bodyPtr, ZVStruct* zvPtr)
 	zvPtr->ZVZ1 = -x2;
 	zvPtr->ZVZ2 = x2;
 }
+	
+} // end of namespace Fitd

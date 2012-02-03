@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 void printString(int index, int textIndex, int selectedIndex)
 {
 	int topPosition;
@@ -172,3 +174,5 @@ void processSystemMenu(void)
 		flipScreen();
 	}
 }
+
+} // end of namespace Fitd

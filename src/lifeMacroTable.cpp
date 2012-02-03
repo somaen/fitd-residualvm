@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 enumLifeMacro AITD2LifeMacroTable[] = 
 {
     LM_DO_MOVE,         //0        
@@ -214,3 +216,5 @@ enumLifeMacro AITD1LifeMacroTable[] =
     LM_SAMPLE_THEN_REPEAT,
     LM_WAIT_GAME_OVER,
 };
+	
+} // end of namespace Fitd

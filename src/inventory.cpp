@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 int statusLeft;
 int statusTop;
 int statusRight;
@@ -380,3 +382,5 @@ void makeStatusScreen(void)
 	
 	//updateShaking();
 }
+
+} // end of namespace Fitd

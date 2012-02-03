@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 #ifndef USE_GL
 
 /***************************************************************************
@@ -423,3 +425,5 @@ void osystem_addBgPolyPoint(int x, int y)
 
 
 #endif
+
+} // end of namespace Fitd

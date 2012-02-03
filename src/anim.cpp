@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 int initAnimInBody(int frame, char* anim, char* body)
 {
 	short int temp;
@@ -551,3 +553,5 @@ short int setInterAnimObjet(int frame, char* animPtr, char* bodyPtr)
 	}
 	
 }
+
+} // end of namespace Fitd

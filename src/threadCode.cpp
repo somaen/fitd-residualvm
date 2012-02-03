@@ -23,6 +23,8 @@
 #include "SDL.h"
 #include "SDL_thread.h"
 
+namespace Fitd {
+
 int musicThread(void *dummy);
 
 int threadTimer(void *test) // AITD time is 50 frames per seconds ie,  a frame every 20 miliseconds
@@ -45,3 +47,5 @@ void startThreadTimer()
 	//   SDL_CreateThread(threadTimer, NULL);
 	//   SDL_CreateThread(musicThread, NULL);
 }
+
+} // end of namespace Fitd

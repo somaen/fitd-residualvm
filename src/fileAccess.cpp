@@ -19,6 +19,9 @@
  */
 
 #include "common.h"
+
+namespace Fitd {
+
 // seg 20
 void theEnd(int type, char* name)
 {
@@ -62,3 +65,5 @@ char* loadPakSafe(char* name, int index)
 	}
 	return ptr;
 }
+
+} // end of namespace Fitd

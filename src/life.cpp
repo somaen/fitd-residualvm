@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 int groundLevel;
 short int specialTable[4] = {144, 192, 48, 112};
 
@@ -2301,3 +2303,5 @@ void processLife(int lifeNum)
 	
 	currentLifeNum = -1;
 }
+	
+} // end of namespace Fitd

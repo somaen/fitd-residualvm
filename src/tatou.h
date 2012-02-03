@@ -1,5 +1,6 @@
 #ifndef _TATOU_H_
 #define _TATOU_H_
+namespace Fitd {
 
 int make3dTatou(void);
 //////////////// to mode
@@ -17,4 +18,7 @@ void fadeOut(int var1, int var2);
 void playSound(int num);
 void rotateModel(int x,int y,int z,int alpha,int beta,int gamma,int time);
 //////////////
+
+} // end of namespace Fitd
+
 #endif

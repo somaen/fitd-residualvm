@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 short int cosTable[]={
 	4,
 	201,
@@ -1047,3 +1049,4 @@ short int cosTable[]={
 	-201,
 };
 
+} // end of namespace Fitd

@@ -20,6 +20,9 @@
 
 #include "common.h"
 #include "math.h"
+
+namespace Fitd {
+
 // From LBA:
 int DoTrackVar1;
 int GetAngle(int X1, int Y1, int X2, int Y2)
@@ -1281,3 +1284,5 @@ void processTrack2(void)
 	
 	currentProcessedActorPtr->beta &= 0x3FF;
 }
+
+} // end of namespace Fitd

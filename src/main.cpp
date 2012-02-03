@@ -29,6 +29,7 @@
 
 #include "common.h"
 
+namespace Fitd {
 
 char scaledScreen[640*400];
 
@@ -5378,6 +5379,156 @@ void detectGame(void)
 	exit(1);
 }
 
+int drawTextOverlay(void)
+{
+	int var_2 = 0;
+	int var_14 = 0;
+	int var_10 = 183;
+	messageStruct* currentMessage;
+	
+	BBox3D4 = 199;
+	BBox3D1 = 319;
+	BBox3D3 = 0;
+	
+	currentMessage = messageTable;
+	
+	if(lightVar1==0)
+	{
+		int i;
+		
+		for(i=0;i<5;i++)
+		{
+			if(currentMessage->string)
+			{
+				int width = currentMessage->string->width;
+				int X = 160 - width/2;
+				int Y = X + width;
+				
+				if(X<BBox3D1)
+				{
+					BBox3D1 = X;
+				}
+				
+				if(Y>BBox3D3)
+				{
+					BBox3D3 = Y;
+				}
+				
+				if((currentMessage->time++)>55)
+				{
+					currentMessage->string = NULL;
+				}
+				else
+				{
+					if(currentMessage->time<26)
+					{
+						initFont(fontData,16);
+					}
+					else
+					{
+						initFont(fontData,16+(currentMessage->time-26)/2);
+					}
+					
+					renderText(X,var_10+1,screen,currentMessage->string->textPtr);
+				}
+				
+				var_10 -= 16;
+				var_14 = 1;
+				
+			}
+			
+			currentMessage++;
+		}
+	}
+	else
+	{
+	}
+	
+	BBox3D2 = var_10;
+	return(var_14);
+}
+
+void makeMessage(int messageIdx)
+{
+	textEntryStruct* messagePtr;
+	
+	messagePtr = getTextFromIdx(messageIdx);
+	
+	if(messagePtr)
+	{
+		int i;
+		
+		for(i=0;i<5;i++)
+		{
+			if(messageTable[i].string == messagePtr)
+			{
+				messageTable[i].time = 0;
+				return;
+			}
+		}
+		
+		for(i=0;i<5;i++)
+		{
+			if(messageTable[i].string == NULL)
+			{
+				messageTable[i].string = messagePtr;
+				messageTable[i].time = 0;
+				return;
+			}
+		}
+	}
+}
+
+void hit(int animNumber,int arg_2,int arg_4,int arg_6,int hitForce,int arg_A)
+{
+	if(anim(animNumber, 0, arg_A))
+	{
+		currentProcessedActorPtr->animActionANIM = animNumber;
+		currentProcessedActorPtr->animActionFRAME = arg_2;
+		currentProcessedActorPtr->animActionType = 1;
+		currentProcessedActorPtr->animActionParam = arg_6;
+		currentProcessedActorPtr->field_98 = arg_4;
+		currentProcessedActorPtr->hitForce = hitForce;
+	}
+}
+
+void setClipSize(int left, int top, int right, int bottom)
+{
+	clipLeft = left;
+	clipTop = top;
+	clipRight = right;
+	clipBottom = bottom;
+}
+
+void Sound_Quit(void);
+
+void cleanupAndExit(void)
+{
+	Sound_Quit();
+	
+	HQR_Free(listMus);
+	HQR_Free(listSamp);
+	HQR_Free(hqrUnk);
+	HQR_Free(listLife);
+	HQR_Free(listTrack);
+	HQR_Free(listBody);
+	HQR_Free(listAnim);
+	
+	/* free(tabTextes);
+	 free(aux);
+	 free(aux2);
+	 free(bufferAnim);
+	 
+	 free(screen); */
+	
+	destroyMusicDriver();
+	
+	exit(0);
+}
+
+} // end of namespace Fitd
+
+using namespace Fitd;
 
 int main(int argc, char** argv)
 {
@@ -5569,152 +5720,5 @@ int main(int argc, char** argv)
 	}
 	
 	return(0);
-}
-
-int drawTextOverlay(void)
-{
-	int var_2 = 0;
-	int var_14 = 0;
-	int var_10 = 183;
-	messageStruct* currentMessage;
-	
-	BBox3D4 = 199;
-	BBox3D1 = 319;
-	BBox3D3 = 0;
-	
-	currentMessage = messageTable;
-	
-	if(lightVar1==0)
-	{
-		int i;
-		
-		for(i=0;i<5;i++)
-		{
-			if(currentMessage->string)
-			{
-				int width = currentMessage->string->width;
-				int X = 160 - width/2;
-				int Y = X + width;
-				
-				if(X<BBox3D1)
-				{
-					BBox3D1 = X;
-				}
-				
-				if(Y>BBox3D3)
-				{
-					BBox3D3 = Y;
-				}
-				
-				if((currentMessage->time++)>55)
-				{
-					currentMessage->string = NULL;
-				}
-				else
-				{
-					if(currentMessage->time<26)
-					{
-						initFont(fontData,16);
-					}
-					else
-					{
-						initFont(fontData,16+(currentMessage->time-26)/2);
-					}
-					
-					renderText(X,var_10+1,screen,currentMessage->string->textPtr);
-				}
-				
-				var_10 -= 16;
-				var_14 = 1;
-				
-			}
-			
-			currentMessage++;
-		}
-	}
-	else
-	{
-	}
-	
-	BBox3D2 = var_10;
-	return(var_14);
-}
-
-void makeMessage(int messageIdx)
-{
-	textEntryStruct* messagePtr;
-	
-	messagePtr = getTextFromIdx(messageIdx);
-	
-	if(messagePtr)
-	{
-		int i;
-		
-		for(i=0;i<5;i++)
-		{
-			if(messageTable[i].string == messagePtr)
-			{
-				messageTable[i].time = 0;
-				return;
-			}
-		}
-		
-		for(i=0;i<5;i++)
-		{
-			if(messageTable[i].string == NULL)
-			{
-				messageTable[i].string = messagePtr;
-				messageTable[i].time = 0;
-				return;
-			}
-		}
-	}
-}
-
-void hit(int animNumber,int arg_2,int arg_4,int arg_6,int hitForce,int arg_A)
-{
-	if(anim(animNumber, 0, arg_A))
-	{
-		currentProcessedActorPtr->animActionANIM = animNumber;
-		currentProcessedActorPtr->animActionFRAME = arg_2;
-		currentProcessedActorPtr->animActionType = 1;
-		currentProcessedActorPtr->animActionParam = arg_6;
-		currentProcessedActorPtr->field_98 = arg_4;
-		currentProcessedActorPtr->hitForce = hitForce;
-	}
-}
-
-void setClipSize(int left, int top, int right, int bottom)
-{
-	clipLeft = left;
-	clipTop = top;
-	clipRight = right;
-	clipBottom = bottom;
-}
-
-void Sound_Quit(void);
-
-void cleanupAndExit(void)
-{
-	Sound_Quit();
-	
-	HQR_Free(listMus);
-	HQR_Free(listSamp);
-	HQR_Free(hqrUnk);
-	HQR_Free(listLife);
-	HQR_Free(listTrack);
-	HQR_Free(listBody);
-	HQR_Free(listAnim);
-	
-	/* free(tabTextes);
-	 free(aux);
-	 free(aux2);
-	 free(bufferAnim);
-	 
-	 free(screen); */
-	
-	destroyMusicDriver();
-	
-	exit(0);
 }
 

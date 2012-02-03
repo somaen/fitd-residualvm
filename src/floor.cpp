@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 unsigned long int etageVar0Size = 0;
 unsigned long int numGlobalCamera = 0;
 cameraDataStruct* globalCameraDataTable = NULL;
@@ -360,3 +362,5 @@ void loadFloor(int floorNumber)
 	 
 	 }*/
 }
+	
+} // end of namespace Fitd

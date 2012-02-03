@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace Fitd {
+
 // warning, end is truncated because of compiler limits
 #if 0
 /*
@@ -65534,3 +65536,5 @@
  };*/
 unsigned char* debugFont=(unsigned char*)foutOutLong;
 #endif
+
+} // end of namespace Fitd

@@ -2,6 +2,7 @@
 #define _DEBUGGER_H_
 
 #ifdef INTERNAL_DEBUGGER
+namespace Fitd {
 
 ////// debug var used in engine
 extern bool debuggerVar_drawModelZv;
@@ -16,6 +17,9 @@ extern bool debuggerVar_useBlackBG;
 void debugger_enterMainDebug(void);
 void debugger_processDebugMenu(void);
 void debugger_draw(void);
+
+} // end of namespace Fitd
+
 #endif // INTERNAL_DEBUGGER
 
 #endif

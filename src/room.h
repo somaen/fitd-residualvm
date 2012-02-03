@@ -1,10 +1,12 @@
 #ifndef _ROOM_H_
 #define _ROOM_H_
 
+namespace Fitd {
 struct hardColStruct;
-typedef struct hardColStruct hardColStruct;
-
+}
 #include "vars.h" // temporary fix to cross include
+
+namespace Fitd {
 
 struct hardColStruct
 {
@@ -101,5 +103,7 @@ extern roomDataStruct* roomDataTable;
 roomDefStruct* getRoomData(int roomNumber);
 void loadRoom(int roomNumber);
 int getNumberOfRoom();
+
+} // end of namespace Fitd
 
 #endif
