@@ -32,7 +32,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include "common/textconsole.h"
 #include "common.h"
 
 #define _WINDOWS
@@ -565,9 +565,7 @@ int PAK_deflate(unsigned char *srcBuffer, unsigned char *dstBuffer, unsigned int
 // --------------------------------------------------------------
 
 void PAK_Error(char *txt) {
-	printf("%s", txt);
-	getchar();
-	exit(0);
+	error("%s", txt);
 }
 
 } // end of namespace Fitd

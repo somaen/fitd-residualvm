@@ -26,6 +26,7 @@
 // 22 septembre 2003 14:25
 
 // seg002
+#include "common/textconsole.h"
 #include "fitd.h"
 #include "resource.h"
 #include "osystem.h"
@@ -333,8 +334,7 @@ void allocTextes(void) {
 	}
 
 	if(!languageNameString[0]) {
-		printf("Unable to detect language file..\n");
-		exit(1);
+		error("Unable to detect language file..\n");
 	}
 
 	systemTextes = g_resourceLoader->loadPakSafe(languageNameString, 0); // todo: use real language name
@@ -4602,7 +4602,7 @@ int main(int argc, char **argv) {
 
 	getVersion(version);
 
-	printf(version);
+	warning(version);
 
 	g_fitd = new FitdEngine();
 

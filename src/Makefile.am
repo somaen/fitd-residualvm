@@ -14,6 +14,6 @@ resource.cpp resource.h renderer.cpp renderer.h room.cpp room.h sequence.cpp sav
 startup_menu.cpp startup_menu.h system_menu.cpp system_menu.h tatou.cpp tatou.h \
 thread_code.cpp thread_code.h \
 time.cpp ourtime.h track.cpp track.h unpack.cpp unpack.h vars.cpp vars.h \
-version.cpp version.h video_mode.cpp video_mode.h zv.cpp zv.h 
+version.cpp version.h video_mode.cpp video_mode.h zv.cpp zv.h common/textconsole.cpp 
 
 

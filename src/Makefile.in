@@ -64,7 +64,8 @@ am_fitd_OBJECTS = actor_list.$(OBJEXT) aitd_box.$(OBJEXT) \
 	save.$(OBJEXT) screen.$(OBJEXT) startup_menu.$(OBJEXT) \
 	system_menu.$(OBJEXT) tatou.$(OBJEXT) thread_code.$(OBJEXT) \
 	time.$(OBJEXT) track.$(OBJEXT) unpack.$(OBJEXT) vars.$(OBJEXT) \
-	version.$(OBJEXT) video_mode.$(OBJEXT) zv.$(OBJEXT)
+	version.$(OBJEXT) video_mode.$(OBJEXT) zv.$(OBJEXT) \
+	textconsole.$(OBJEXT)
 fitd_OBJECTS = $(am_fitd_OBJECTS)
 fitd_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@
@@ -211,7 +212,7 @@ resource.cpp resource.h renderer.cpp renderer.h room.cpp room.h sequence.cpp sav
 startup_menu.cpp startup_menu.h system_menu.cpp system_menu.h tatou.cpp tatou.h \
 thread_code.cpp thread_code.h \
 time.cpp ourtime.h track.cpp track.h unpack.cpp unpack.h vars.cpp vars.h \
-version.cpp version.h video_mode.cpp video_mode.h zv.cpp zv.h 
+version.cpp version.h video_mode.cpp video_mode.h zv.cpp zv.h common/textconsole.cpp 
 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
@@ -350,6 +351,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/startup_menu.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/system_menu.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tatou.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/textconsole.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/thread_code.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/time.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/track.Po@am__quote@
@@ -372,6 +374,20 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+textconsole.o: common/textconsole.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT textconsole.o -MD -MP -MF $(DEPDIR)/textconsole.Tpo -c -o textconsole.o `test -f 'common/textconsole.cpp' || echo '$(srcdir)/'`common/textconsole.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/textconsole.Tpo $(DEPDIR)/textconsole.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='common/textconsole.cpp' object='textconsole.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o textconsole.o `test -f 'common/textconsole.cpp' || echo '$(srcdir)/'`common/textconsole.cpp
+
+textconsole.obj: common/textconsole.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT textconsole.obj -MD -MP -MF $(DEPDIR)/textconsole.Tpo -c -o textconsole.obj `if test -f 'common/textconsole.cpp'; then $(CYGPATH_W) 'common/textconsole.cpp'; else $(CYGPATH_W) '$(srcdir)/common/textconsole.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/textconsole.Tpo $(DEPDIR)/textconsole.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='common/textconsole.cpp' object='textconsole.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o textconsole.obj `if test -f 'common/textconsole.cpp'; then $(CYGPATH_W) 'common/textconsole.cpp'; else $(CYGPATH_W) '$(srcdir)/common/textconsole.cpp'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \

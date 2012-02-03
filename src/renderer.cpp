@@ -18,6 +18,7 @@
  *
  */
 
+#include "common/textconsole.h"
 #include "osystem.h"
 #include "common.h"
 
@@ -836,8 +837,7 @@ char *primVar1;
 char *primVar2;
 
 void primFunctionDefault(int primType, char **ptr, char **out) {
-	printf("UnHandled primType %d\n", primType);
-	exit(1);
+	error("UnHandled primType %d\n", primType);
 }
 
 void primType0(int primType, char **ptr, char **out) { // line tested
@@ -1069,7 +1069,7 @@ void renderStyle3(primEntryStruct *pEntry) {
 
 
 void defaultRenderFunction(primEntryStruct *buffer) {
-	printf("Unsupported renderType\n");
+	warning("Unsupported renderType\n");
 }
 
 typedef void (*renderFunction)(primEntryStruct *buffer);
@@ -1179,7 +1179,7 @@ int renderModel(int x, int y, int z, int alpha, int beta, int gamma, void *model
 			return(2);
 		}
 	} else {
-		printf("unsupported model type prerenderFlag4 in renderer !\n");
+		warning("unsupported model type prerenderFlag4 in renderer !\n");
 
 		BBox3D3 = -32000;
 		BBox3D4 = -32000;

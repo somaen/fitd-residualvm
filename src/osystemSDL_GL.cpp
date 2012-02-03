@@ -17,7 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-
+#include "common/textconsole.h"
 #include "common.h"
 
 namespace Fitd {
@@ -204,8 +204,7 @@ void GFXSystem::init()  // that's the constructor of the system dependent
 #endif
 
 	if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-		fprintf(stderr, "Couldn't initialize SDL: %s\n", SDL_GetError());
-		exit(1);
+		error("Couldn't initialize SDL: %s\n", SDL_GetError());
 	}
 
 	//atexit(Sound_Quit);
@@ -250,8 +249,7 @@ void GFXSystem::init()  // that's the constructor of the system dependent
 	sdl_screen = SDL_SetVideoMode(800, 600, 32, SDL_OPENGL/*|SDL_FULLSCREEN*/);
 
 	if(sdl_screen == NULL) {
-		fprintf(stderr, "Couldn't set 640x480x32 video mode: %s\n", SDL_GetError());
-		exit(1);
+		error("Couldn't set 640x480x32 video mode: %s\n", SDL_GetError());
 	}
 
 	_mouseLeft = 0;
@@ -305,8 +303,7 @@ void GFXSystem::init()  // that's the constructor of the system dependent
 	// SDL_mixer init
 
 	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 1, 2048) == -1) {
-		printf("Mix_OpenAudio: %s\n", Mix_GetError());
-		exit(2);
+		error("Mix_OpenAudio: %s\n", Mix_GetError());
 	}
 
 	Mix_HookMusic(OPL_musicPlayer, NULL);
