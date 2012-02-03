@@ -50,21 +50,21 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_fitd_OBJECTS = actorList.$(OBJEXT) aitdBox.$(OBJEXT) \
-	animAction.$(OBJEXT) anim.$(OBJEXT) cosTable.$(OBJEXT) \
-	debugFont.$(OBJEXT) debugger.$(OBJEXT) evalVar.$(OBJEXT) \
-	fileAccess.$(OBJEXT) filestream.$(OBJEXT) fitd.$(OBJEXT) \
+am_fitd_OBJECTS = actor_list.$(OBJEXT) aitd_box.$(OBJEXT) \
+	anim_action.$(OBJEXT) anim.$(OBJEXT) cos_table.$(OBJEXT) \
+	debug_font.$(OBJEXT) debugger.$(OBJEXT) eval_var.$(OBJEXT) \
+	file_access.$(OBJEXT) filestream.$(OBJEXT) fitd.$(OBJEXT) \
 	floor.$(OBJEXT) fmopl.$(OBJEXT) font.$(OBJEXT) hqr.$(OBJEXT) \
 	input.$(OBJEXT) inventory.$(OBJEXT) life.$(OBJEXT) \
-	lifeMacroTable.$(OBJEXT) life_2.$(OBJEXT) lines.$(OBJEXT) \
-	main.$(OBJEXT) mainLoop.$(OBJEXT) music.$(OBJEXT) \
+	life_macro_table.$(OBJEXT) life_2.$(OBJEXT) lines.$(OBJEXT) \
+	main.$(OBJEXT) main_loop.$(OBJEXT) music.$(OBJEXT) \
 	object.$(OBJEXT) osystemSDL.$(OBJEXT) osystemSDL_GL.$(OBJEXT) \
 	pak.$(OBJEXT) polys.$(OBJEXT) resource.$(OBJEXT) \
 	renderer.$(OBJEXT) room.$(OBJEXT) sequence.$(OBJEXT) \
-	save.$(OBJEXT) screen.$(OBJEXT) startupMenu.$(OBJEXT) \
-	systemMenu.$(OBJEXT) tatou.$(OBJEXT) threadCode.$(OBJEXT) \
+	save.$(OBJEXT) screen.$(OBJEXT) startup_menu.$(OBJEXT) \
+	system_menu.$(OBJEXT) tatou.$(OBJEXT) thread_code.$(OBJEXT) \
 	time.$(OBJEXT) track.$(OBJEXT) unpack.$(OBJEXT) vars.$(OBJEXT) \
-	version.$(OBJEXT) videoMode.$(OBJEXT) zv.$(OBJEXT)
+	version.$(OBJEXT) video_mode.$(OBJEXT) zv.$(OBJEXT)
 fitd_OBJECTS = $(am_fitd_OBJECTS)
 fitd_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@
@@ -200,18 +200,18 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 fitd_SOURCES = \
 common.h \
-actorList.cpp actorList.h aitdBox.cpp aitdBox.h animAction.cpp animAction.h \
-anim.cpp anim.h common.h config.h cosTable.cpp cosTable.h debugFont.cpp debugFont.h \
-debugger.cpp debugger.h evalVar.cpp evalVar.h fileAccess.cpp fileAccess.h \
+actor_list.cpp actor_list.h aitd_box.cpp aitd_box.h anim_action.cpp anim_action.h \
+anim.cpp anim.h common.h config.h cos_table.cpp cos_table.h debug_font.cpp debug_font.h \
+debugger.cpp debugger.h eval_var.cpp eval_var.h file_access.cpp file_access.h \
 filestream.cpp fitd.cpp fitd.h floor.cpp floor.h fmopl.cpp fmopl.h font.cpp font.h hqr.cpp hqr.h input.cpp input.h \
-inventory.cpp inventory.h life.cpp lifeMacroTable.cpp life.h life_2.cpp life_2.h lines.cpp main.cpp main.h \
-mainLoop.cpp mainLoop.h music.cpp music.h object.cpp object.h \
+inventory.cpp inventory.h life.cpp life_macro_table.cpp life.h life_2.cpp life_2.h lines.cpp main.cpp main.h \
+main_loop.cpp main_loop.h music.cpp music.h object.cpp object.h \
 osystem.h osystemSDL.cpp osystemSDL_GL.cpp pak.cpp pak.h polys.cpp \
 resource.cpp resource.h renderer.cpp renderer.h room.cpp room.h sequence.cpp save.cpp save.h screen.cpp screen.h \
-startupMenu.cpp startupMenu.h systemMenu.cpp systemMenu.h tatou.cpp tatou.h \
-threadCode.cpp threadCode.h \
+startup_menu.cpp startup_menu.h system_menu.cpp system_menu.h tatou.cpp tatou.h \
+thread_code.cpp thread_code.h \
 time.cpp ourtime.h track.cpp track.h unpack.cpp unpack.h vars.cpp vars.h \
-version.cpp version.h videoMode.cpp videoMode.h zv.cpp zv.h 
+version.cpp version.h video_mode.cpp video_mode.h zv.cpp zv.h 
 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
@@ -312,15 +312,15 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/actorList.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/aitdBox.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/actor_list.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/aitd_box.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/anim.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/animAction.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cosTable.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/debugFont.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/anim_action.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cos_table.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/debug_font.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/debugger.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/evalVar.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fileAccess.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/eval_var.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/file_access.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/filestream.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fitd.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/floor.Po@am__quote@
@@ -330,11 +330,11 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/input.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/inventory.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/life.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lifeMacroTable.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/life_2.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/life_macro_table.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lines.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mainLoop.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main_loop.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/music.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/object.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/osystemSDL.Po@am__quote@
@@ -347,16 +347,16 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/save.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/screen.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sequence.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/startupMenu.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/systemMenu.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/startup_menu.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/system_menu.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tatou.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/threadCode.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/thread_code.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/time.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/track.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/unpack.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vars.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/version.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/videoMode.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/video_mode.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/zv.Po@am__quote@
 
 .cpp.o:

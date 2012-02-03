@@ -21,7 +21,7 @@
 #include <cstdio>
 #include "resource.h"
 #include "pak.h"
-#include "fileAccess.h"
+#include "file_access.h"
 #include "filestream.h"
 
 namespace Fitd {
