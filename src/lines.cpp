@@ -29,10 +29,10 @@
 
 void swapFunc(int* a, int* b)
 {
-  int temp;
-  temp = *a;
-  *a = *b;
-  *b = temp;
+	int temp;
+	temp = *a;
+	*a = *b;
+	*b = temp;
 }
 
 #define MIN(a,b) (a<b?a:b)
@@ -43,30 +43,30 @@ extern char* screen;
 
 void pixel(int x,int y, ColorP c)
 {
-  if(x>=0 && x<320 && y>=0 && y<200)
-  {
-    *(screen+y*320+x) = c;
-  }
+	if(x>=0 && x<320 && y>=0 && y<200)
+	{
+		*(screen+y*320+x) = c;
+	}
 }
 
 void hline(int x1, int x2, int y, ColorP c)
 {
-  int i;
-
-  for(i=x1; i < (x2 + 1);i++)
-  {
-    pixel(i,y,c);
-  }
+	int i;
+	
+	for(i=x1; i < (x2 + 1);i++)
+	{
+		pixel(i,y,c);
+	}
 }
 
 void vline(int x, int y1, int y2, ColorP c)
 {
-  int i;
-
-  for(i=y1; i< (y2 + 1);i++)
-  {
-    pixel(x,i,c);
-  }
+	int i;
+	
+	for(i=y1; i< (y2 + 1);i++)
+	{
+		pixel(x,i,c);
+	}
 }
 
 void bsubline_1(int x1, int y1, int x2, int y2, ColorP c) {
@@ -77,20 +77,20 @@ void bsubline_1(int x1, int y1, int x2, int y2, ColorP c) {
     ddx <<= 1;
     
     if (x1 > x2) {
-  SWAP(x1, x2);
-  SWAP(y1, y2);
+		SWAP(x1, x2);
+		SWAP(y1, y2);
     }
     
     ENTER;
     
     for (x = x1, y = y1; x <= x2; x++) {
-  pixel(x, y, c);
-  if (e < 0) {
-      y++;
-      e += ddx - ddy;
-  } else {
-      e -= ddy;
-  }
+		pixel(x, y, c);
+		if (e < 0) {
+			y++;
+			e += ddx - ddy;
+		} else {
+			e -= ddy;
+		}
     }
     
     LEAVE;
@@ -104,20 +104,20 @@ void bsubline_2(int x1, int y1, int x2, int y2, ColorP c) {
     ddy <<= 1;
     
     if (y1 > y2) {
-  SWAP(x1, x2);
-  SWAP(y1, y2);
+		SWAP(x1, x2);
+		SWAP(y1, y2);
     }
     
     ENTER;
     
     for (y = y1, x = x1; y <= y2; y++) {
-  pixel(x, y, c);
-  if (e < 0) {
-      x++;
-      e += ddy - ddx;
-  } else {
-      e -= ddx;
-  }
+		pixel(x, y, c);
+		if (e < 0) {
+			x++;
+			e += ddy - ddx;
+		} else {
+			e -= ddx;
+		}
     }
     
     LEAVE;
@@ -131,20 +131,20 @@ void bsubline_3(int x1, int y1, int x2, int y2, ColorP c) {
     ddy <<= 1;
     
     if (y1 > y2) {
-  SWAP(x1, x2);
-  SWAP(y1, y2);
+		SWAP(x1, x2);
+		SWAP(y1, y2);
     }
     
     ENTER;
     
     for (y = y1, x = x1; y <= y2; y++) {
-  pixel(x, y, c);
-  if (e < 0) {
-      x--;
-      e += ddy - ddx;
-  } else {
-      e -= ddx;
-  }
+		pixel(x, y, c);
+		if (e < 0) {
+			x--;
+			e += ddy - ddx;
+		} else {
+			e -= ddx;
+		}
     }
     
     LEAVE;
@@ -158,47 +158,47 @@ void bsubline_4(int x1, int y1, int x2, int y2, ColorP c) {
     ddx <<= 1;
     
     if (x1 > x2) {
-  SWAP(x1, x2);
-  SWAP(y1, y2);
+		SWAP(x1, x2);
+		SWAP(y1, y2);
     }
     
     for (x = x1, y = y1; x <= x2; x++) {
-  pixel(x, y, c);
-  if (e < 0) {
-      y--;
-      e += ddx - ddy;
-  } else {
-      e -= ddy;
-  }
+		pixel(x, y, c);
+		if (e < 0) {
+			y--;
+			e += ddx - ddy;
+		} else {
+			e -= ddy;
+		}
     }
 }
 
 void line(int x1, int y1, int x2, int y2, ColorP c) {
-  float k;
+	float k;
     if ((x1 == x2) && (y1 == y2)) {
-  pixel(x1, y1, c);
-  return;
+		pixel(x1, y1, c);
+		return;
     }
-
+	
     if (x1 == x2) {
-  vline(x1, MIN(y1, y2), MAX(y1, y2), c);
-  return;
+		vline(x1, MIN(y1, y2), MAX(y1, y2), c);
+		return;
     }
     
     if (y1 == y2) {
-  hline(MIN(x1, x2), MAX(x1, x2), y1, c);
-  return;
+		hline(MIN(x1, x2), MAX(x1, x2), y1, c);
+		return;
     }
-
+	
     k = (float)(y2 - y1) / (float)(x2 - x1);
     
     if ((k >= 0) && (k <= 1)) {
-  bsubline_1(x1, y1, x2, y2, c);
+		bsubline_1(x1, y1, x2, y2, c);
     } else if (k > 1) {
-  bsubline_2(x1, y1, x2, y2, c);
+		bsubline_2(x1, y1, x2, y2, c);
     } else if ((k < 0) && (k >= -1)) {
-  bsubline_4(x1, y1, x2, y2, c);
+		bsubline_4(x1, y1, x2, y2, c);
     } else {
-  bsubline_3(x1, y1, x2, y2, c);
+		bsubline_3(x1, y1, x2, y2, c);
     } 
 }

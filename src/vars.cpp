@@ -78,12 +78,12 @@ char button;
 
 char* languageNameTable[] =
 {
-  "FRANCAIS",
-  "ITALIANO",
-  "ENGLISH",
-  "ESPAGNOL",
-  "DEUTSCH",
-  NULL,
+	"FRANCAIS",
+	"ITALIANO",
+	"ENGLISH",
+	"ESPAGNOL",
+	"DEUTSCH",
+	NULL,
 };
 
 char languageNameString[20] = "";
@@ -264,13 +264,13 @@ short int hardColVar2;
 ZVStruct hardClip;
 
 char* listBodySelect[] = {
-  "LISTBODY",
-  "LISTBOD2",
+	"LISTBODY",
+	"LISTBOD2",
 };
 
 char* listAnimSelect[] = {
-  "LISTANIM",
-  "LISTANI2",
+	"LISTANIM",
+	"LISTANI2",
 };
 
 saveEntry saveTable[40];

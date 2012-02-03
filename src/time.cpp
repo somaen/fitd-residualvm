@@ -25,18 +25,18 @@ unsigned int timerSavedValue = 0;
 
 void freezeTime(void)
 {
-  if(!timerSaved)
-  {
-    timerSavedValue = timeGlobal;
-    timerSaved = true;
-  }
+	if(!timerSaved)
+	{
+		timerSavedValue = timeGlobal;
+		timerSaved = true;
+	}
 }
 
 void unfreezeTime(void)
 {
-  if(timerSaved)
-  {
-    timeGlobal = timerSavedValue;
-    timerSaved = false;
-  }
+	if(timerSaved)
+	{
+		timeGlobal = timerSavedValue;
+		timerSaved = false;
+	}
 }
