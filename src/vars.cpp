@@ -22,8 +22,6 @@
 
 namespace Fitd {
 
-enum gameTypeEnum gameId;
-
 char* currentFoundBody;
 int currentFoundBodyIdx;
 int statusVar1;
@@ -43,7 +41,6 @@ char* screen;
 int screenBufferSize;
 int unkScreenVar2;
 
-int numCVars;
 short int* CVars;
 
 char* priority;

@@ -18,6 +18,7 @@
  *
  */
 
+#include "fitd.h"
 #include "common.h"
 
 namespace Fitd {
@@ -183,7 +184,7 @@ int evalVar(void)
 {
 	int var1;
 	
-	if(gameId >= JACK)
+	if(g_fitd->getGameType() >= GType_JACK)
 	{
 		return evalVar2();
 	}

@@ -10,17 +10,6 @@ extern char* currentFoundBody;
 extern int currentFoundBodyIdx;
 extern int statusVar1;
 
-enum gameTypeEnum
-{
-  AITD1,
-  JACK,
-  AITD2,
-  AITD3,
-  TIMEGATE,
-};
-
-extern enum gameTypeEnum gameId;
-
 struct point3dStruct
 {
   short int x;
@@ -260,7 +249,6 @@ extern char* screen;
 extern int screenBufferSize;
 extern int unkScreenVar2;
 
-extern int numCVars;
 extern short int* CVars;
 
 extern char* priority;

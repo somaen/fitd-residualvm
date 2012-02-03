@@ -17,7 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-
+#include "fitd.h"
 #include "common.h"
 
 namespace Fitd {
@@ -90,7 +90,7 @@ int copyObjectToActor(int flag2, int var1, int foundName, short int flag, int x,
 	actorPtr->HARD_DEC = -1;
 	actorPtr->HARD_COL = -1;
 	
-	if(gameId != AITD1)
+	if(g_fitd->getGameType() != GType_AITD1)
 	{
 		actorPtr->hardMat = -1;
 	}
@@ -215,7 +215,7 @@ int copyObjectToActor(int flag2, int var1, int foundName, short int flag, int x,
 		}
 		case 4:
 		{
-			if(gameId < AITD3)
+			if(g_fitd->getGameType() < GType_AITD3)
 			{
 				char* roomDataPtr = (char*)getRoomData(room);
 				int numElements;

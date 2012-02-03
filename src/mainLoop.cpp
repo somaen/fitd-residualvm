@@ -18,6 +18,7 @@
  *
  */
 
+#include "fitd.h"
 #include "common.h"
 
 namespace Fitd {
@@ -134,19 +135,19 @@ void mainLoop(int allowSystemMenu)
 			action = 0;
 		}
 		
-		if(gameId == AITD1)
+		if(g_fitd->getGameType() == GType_AITD1)
 		{
 			updateInHand(inHand);
 		}
 		else
 		{
-			if(gameId == AITD2) // seems to crash in Jack for now
+			if(g_fitd->getGameType() == GType_AITD2) // seems to crash in Jack for now
 				updateInHand(inHandTable[currentInHand]);
 		}
 		
 		if(changeFloor == 0)
 		{
-			if(gameId == AITD1)
+			if(g_fitd->getGameType() == GType_AITD1)
 			{
 				if(CVars[getCVarsIdx(LIGHT_OBJECT)] == -1)
 				{
@@ -178,7 +179,7 @@ void mainLoop(int allowSystemMenu)
 				{
 					int flag = currentProcessedActorPtr->flags;
 					
-					if(flag & 1 || (gameId >= AITD2 && flag & 0x200))
+					if(flag & 1 || (g_fitd->getGameType() >= GType_AITD2 && flag & 0x200))
 					{
 						processActor1();
 					}
@@ -204,24 +205,24 @@ void mainLoop(int allowSystemMenu)
 				{
 					if(currentProcessedActorPtr->life != -1)
 					{
-						switch(gameId)
+						switch(g_fitd->getGameType())
 						{
-							case AITD2:
-							case AITD3:
+							case GType_AITD2:
+							case GType_AITD3:
 							{
 								if(currentProcessedActorPtr->lifeMode&3)
 									if(!(currentProcessedActorPtr->lifeMode&4))
 										processLife(currentProcessedActorPtr->life);
 								break;
 							}
-							case JACK:
+							case GType_JACK:
 							{
 								if(currentProcessedActorPtr->life != -1)
 									if(currentProcessedActorPtr->lifeMode != -1)
 										processLife(currentProcessedActorPtr->life);
 								break;
 							}
-							case AITD1:
+							case GType_AITD1:
 							{
 								if(currentProcessedActorPtr->life != -1)
 									if(currentProcessedActorPtr->lifeMode != -1)
@@ -260,7 +261,7 @@ void mainLoop(int allowSystemMenu)
 		else
 		{
 			checkIfCameraChangeIsRequired();
-			if(gameId >= AITD2)
+			if(g_fitd->getGameType() >= GType_AITD2)
 			{
 				int tempCurrentCamera;
 				

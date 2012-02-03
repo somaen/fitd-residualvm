@@ -72,52 +72,7 @@
 
 //////////////////
 
-enum enumCVars
-{
-  SAMPLE_PAGE = 0,
-  BODY_FLAMME = 1,
-  MAX_WEIGHT_LOADABLE = 2,
-	TEXTE_CREDITS = 3,
-	SAMPLE_TONNERRE  = 4,
-	INTRO_DETECTIVE = 5,
-	INTRO_HERITIERE = 6,
-	WORLD_NUM_PERSO = 7,
-	CHOOSE_PERSO = 8,
-	SAMPLE_CHOC = 9,
-	SAMPLE_PLOUF = 10,
-	REVERSE_OBJECT = 11,
-	KILLED_SORCERER = 12,
-	LIGHT_OBJECT = 13,
-	FOG_FLAG = 14,
-	DEAD_PERSO = 15,
-  JET_SARBACANE,
-  TIR_CANON,
-  JET_SCALPEL,
-  POIVRE,
-  DORTOIR,
-  EXT_JACK,
-  NUM_MATRICE_PROTECT_1,
-  NUM_MATRICE_PROTECT_2,
-  NUM_PERSO,
-  TYPE_INVENTAIRE,
-  PROLOGUE,
-  POIGNARD,
-  MATRICE_FORME,
-  MATRICE_COULEUR,
-
-  UNKNOWN_CVAR = -1 // for table padding, shouldn't be called !
-};
-
-namespace Fitd {
-
-extern enumCVars AITD1KnownCVars[];
-extern enumCVars AITD2KnownCVars[];
-
-extern enumCVars* currentCVarTable;
-
-int getCVarsIdx(enumCVars);
-
-} // end of namespace Fitd
+#include "cvars.h"
 
 //////////////////
 #define TYPE_MASK 0x1D1

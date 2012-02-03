@@ -18,6 +18,7 @@
  *
  */
 
+#include "fitd.h"
 #include "common.h"
 
 namespace Fitd {
@@ -35,7 +36,7 @@ void drawPartOfAITDBox(int left, int top, int index, char* gfxData)
 	int i;
 	int j;
 	
-	if(gameId != AITD1)
+	if(g_fitd->getGameType() != GType_AITD1)
 		return;
 	
 	outPtr = screen + top*320 + left;

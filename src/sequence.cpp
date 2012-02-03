@@ -17,14 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-
+#include "fitd.h"
 #include "common.h"
 
 namespace Fitd {
 
 void convertPaletteIfRequired(unsigned char* lpalette)
 {
-	if(gameId >= JACK && gameId < AITD3)
+	if(g_fitd->getGameType() >= GType_JACK && g_fitd->getGameType() < GType_AITD3)
 	{
 		int i;
 		unsigned char* ptr2 = lpalette;
@@ -201,11 +201,11 @@ void playSequence(int sequenceIdx, int fadeStart, int fadeOutVar)
 			
 			timer = timeGlobal;
 			
-			if(gameId == AITD2)
+			if(g_fitd->getGameType() == GType_AITD2)
 			{
 				strcpy(buffer,sequenceListAITD2[sequenceIdx]);
 			}
-			if(gameId == AITD3)
+			if(g_fitd->getGameType() == GType_AITD3)
 			{
 				sprintf(buffer,"AN%d",sequenceIdx);
 			}
@@ -221,7 +221,7 @@ void playSequence(int sequenceIdx, int fadeStart, int fadeOutVar)
 				memcpy(aux,screen+0x300,64000);
 				var_8 = *(unsigned short int*)(screen+64768);
 				
-				if(gameId < AITD3)
+				if(g_fitd->getGameType() < GType_AITD3)
 					convertPaletteIfRequired(localPalette);
 				
 				if(var_4 != 0)

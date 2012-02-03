@@ -18,6 +18,7 @@
  *
  */
 
+#include "fitd.h"
 #include "common.h"
 
 namespace Fitd {
@@ -114,7 +115,7 @@ int loadSave(int saveNumber)
 	ASSERT(sizeof(maxObjects) == 2);
 	fread(&maxObjects,2,1,fHandle);
 	
-	if(gameId == AITD1)
+	if(g_fitd->getGameType() == GType_AITD1)
 	{
 		oldNumMaxObj = maxObjects;
 		maxObjects = 300; // fix for save engine..
@@ -201,17 +202,17 @@ int loadSave(int saveNumber)
 		fread(&objectTable[i].positionInTrack,2,1,fHandle);
 	}
 	
-	if(gameId == AITD1)
+	if(g_fitd->getGameType() == GType_AITD1)
 	{
 		maxObjects = oldNumMaxObj;
 	}
 	
-	if(gameId == AITD1)
+	if(g_fitd->getGameType() == GType_AITD1)
 	{
 		ASSERT(numCVars == 45);
 	}
 	
-	for(i=0;i<numCVars;i++)
+	for(i=0;i<g_fitd->getNumCVars();i++)
 	{
 		ASSERT(sizeof(CVars[i]) == 2);
 		fread(&CVars[i], 2, 1, fHandle);
@@ -223,7 +224,7 @@ int loadSave(int saveNumber)
 	ASSERT(sizeof(numObjInInventory) == 2);
 	fread(&numObjInInventory,2,1,fHandle);
 	
-	if(gameId == AITD1)
+	if(g_fitd->getGameType() == GType_AITD1)
 	{
 		ASSERT(INVENTORY_SIZE == 30);
 	}
@@ -279,7 +280,7 @@ int loadSave(int saveNumber)
 	
 	fread(vars,varSize,1,fHandle);
 	
-	if(gameId == AITD1)
+	if(g_fitd->getGameType() == GType_AITD1)
 	{
 		configureHqrHero(listBody,listBodySelect[CVars[getCVarsIdx(CHOOSE_PERSO)]]);
 		configureHqrHero(listAnim,listAnimSelect[CVars[getCVarsIdx(CHOOSE_PERSO)]]);
@@ -619,7 +620,7 @@ int makeSaveFile(int entry)
 	ASSERT(sizeof(maxObjects) == 2);
 	fwrite(&maxObjects,2,1,fHandle);
 	
-	if(gameId == AITD1)
+	if(g_fitd->getGameType() == GType_AITD1)
 	{
 		oldNumMaxObj = maxObjects;
 		maxObjects = 300; // fix for save engine..
@@ -706,17 +707,17 @@ int makeSaveFile(int entry)
 		fwrite(&objectTable[i].positionInTrack,2,1,fHandle);
 	}
 	
-	if(gameId == AITD1)
+	if(g_fitd->getGameType() == GType_AITD1)
 	{
 		maxObjects = oldNumMaxObj;
 	}
 	
-	if(gameId == AITD1)
+	if(g_fitd->getGameType() == GType_AITD1)
 	{
 		ASSERT(numCVars == 45);
 	}
 	
-	for(i=0;i<numCVars;i++)
+	for(i=0;i<g_fitd->getNumCVars();i++)
 	{
 		ASSERT(sizeof(CVars[i]) == 2);
 		fwrite(&CVars[i], 2, 1, fHandle);
@@ -728,7 +729,7 @@ int makeSaveFile(int entry)
 	ASSERT(sizeof(numObjInInventory) == 2);
 	fwrite(&numObjInInventory,2,1,fHandle);
 	
-	if(gameId == AITD1)
+	if(g_fitd->getGameType() == GType_AITD1)
 	{
 		ASSERT(INVENTORY_SIZE == 30);
 	}

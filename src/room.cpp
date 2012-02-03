@@ -18,6 +18,7 @@
  *
  */
 
+#include "fitd.h"
 #include "common.h"
 
 namespace Fitd {
@@ -49,11 +50,11 @@ int getNumberOfRoom()
 	int i;
 	int j = 0;
 	
-	if(gameId >= AITD3)
+	if(g_fitd->getGameType() >= GType_AITD3)
 	{
 		char buffer[256];
 		
-		if(gameId == AITD3)
+		if(g_fitd->getGameType() == GType_AITD3)
 		{
 			sprintf(buffer,"SAL%02d",currentEtage);
 		}
@@ -112,7 +113,7 @@ void loadRoom(int roomNumber)
 		oldCameraIdx = roomDataTable[currentDisplayedRoom].cameraIdxTable[currentCamera];
 	}
 	
-	if(gameId < AITD3)
+	if(g_fitd->getGameType() < GType_AITD3)
 	{
 		cameraPtr = (char*)getRoomData(roomNumber); // TODO: obsolete
 		roomDataPtr = getRoomData(roomNumber);
@@ -153,7 +154,7 @@ void loadRoom(int roomNumber)
 			var_10 = currentCameraIdx;
 		}
 		
-		if(gameId < AITD3)
+		if(g_fitd->getGameType() < GType_AITD3)
 		{
 			roomVar5[i] = etageVar1 + READ_LE_U32(etageVar1 + currentCameraIdx * 4);
 		}
@@ -184,8 +185,8 @@ void loadRoom(int roomNumber)
 		{
 			if(actorTable[i].field_0 != -1)
 			{
-				/*       if(gameId == AITD1) // special case. In AITD1, the load room function was always triggered just after the actor was moved in the new room.
-				 // it is not always the case in later games. Maybe we could generalize the AITD2 way...
+				/*       if(g_fitd->getGameType() == GType_AITD1) // special case. In GType_AITD1, the load room function was always triggered just after the actor was moved in the new room.
+				 // it is not always the case in later games. Maybe we could generalize the GType_AITD2 way...
 				 {
 				 actorTable[i].worldX -= var_E;
 				 actorTable[i].worldY += var_C;

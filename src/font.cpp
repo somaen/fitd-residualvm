@@ -18,6 +18,7 @@
  *
  */
 
+#include "fitd.h"
 #include "common.h"
 
 namespace Fitd {
@@ -117,7 +118,7 @@ void renderText(int x, int y, char* surface, char* string)
 	fontVar6 = x;
 	fontSm7 = y;
 	
-	if(gameId >= AITD2)
+	if(g_fitd->getGameType() >= GType_AITD2)
 	{
 		return;
 	}

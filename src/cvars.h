@@ -18,64 +18,54 @@
  *
  */
 
-#include "common.h"
+#ifndef FITD_CVARS_H
+#define FITD_CVARS_H
 
 namespace Fitd {
 
-// seg 20
-void theEnd(int type, char* name)
+enum enumCVars
 {
-	//  freeScene();
-	freeAll();
-	printf("Error: %s\n", name);
-	exit(1);
-}
-char* loadFromItd(char* name)
-{
-	FILE* fHandle;
-	char* ptr;
-	fHandle = fopen(name,"rb");
-	if(!fHandle)
-	{
-		theEnd(0,name);
-		return NULL;
-	}
-	fseek(fHandle,0,SEEK_END);
-	fileSize = ftell(fHandle);
-	fseek(fHandle,0,SEEK_SET);
-	ptr = (char*)malloc(fileSize);
+	SAMPLE_PAGE = 0,
+	BODY_FLAMME = 1,
+	MAX_WEIGHT_LOADABLE = 2,
+	TEXTE_CREDITS = 3,
+	SAMPLE_TONNERRE  = 4,
+	INTRO_DETECTIVE = 5,
+	INTRO_HERITIERE = 6,
+	WORLD_NUM_PERSO = 7,
+	CHOOSE_PERSO = 8,
+	SAMPLE_CHOC = 9,
+	SAMPLE_PLOUF = 10,
+	REVERSE_OBJECT = 11,
+	KILLED_SORCERER = 12,
+	LIGHT_OBJECT = 13,
+	FOG_FLAG = 14,
+	DEAD_PERSO = 15,
+	JET_SARBACANE,
+	TIR_CANON,
+	JET_SCALPEL,
+	POIVRE,
+	DORTOIR,
+	EXT_JACK,
+	NUM_MATRICE_PROTECT_1,
+	NUM_MATRICE_PROTECT_2,
+	NUM_PERSO,
+	TYPE_INVENTAIRE,
+	PROLOGUE,
+	POIGNARD,
+	MATRICE_FORME,
+	MATRICE_COULEUR,
 	
-	if(!ptr)
-	{
-		theEnd(1,name);
-		return NULL;
-	}
-	fread(ptr,fileSize,1,fHandle);
-	fclose(fHandle);
-	return(ptr);
-}
+	UNKNOWN_CVAR = -1 // for table padding, shouldn't be called !
+};
 
-char* loadPakSafe(char* name, int index)
-{
-	char* ptr;
-	ptr = loadPak(name, index);
-	if(!ptr)
-	{
-		theEnd(0,name);
-	}
-	return ptr;
-}
+extern enumCVars AITD1KnownCVars[];
+extern enumCVars AITD2KnownCVars[];
 
-int fileExists(char* name) {
-	FILE* fHandle;
-	
-	fHandle = fopen(name,"rb");
-	
-	if(fHandle)
-	{
-		fclose(fHandle);
-		return 1;
-	}
-	return 0;
-}
+extern enumCVars* currentCVarTable;
+
+int getCVarsIdx(enumCVars);
+			
 } // end of namespace Fitd
+
+#endif

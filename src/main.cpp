@@ -26,10 +26,13 @@
 // 22 septembre 2003 14:25
 
 // seg002
-
+#include "fitd.h"
 #include "common.h"
 
 namespace Fitd {
+	
+// TODO: Move
+FitdEngine *g_fitd;
 
 char scaledScreen[640*400];
 
@@ -87,7 +90,7 @@ int getCVarsIdx(enumCVars searchedType) // TODO: optimize by reversing the table
 {
 	int i;
 	
-	for(i=0;i<numCVars;i++)
+	for(i=0;i<g_fitd->getNumCVars();i++)
 	{
 		if(currentCVarTable[i] == -1)
 		{
@@ -327,7 +330,7 @@ void allocTextes(void)
 	}
 	
 	// setup languageNameString
-	if(gameId == AITD3)
+	if(g_fitd->getGameType() == GType_AITD3)
 	{
 		strcpy(languageNameString,"TEXTES");
 	}
@@ -414,137 +417,6 @@ void allocTextes(void)
 	}
 }
 
-void sysInit(void)
-{
-	int i;
-	
-#ifndef PCLIKE
-	//  unsigned long int ltime;
-#else
-	//  time_t ltime;
-#endif
-	FILE* fHandle;
-	
-	setupScreen();
-	//setupInterrupt();
-	//setupInterrupt2();
-	//setupInterrupt3();
-	
-	//setupVideoMode();
-	
-	// time( &ltime );
-	
-	srand(time(NULL));
-	
-	if(!initMusicDriver())
-	{
-		musicConfigured = 0;
-		musicEnabled = 0;
-	}
-	
-	// TODO: reverse sound init code
-	
-	
-	aux = (char*)malloc(65068);
-	if(!aux)
-	{
-		theEnd(1,"Aux");
-	}
-	
-	aux2 = (char*)malloc(64000);
-	if(!aux2)
-	{
-		theEnd(1,"Aux2");
-	}
-	
-	sysInitSub1(aux2,screen);
-	/*  sysInitSub2(aux2);
-	 sysInitSub3(aux2); */
-	
-	bufferAnim = (char*)malloc(4960);
-	if(!bufferAnim)
-	{
-		theEnd(1,"BufferAnim");
-	}
-	
-	CVars = (short int*)malloc(numCVars * sizeof(short int));
-	
-	switch(gameId)
-	{
-		case JACK:
-		case AITD2:
-		case AITD3:
-		case TIMEGATE:
-		{
-			fontData = loadPakSafe("ITD_RESS",1);
-			break;
-		}
-		case AITD1:
-		{
-			fontData = loadPakSafe("ITD_RESS",5);
-			break;
-		}
-	}
-	
-	initFont(fontData, 14);
-	
-	if(gameId == AITD1)
-	{
-		initFont2(2,0);
-	}
-	else
-	{
-		initFont2(2,1);
-	}
-	
-	switch(gameId)
-	{
-		case JACK:
-		case AITD2:
-		case AITD3:
-		{
-			aitdBoxGfx = loadPakSafe("ITD_RESS",0);
-			break;
-		}
-		case AITD1:
-		{
-			aitdBoxGfx = loadPakSafe("ITD_RESS",4);
-			break;
-		}
-	}
-	
-	priority = loadFromItd("PRIORITY.ITD");
-	
-	fHandle = fopen("DEFINES.ITD","rb");
-	if(!fHandle)
-	{
-		theEnd(0,"DEFINES.ITD");
-	}
-	
-	///////////////////////////////////////////////
-	{
-		fread(CVars,numCVars,2,fHandle);
-		fclose(fHandle);
-		
-		for(i=0;i<numCVars;i++)
-		{
-			CVars[i] = ((CVars[i]&0xFF)<<8) | ((CVars[i]&0xFF00)>>8);
-		}
-	}
-	//////////////////////////////////////////////
-	
-	allocTextes();
-	
-	//  if(musicConfigured)
-	{
-		listMus = HQR_InitRessource("ListMus",110000,40);
-	}
-	
-	listSamp = HQR_InitRessource("ListSamp",64000,30);
-	
-	hqrUnk = HQR_Init(10000,50);
-}
-
 void freeAll(void)
 {
 	/*  HQR_Free(hqrUnk);
@@ -615,7 +487,7 @@ void preloadResource(void)
 {
 	char localPalette[768];
 	
-	if(gameId == AITD2)
+	if(g_fitd->getGameType() == GType_AITD2)
 	{
 		loadPakToPtr("ITD_RESS",59,aux);
 	}
@@ -1245,7 +1117,7 @@ void initEngine(void)
 	maxObjects = READ_LE_U16(pObjectData);
 	pObjectData+=2;
 	
-	if(gameId == AITD1)
+	if(g_fitd->getGameType() == GType_AITD1)
 	{
 		objectTable = (objectStruct*)malloc(300*sizeof(objectStruct));
 	}
@@ -1334,7 +1206,7 @@ void initEngine(void)
 		objectTable[i].positionInTrack = READ_LE_U16(pObjectData);
 		pObjectData+=2;
 		
-		if(gameId >= JACK)
+		if(g_fitd->getGameType() >= GType_JACK)
 		{
 			objectTable[i].mark = READ_LE_U16(pObjectData);
 			pObjectData+=2;
@@ -1386,7 +1258,7 @@ void initEngine(void)
 	
 	varSize = fileSize;
 	
-	if(gameId == AITD1)
+	if(g_fitd->getGameType() == GType_AITD1)
 	{
 		choosePersoBackup = CVars[getCVarsIdx(CHOOSE_PERSO)]; // backup hero selection
 	}
@@ -1399,17 +1271,17 @@ void initEngine(void)
 	
 	///////////////////////////////////////////////
 	{
-		fread(CVars,numCVars,2,fHandle);
+		fread(CVars,g_fitd->getNumCVars(),2,fHandle);
 		fclose(fHandle);
 		
-		for(i=0;i<numCVars;i++)
+		for(i=0;i<g_fitd->getNumCVars();i++)
 		{
 			CVars[i] = ((CVars[i]&0xFF)<<8) | ((CVars[i]&0xFF00)>>8);
 		}
 	}
 	//////////////////////////////////////////////
 	
-	if(gameId == AITD1)
+	if(g_fitd->getGameType() == GType_AITD1)
 	{
 		CVars[getCVarsIdx(CHOOSE_PERSO)] = choosePersoBackup;
 	}
@@ -1419,7 +1291,7 @@ void initEngine(void)
 	
 	// TODO: missing dos memory check here
 	
-	if(gameId == AITD1)
+	if(g_fitd->getGameType() == GType_AITD1)
 	{
 		listBody = HQR_InitRessource(listBodySelect[CVars[getCVarsIdx(CHOOSE_PERSO)]],100000, 50); // was calculated from free mem size
 		listAnim = HQR_InitRessource(listAnimSelect[CVars[getCVarsIdx(CHOOSE_PERSO)]],100000, 50); // was calculated from free mem size
@@ -1438,7 +1310,7 @@ void initEngine(void)
 		actorTable[i].field_0 = -1;
 	}
 	
-	if(gameId == AITD1)
+	if(g_fitd->getGameType() == GType_AITD1)
 	{
 		currentCameraTarget = CVars[getCVarsIdx(WORLD_NUM_PERSO)];
 	}
@@ -1457,7 +1329,7 @@ void initVarsSub1(void)
 void initVars()
 {
 	giveUp = 0;
-	if(gameId == AITD1)
+	if(g_fitd->getGameType() == GType_AITD1)
 	{
 		inHand = -1;
 		numObjInInventory = 0;
@@ -1506,7 +1378,7 @@ void loadCamera(int cameraIdx)
 	sprintf(name,"CAMERA%02d",currentEtage);
 	//strcat(name,".PAK");
 	
-	if(gameId == AITD1)
+	if(g_fitd->getGameType() == GType_AITD1)
 	{
 		if(CVars[getCVarsIdx(LIGHT_OBJECT)]==1)
 		{
@@ -1547,16 +1419,16 @@ void loadCamera(int cameraIdx)
 		theEnd(0,name);
 	}
 	
-	if(gameId == AITD3)
+	if(g_fitd->getGameType() == GType_AITD3)
 	{
 		memmove(aux,aux+4,64000+0x300);
 	}
 	
-	if(gameId >= JACK)
+	if(g_fitd->getGameType() >= GType_JACK)
 	{
 		copyPalette(aux+64000,palette);
 		
-		if(gameId == AITD3)
+		if(g_fitd->getGameType() == GType_AITD3)
 		{
 			//memcpy(palette,defaultPaletteAITD3,0x30);
 		}
@@ -1717,7 +1589,7 @@ void updateAllActorAndObjectsSub1(int index) // remove actor
 			{
 				objectPtr->trackNumber = actorPtr->trackNumber;
 				objectPtr->positionInTrack = actorPtr->positionInTrack;
-				if(gameId != AITD1)
+				if(g_fitd->getGameType() != GType_AITD1)
 				{
 					objectPtr->mark = actorPtr->MARK;
 				}
@@ -1972,7 +1844,7 @@ int updateActorAitd2Only(int actorIdx)
 {
 	actorStruct *currentActor = &actorTable[actorIdx];
 	
-	if(gameId == AITD1)
+	if(g_fitd->getGameType() == GType_AITD1)
 	{
 		return 0;
 	}
@@ -2183,7 +2055,7 @@ void updateAllActorAndObjectsAITD2()
 							
 							currentProcessedActorPtr->positionInTrack = currentObject->positionInTrack;
 							
-							if(gameId != AITD1)
+							if(g_fitd->getGameType() != GType_AITD1)
 							{
 								currentProcessedActorPtr->MARK = currentObject->mark;
 							}
@@ -2213,7 +2085,7 @@ void updateAllActorAndObjects()
 	actorStruct *currentActor = actorTable;
 	objectStruct* currentObject;
 	
-	if(gameId >= JACK)
+	if(g_fitd->getGameType() >= GType_JACK)
 	{
 		updateAllActorAndObjectsAITD2();
 		return;
@@ -3567,7 +3439,7 @@ void mainDraw(int mode)
 			
 			if(BBox3D1<=319 && BBox3D2<=199 && BBox3D3>=0 && BBox3D4>=0) // is the character on screen ?
 			{
-				if(gameId == AITD1)
+				if(g_fitd->getGameType() == GType_AITD1)
 				{
 					if(actorPtr->field_0 == CVars[getCVarsIdx(LIGHT_OBJECT)])
 					{
@@ -3580,7 +3452,7 @@ void mainDraw(int mode)
 				if(backgroundMode == backgroundModeEnum_2D)
 #endif
 				{
-					if(gameId == AITD1)
+					if(g_fitd->getGameType() == GType_AITD1)
 						drawBgOverlay(actorPtr);
 				}
 				//addToRedrawBox();
@@ -4401,7 +4273,7 @@ void processActor1(void)
 					currentProcessedActorPtr->HARD_COL = 255;
 				}
 				
-				if(gameId == AITD1 || (gameId>=JACK && (var_3E->type != 10 || currentProcessedActorIdx != genVar9)))
+				if(g_fitd->getGameType() == GType_AITD1 || (g_fitd->getGameType()>=GType_JACK && (var_3E->type != 10 || currentProcessedActorIdx != genVar9)))
 				{
 					if(var_52 || var_50) // move on the X or Y axis ? update to avoid entering the hard col
 					{
@@ -4452,7 +4324,7 @@ void processActor1(void)
 			
 			if(actorTouchedPtr->bitField.tackable) // takable
 			{
-				if(currentProcessedActorPtr->trackMode == 1 /*&& ((gameId == AITD1 && defines.field_1E == 0) || (gameId >= JACK && defines.field_6 == 0))*/) // TODO: check if character isn't dead...
+				if(currentProcessedActorPtr->trackMode == 1 /*&& ((g_fitd->getGameType() == GType_AITD1 && defines.field_1E == 0) || (g_fitd->getGameType() >= GType_JACK && defines.field_6 == 0))*/) // TODO: check if character isn't dead...
 				{
 					foundObject(actorTouchedPtr->field_0, 0);
 				}
@@ -4973,7 +4845,7 @@ void processActor2()
 		}
 		case 8:
 		{
-			if(gameId != AITD1)
+			if(g_fitd->getGameType() != GType_AITD1)
 			{
 				currentProcessedActorPtr->hardMat = (short)ptr->parameter;
 			}
@@ -5313,72 +5185,6 @@ void configureHqrHero(hqrEntryStruct* hqrPtr, char* name)
 	strncpy(hqrPtr->string,name,8);
 }
 
-int fileExists(char* name)
-{
-	FILE* fHandle;
-	
-	fHandle = fopen(name,"rb");
-	
-	if(fHandle)
-	{
-		fclose(fHandle);
-		return 1;
-	}
-	return 0;
-}
-
-void detectGame(void)
-{
-	if(fileExists("LISTBOD2.PAK"))
-	{
-		gameId = AITD1;
-		numCVars = 45;
-		currentCVarTable = AITD1KnownCVars;
-		
-		printf("Detected Alone in the Dark 1\n");
-		return;
-	}
-	if(fileExists("PERE.PAK"))
-	{
-		gameId = JACK;
-		numCVars = 70;
-		currentCVarTable = AITD2KnownCVars;
-		
-		printf("Detected Jack in the Dark\n");
-		return;
-	}
-	if(fileExists("MER.PAK"))
-	{
-		gameId = AITD2;
-		numCVars = 70;
-		currentCVarTable = AITD2KnownCVars;
-		
-		printf("Detected Alone in the Dark 2\n");
-		return;
-	}
-	if(fileExists("AN1.PAK"))
-	{
-		gameId = AITD3;
-		numCVars = 70;
-		currentCVarTable = AITD2KnownCVars;
-		
-		printf("Detected Alone in the Dark 3\n");
-		return;
-	}
-	if(fileExists("PURSUIT.PAK"))
-	{
-		gameId = TIMEGATE;
-		numCVars = 70; // TODO: figure this
-		currentCVarTable = AITD2KnownCVars; // TODO: figure this
-		
-		printf("Detected Time Gate\n");
-		return;
-	}
-	
-	printf("FATAL: Game detection failed...\n");
-	exit(1);
-}
-
 int drawTextOverlay(void)
 {
 	int var_2 = 0;
@@ -5544,17 +5350,17 @@ int main(int argc, char** argv)
 	osystem_initBuffer(scaledScreen,640,400);
 	startThreadTimer();
 	
-	detectGame();
+	g_fitd = new FitdEngine();
 	
-	sysInit();
+	g_fitd->sysInit();
 	
 	paletteFill(palette,0,0,0);
 	
 	preloadResource();
 	
-	switch(gameId)
+	switch(g_fitd->getGameType())
 	{
-		case AITD1:
+		case GType_AITD1:
 		{
 			fadeIn(palette);
 			
@@ -5564,23 +5370,23 @@ int main(int argc, char** argv)
 			}
 			break;
 		}
-		case JACK:
+		case GType_JACK:
 		{
 			startGame(16,1,1);
 			break;
 		}
-		case AITD2:
+		case GType_AITD2:
 		{
 			startGame(8,0,0);
 			break;
 		}
-		case AITD3:
+		case GType_AITD3:
 		{
 			startGame(0,12,1);
 			startGame(0,0,1);
 			break;
 		}
-		case TIMEGATE:
+		case GType_TIMEGATE:
 		{
 			startGame(0,0,1);
 			break;
@@ -5622,29 +5428,29 @@ int main(int argc, char** argv)
 					while(input2)
 						readKeyboard();
 					
-					if(gameId == AITD1)
+					if(g_fitd->getGameType() == GType_AITD1)
 					{
 						CVars[getCVarsIdx(CHOOSE_PERSO)] = 0;
 					}
 					
-					switch(gameId)
+					switch(g_fitd->getGameType())
 					{
-						case JACK:
+						case GType_JACK:
 						{
 							startGame(16,1,0);
 							break;
 						}
-						case AITD2:
+						case GType_AITD2:
 						{
 							startGame(8,7,1);
 							break;
 						}
-						case AITD3:
+						case GType_AITD3:
 						{
 							startGame(0,12,1);
 							break;
 						}
-						case AITD1:
+						case GType_AITD1:
 						{
 							startGame(7,1,0);
 							
