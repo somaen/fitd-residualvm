@@ -54,9 +54,9 @@ void loadFloor(int floorNumber)
   for(i=0;i<expectedNumberOfRoom;i++)
   {
     u32 j;
-    u8* roomData;
-    u8* hardColData;
-    u8* sceZoneData;
+    char* roomData;
+    char* hardColData;
+    char* sceZoneData;
     roomDataStruct* currentRoomDataPtr;
 
     if(roomDataTable)
@@ -201,7 +201,7 @@ void loadFloor(int floorNumber)
   {
     int k;
     unsigned int offset;
-    unsigned char* currentCameraData;
+    char* currentCameraData;
 
     if(gameId >= AITD3)
     {
@@ -228,7 +228,7 @@ void loadFloor(int floorNumber)
     // load cameras
     if(offset<cameraDataSize)
     {
-      unsigned char* backupDataPtr;
+      char* backupDataPtr;
 
       if(gameId<AITD3)
       {
@@ -278,7 +278,7 @@ void loadFloor(int floorNumber)
 
         // load camera zone
         {
-          unsigned char* pZoneData;
+          char* pZoneData;
           int numZones;
           int j;
 

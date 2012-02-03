@@ -76,7 +76,7 @@ void processSystemMenu(void)
     flushScreen();
 
     drawSystemMenuLayout(currentSelectedEntry);
-    osystem_CopyBlockPhys(screen,0,0,320,200);
+    osystem_CopyBlockPhys((unsigned char*)screen,0,0,320,200);
     osystem_startFrame();
 
     if(lightVar1)

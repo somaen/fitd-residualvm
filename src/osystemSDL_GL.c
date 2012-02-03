@@ -270,15 +270,15 @@ void osystem_init()  // that's the constructor of the system dependent
   tobj = gluNewTess(); 
 
   // Set callback functions
-  gluTessCallback(tobj, GLU_TESS_VERTEX, vertexCallback);
-  gluTessCallback(tobj, GLU_TESS_BEGIN, glBegin);
+  gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid (*)())vertexCallback);
+  gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid (*)())glBegin);
   gluTessCallback(tobj, GLU_TESS_END, glEnd);
-  gluTessCallback(tobj, GLU_TESS_COMBINE, combineCallback);
+  gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid (*)())combineCallback);
 
-  gluTessCallback(tobj, GLU_TESS_VERTEX, vertexCallback);
-  gluTessCallback(tobj, GLU_TESS_BEGIN, glBegin);
+  gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid (*)())vertexCallback);
+  gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid (*)())glBegin);
   gluTessCallback(tobj, GLU_TESS_END, glEnd);
-  gluTessCallback(tobj, GLU_TESS_COMBINE, combineCallback);
+  gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid (*)())combineCallback);
 
   // init debug font
 #if 0

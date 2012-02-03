@@ -74,22 +74,22 @@ typedef signed long int s32;
 
 enum enumCVars
 {
-  SAMPLE_PAGE,
-  BODY_FLAMME,
-  MAX_WEIGHT_LOADABLE,
-	TEXTE_CREDITS,
-	SAMPLE_TONNERRE,
-	INTRO_DETECTIVE,
-	INTRO_HERITIERE,
-	WORLD_NUM_PERSO,
-	CHOOSE_PERSO,
-	SAMPLE_CHOC,
-	SAMPLE_PLOUF,
-	REVERSE_OBJECT,
-	KILLED_SORCERER,
-	LIGHT_OBJECT,
-	FOG_FLAG,
-	DEAD_PERSO,
+  SAMPLE_PAGE = 0,
+  BODY_FLAMME = 1,
+  MAX_WEIGHT_LOADABLE = 2,
+	TEXTE_CREDITS = 3,
+	SAMPLE_TONNERRE  = 4,
+	INTRO_DETECTIVE = 5,
+	INTRO_HERITIERE = 6,
+	WORLD_NUM_PERSO = 7,
+	CHOOSE_PERSO = 8,
+	SAMPLE_CHOC = 9,
+	SAMPLE_PLOUF = 10,
+	REVERSE_OBJECT = 11,
+	KILLED_SORCERER = 12,
+	LIGHT_OBJECT = 13,
+	FOG_FLAG = 14,
+	DEAD_PERSO = 15,
   JET_SARBACANE,
   TIR_CANON,
   JET_SCALPEL,
@@ -105,7 +105,7 @@ enum enumCVars
   MATRICE_FORME,
   MATRICE_COULEUR,
 
-  UNKNOWN_CVAR // for table padding, shouldn't be called !
+  UNKNOWN_CVAR = -1 // for table padding, shouldn't be called !
 };
 
 typedef enum enumCVars enumCVars;
@@ -118,7 +118,7 @@ extern enumCVars* currentCVarTable;
 int getCVarsIdx(enumCVars);
 
 //////////////////////
-
+/*
 #define	SAMPLE_PAGE				0
 #define	BODY_FLAMME				1
 #define	MAX_WEIGHT_LOADABLE		2
@@ -134,7 +134,7 @@ int getCVarsIdx(enumCVars);
 #define	KILLED_SORCERER			12
 #define	LIGHT_OBJECT			13
 #define	FOG_FLAG				14
-#define	DEAD_PERSO				15
+#define	DEAD_PERSO				15*/
 
 
 //////////////////
@@ -182,7 +182,7 @@ int triangulate_polygon(int ncontours,int cntr[],double (*vertices)[2],int (*tri
 #include "version.h"
 #include "cosTable.h"
 #include "hqr.h"
-#include "time.h"
+#include "ourtime.h"
 #include "font.h"
 #include "aitdBox.h"
 #include "save.h"
@@ -227,6 +227,7 @@ int triangulate_polygon(int ncontours,int cntr[],double (*vertices)[2],int (*tri
 #endif
 #endif
 
+#include "common/endian.h"
 // Disable byte-swapping for now.
 #ifdef BIG_ENDIAN
 #undef BIG_ENDIAN

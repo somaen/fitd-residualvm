@@ -215,8 +215,8 @@ s32 q=0;
             flipOtherPalette(palette);
           } */
 
-          osystem_setPalette(localPalette);
-          copyPalette(localPalette,palette);
+          osystem_setPalette((char*)localPalette);
+          copyPalette((char*)localPalette,palette);
         }
       }
       else // not first frame
@@ -227,7 +227,7 @@ s32 q=0;
 
         if(frameSize < 64000) // key frame
         {
-          unapckSequenceFrame(screen+4,aux);
+          unapckSequenceFrame((unsigned char*)screen+4,(unsigned char*)aux);
         }
         else // delta frame
         {
@@ -246,7 +246,7 @@ s32 q=0;
       // TODO: here, timming management
       // TODO: fade management
 
-      osystem_CopyBlockPhys(aux,0,0,320,200);
+      osystem_CopyBlockPhys((unsigned char*)aux,0,0,320,200);
       osystem_startFrame();
       flipScreen();
 

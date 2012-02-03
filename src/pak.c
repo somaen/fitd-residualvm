@@ -251,7 +251,7 @@ char* loadPak(char* name, int index)
         fread(compressedDataPtr, pakInfo.discSize, 1, fileHandle);
         ptr = (char *) malloc(pakInfo.uncompressedSize);
 
-        PAK_explode(compressedDataPtr, ptr, pakInfo.discSize, pakInfo.uncompressedSize, pakInfo.info5);
+        PAK_explode((unsigned char*)compressedDataPtr, (unsigned char*)ptr, pakInfo.discSize, pakInfo.uncompressedSize, pakInfo.info5);
 
         free(compressedDataPtr);
         break;
@@ -262,7 +262,7 @@ char* loadPak(char* name, int index)
         fread(compressedDataPtr, pakInfo.discSize, 1, fileHandle);
         ptr = (char *) malloc(pakInfo.uncompressedSize);
 
-        PAK_deflate(compressedDataPtr, ptr, pakInfo.discSize, pakInfo.uncompressedSize);
+        PAK_deflate((unsigned char*)compressedDataPtr, (unsigned char*)ptr, pakInfo.discSize, pakInfo.uncompressedSize);
 
         free(compressedDataPtr);
         break;

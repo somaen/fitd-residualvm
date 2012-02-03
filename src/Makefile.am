@@ -13,7 +13,7 @@ osystem.h osystemSDL.c osystemSDL_GL.c pak.c pak.h polys.c \
 renderer.c renderer.h room.c room.h sequence.c save.c save.h screen.c screen.h \
 startupMenu.c startupMenu.h systemMenu.c systemMenu.h tatou.c tatou.h \
 threadCode.c threadCode.h \
-time.c time.h track.c track.h unpack.c unpack.h vars.c vars.h \
+time.c ourtime.h track.c track.h unpack.c unpack.h vars.c vars.h \
 version.c version.h videoMode.c videoMode.h zv.c zv.h 
 
 

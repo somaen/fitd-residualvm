@@ -5,7 +5,7 @@ int getPosRelTable[] = {4,1,8,2,4,1,8,0};
 int getMatrix(int param1, int actorIdx, int param2)
 {
   int matrixWidth;
-  unsigned char* matrixPtr = HQR_Get(listMatrix,param1);
+  char* matrixPtr = HQR_Get(listMatrix,param1);
 
   matrixWidth = *matrixPtr;
   matrixPtr++;

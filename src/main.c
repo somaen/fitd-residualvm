@@ -8,9 +8,13 @@
 
 #include "common.h"
 
+
 char scaledScreen[640*400];
 
 int input5;
+
+// Quickfix: 
+int fileExists(char* name);
 
 enumCVars AITD1KnownCVars[]=
 {
@@ -30,7 +34,7 @@ enumCVars AITD1KnownCVars[]=
   LIGHT_OBJECT,
   FOG_FLAG,
   DEAD_PERSO,
-  -1
+  UNKNOWN_CVAR
 };
 
 enumCVars AITD2KnownCVars[]=
@@ -52,7 +56,7 @@ enumCVars AITD2KnownCVars[]=
   TYPE_INVENTAIRE,
   PROLOGUE,
   POIGNARD,
-  -1
+  UNKNOWN_CVAR
 };
 
 enumCVars* currentCVarTable = NULL;
@@ -393,9 +397,9 @@ void sysInit(void)
   int i;
 
 #ifndef PCLIKE
-  unsigned long int ltime;
+	//  unsigned long int ltime;
 #else
-  time_t ltime;
+	//  time_t ltime;
 #endif
   FILE* fHandle;
 
@@ -406,9 +410,9 @@ void sysInit(void)
 
   //setupVideoMode();
 
-  time( &ltime );
+	// time( &ltime );
 
-  srand(ltime);
+  srand(time(NULL));
 
   if(!initMusicDriver())
   {
@@ -1537,7 +1541,7 @@ void loadCamera(int cameraIdx)
     else
     {
       memcpy(palette,defaultPalette,0x30);
-      convertPaletteIfRequired(palette);
+      convertPaletteIfRequired((unsigned char*)palette);
     }
 
     osystem_setPalette(palette);
@@ -5165,9 +5169,9 @@ void throwStoppedAt(int x, int z)
   ZVStruct zvLocal;
   u8* bodyPtr;
 
-  bodyPtr = HQR_Get(listBody,currentProcessedActorPtr->bodyNum);
+  bodyPtr = (u8*)HQR_Get(listBody,currentProcessedActorPtr->bodyNum);
 
-  getZvNormal(bodyPtr,&zvLocal);
+  getZvNormal((char*)bodyPtr,&zvLocal);
 
   x2 = x;
   y2 = (currentProcessedActorPtr->roomY/2000)*2000;
@@ -5237,7 +5241,7 @@ void throwStoppedAt(int x, int z)
   currentProcessedActorPtr->speed = 0;
   currentProcessedActorPtr->gamma = 0;
 
-  getZvNormal(bodyPtr,&currentProcessedActorPtr->zv);
+  getZvNormal((char*)bodyPtr,&currentProcessedActorPtr->zv);
 
   currentProcessedActorPtr->zv.ZVX1 += x2;
   currentProcessedActorPtr->zv.ZVX2 += x2;

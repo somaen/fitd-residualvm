@@ -1854,7 +1854,7 @@ static FM_OPL *OPLCreate(int type, int clock, int rate)
 #endif
 
 	/* allocate memory block */
-	ptr = malloc(state_size);
+	ptr = (char*)malloc(state_size);
 
 	if (ptr==NULL)
 		return NULL;

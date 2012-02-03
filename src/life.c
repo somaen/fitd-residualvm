@@ -9,6 +9,9 @@ short int currentInHand = 0;
 
 int numSequenceParam = 0;
 
+//QUICK-fix, prototype this:
+void playSequence(int sequenceIdx, int fadeStart, int fadeOutVar);
+
 sequenceParamStruct sequenceParams[NUM_MAX_SEQUENCE_PARAM];
 
 void resetRotateParam(void)
@@ -1880,16 +1883,16 @@ processOpcode:
 
             loadPakToPtr("ITD_RESS",ressourceIdx,aux);
 
-            copyPalette(aux+64000,lpalette);
+            copyPalette(aux+64000,(char*)lpalette);
             
             if(gameId < AITD3)
-            convertPaletteIfRequired(lpalette);
+				convertPaletteIfRequired((unsigned char*)lpalette);
 
             fadeOut(0x10,0);
             fadeIn(lpalette);
 
-            osystem_setPalette(lpalette);
-            copyPalette(lpalette,palette);
+            osystem_setPalette((char*)lpalette);
+            copyPalette((char*)lpalette,palette);
 
             copyToScreen(aux,screen);
 
@@ -1901,7 +1904,7 @@ processOpcode:
               process_events();
               readKeyboard();
 
-              osystem_CopyBlockPhys(screen,0,0,320,200);
+              osystem_CopyBlockPhys((unsigned char*)screen,0,0,320,200);
               osystem_startFrame();
               flipScreen();
               

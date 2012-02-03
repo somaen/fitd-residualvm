@@ -223,7 +223,7 @@ char* HQR_Get(hqrEntryStruct* hqrPtr, int index)
     foundEntry->lastTimeUsed = timer;
     //foundEntry[hqrPtr->numUsedEntry].offset = hqrPtr->maxFreeData - hqrPtr->sizeFreeData;
     foundEntry->size = size;
-    foundEntry->ptr = malloc(size);
+    foundEntry->ptr = (char*)malloc(size);
 
     ptr = foundEntry->ptr;
 
