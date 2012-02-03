@@ -243,12 +243,12 @@ void getHardClip()
 	{
 		ZVStruct zvCol;
 		
-		zvCol.ZVX1 = READ_LE_S16(etageData+0x00);
-		zvCol.ZVX2 = READ_LE_S16(etageData+0x02);
-		zvCol.ZVY1 = READ_LE_S16(etageData+0x04);
-		zvCol.ZVY2 = READ_LE_S16(etageData+0x06);
-		zvCol.ZVZ1 = READ_LE_S16(etageData+0x08);
-		zvCol.ZVZ2 = READ_LE_S16(etageData+0x0A);
+		zvCol.ZVX1 = (int16)READ_LE_UINT16(etageData+0x00);
+		zvCol.ZVX2 = (int16)READ_LE_UINT16(etageData+0x02);
+		zvCol.ZVY1 = (int16)READ_LE_UINT16(etageData+0x04);
+		zvCol.ZVY2 = (int16)READ_LE_UINT16(etageData+0x06);
+		zvCol.ZVZ1 = (int16)READ_LE_UINT16(etageData+0x08);
+		zvCol.ZVZ2 = (int16)READ_LE_UINT16(etageData+0x0A);
 		
 		if(checkZvCollision(zvPtr, &zvCol))
 		{
@@ -1983,9 +1983,9 @@ void processLife(int lifeNum)
 					
 					for(i=0;i<numParams;i++)
 					{
-						sequenceParams[i].frame = READ_LE_U16(currentLifePtr);
+						sequenceParams[i].frame = READ_LE_UINT16(currentLifePtr);
 						currentLifePtr+=2;
-						sequenceParams[i].sample = READ_LE_U16(currentLifePtr);
+						sequenceParams[i].sample = READ_LE_UINT16(currentLifePtr);
 						currentLifePtr+=2;
 					}
 					

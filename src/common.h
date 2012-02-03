@@ -136,20 +136,6 @@ int triangulate_polygon(int ncontours,int cntr[],double (*vertices)[2],int (*tri
 #undef BIG_ENDIAN
 #endif
 
-FORCEINLINE uint16 READ_LE_U16(void *ptr)
-{
-#ifdef BIG_ENDIAN
-  return (((u8*)ptr)[1]<<8)|((u8*)ptr)[0];
-#else
-  return *(uint16*)ptr;
-#endif
-}
-
-FORCEINLINE int16 READ_LE_S16(void *ptr)
-{
-  return (int16)READ_LE_U16(ptr);
-}
-
 FORCEINLINE uint16 READ_BE_U16(void *ptr)
 {
 #ifdef BIG_ENDIAN
@@ -164,20 +150,6 @@ FORCEINLINE int16 READ_BE_S16(void *ptr)
   return (int16)READ_BE_S16(ptr);
 }
 
-FORCEINLINE uint32 READ_LE_U32(void *ptr)
-{
-#ifdef BIG_ENDIAN
-  return (((u8*)ptr)[3]<<24)|(((u8*)ptr)[2]<<16)|(((u8*)ptr)[1]<<8)|((u8*)ptr)[0];
-#else
-  return *(uint32*)ptr;
-#endif
-}
-
-FORCEINLINE int32 READ_LE_S32(void *ptr)
-{
-  return (int32)READ_LE_U32(ptr);
-}
-
 FORCEINLINE uint32 READ_BE_U32(void *ptr)
 {
 #ifdef BIG_ENDIAN
@@ -185,11 +157,6 @@ FORCEINLINE uint32 READ_BE_U32(void *ptr)
 #else
   return (((uint8*)ptr)[3]<<24)|(((uint8*)ptr)[2]<<16)|(((uint8*)ptr)[1]<<8)|((uint8*)ptr)[0];
 #endif
-}
-
-FORCEINLINE int32 READ_BE_S32(void *ptr)
-{
-  return (int32)READ_LE_U32(ptr);
 }
 
 #endif

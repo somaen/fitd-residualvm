@@ -1113,7 +1113,7 @@ void initEngine(void)
 	fread(pObjectData,objectDataSize,1,fHandle);
 	fclose(fHandle);
 	
-	maxObjects = READ_LE_U16(pObjectData);
+	maxObjects = READ_LE_UINT16(pObjectData);
 	pObjectData+=2;
 	
 	if(g_fitd->getGameType() == GType_AITD1)
@@ -1127,87 +1127,87 @@ void initEngine(void)
 	
 	for(i=0;i<maxObjects;i++)
 	{
-		objectTable[i].ownerIdx = READ_LE_U16(pObjectData);
+		objectTable[i].ownerIdx = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].body = READ_LE_U16(pObjectData);
+		objectTable[i].body = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].flags = READ_LE_U16(pObjectData);
+		objectTable[i].flags = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].field_6 = READ_LE_U16(pObjectData);
+		objectTable[i].field_6 = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].foundBody = READ_LE_U16(pObjectData);
+		objectTable[i].foundBody = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].foundName = READ_LE_U16(pObjectData);
+		objectTable[i].foundName = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].flags2 = READ_LE_U16(pObjectData);
+		objectTable[i].flags2 = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].foundLife = READ_LE_U16(pObjectData);
+		objectTable[i].foundLife = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].x = READ_LE_U16(pObjectData);
+		objectTable[i].x = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].y = READ_LE_U16(pObjectData);
+		objectTable[i].y = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].z = READ_LE_U16(pObjectData);
+		objectTable[i].z = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].alpha = READ_LE_U16(pObjectData);
+		objectTable[i].alpha = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].beta = READ_LE_U16(pObjectData);
+		objectTable[i].beta = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].gamma = READ_LE_U16(pObjectData);
+		objectTable[i].gamma = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].stage = READ_LE_U16(pObjectData);
+		objectTable[i].stage = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].room = READ_LE_U16(pObjectData);
+		objectTable[i].room = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].lifeMode = READ_LE_U16(pObjectData);
+		objectTable[i].lifeMode = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].life = READ_LE_U16(pObjectData);
+		objectTable[i].life = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].field_24 = READ_LE_U16(pObjectData);
+		objectTable[i].field_24 = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].anim = READ_LE_U16(pObjectData);
+		objectTable[i].anim = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].frame = READ_LE_U16(pObjectData);
+		objectTable[i].frame = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].animType = READ_LE_U16(pObjectData);
+		objectTable[i].animType = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].animInfo = READ_LE_U16(pObjectData);
+		objectTable[i].animInfo = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].trackMode = READ_LE_U16(pObjectData);
+		objectTable[i].trackMode = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].trackNumber = READ_LE_U16(pObjectData);
+		objectTable[i].trackNumber = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
-		objectTable[i].positionInTrack = READ_LE_U16(pObjectData);
+		objectTable[i].positionInTrack = READ_LE_UINT16(pObjectData);
 		pObjectData+=2;
 		
 		if(g_fitd->getGameType() >= GType_JACK)
 		{
-			objectTable[i].mark = READ_LE_U16(pObjectData);
+			objectTable[i].mark = READ_LE_UINT16(pObjectData);
 			pObjectData+=2;
 		}
 		objectTable[i].flags |= 0x20;
@@ -2846,12 +2846,12 @@ void drawZone(char* zoneData,int color)
 	cameraZv.ZVZ1 += translateZ;
 	cameraZv.ZVZ2 += translateZ;
 	
-	tempZv.ZVX1 = READ_LE_S16(zoneData+0x00);
-	tempZv.ZVX2 = READ_LE_S16(zoneData+0x02);
-	tempZv.ZVY1 = READ_LE_S16(zoneData+0x04);
-	tempZv.ZVY2 = READ_LE_S16(zoneData+0x06);
-	tempZv.ZVZ1 = READ_LE_S16(zoneData+0x08);
-	tempZv.ZVZ2 = READ_LE_S16(zoneData+0x0A);
+	tempZv.ZVX1 = (int16)READ_LE_UINT16(zoneData+0x00);
+	tempZv.ZVX2 = (int16)READ_LE_UINT16(zoneData+0x02);
+	tempZv.ZVY1 = (int16)READ_LE_UINT16(zoneData+0x04);
+	tempZv.ZVY2 = (int16)READ_LE_UINT16(zoneData+0x06);
+	tempZv.ZVZ1 = (int16)READ_LE_UINT16(zoneData+0x08);
+	tempZv.ZVZ2 = (int16)READ_LE_UINT16(zoneData+0x0A);
 	
 	if(checkZvCollision(&cameraZv,&tempZv))
 	{

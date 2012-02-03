@@ -1263,11 +1263,11 @@ int renderModel(int x,int y,int z,int alpha,int beta,int gamma,void* modelPtr)
 	
 	renderVar2 = renderBuffer;
 	
-	modelFlags = READ_LE_S16(ptr);
+	modelFlags = (int16)READ_LE_UINT16(ptr);
 	ptr+=2;
 	ptr+=12;
 	
-	ptr+=READ_LE_S16(ptr) + 2;
+	ptr+=(int16)READ_LE_UINT16(ptr) + 2;
 	
 	if(modelFlags&2)
 	{
@@ -1304,7 +1304,7 @@ int renderModel(int x,int y,int z,int alpha,int beta,int gamma,void* modelPtr)
 		}
 	
 	ptr = tempOutPtr;
-	numPrim = READ_LE_S16(ptr);
+	numPrim = (int16)READ_LE_UINT16(ptr);
 	ptr+=2;
 	
 	if(!numPrim)
@@ -1349,7 +1349,7 @@ int renderModel(int x,int y,int z,int alpha,int beta,int gamma,void* modelPtr)
 		
 		for(j=0;j<numOfPolyToRender;j++)
 		{
-			int depth = READ_LE_S16(readBuffer);
+			int depth = (int16)READ_LE_UINT16(readBuffer);
 			
 			if(depth>bestDepth)
 			{
@@ -1421,11 +1421,11 @@ void computeScreenBox(int x, int y, int z, int alpha, int beta, int gamma, char*
 	
 	renderVar2 = renderBuffer;
 	
-	modelFlags = READ_LE_S16(ptr);
+	modelFlags = (int16)READ_LE_UINT16(ptr);
 	ptr+=2;
 	ptr+=12;
 	
-	ptr+=READ_LE_S16(ptr) + 2;
+	ptr+=(int16)READ_LE_UINT16(ptr) + 2;
 	
 	if(modelFlags&2)
 	{

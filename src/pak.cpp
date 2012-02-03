@@ -45,9 +45,9 @@ void readPakInfo(pakInfoStruct* pPakInfo, FILE* fileHandle)
 	fread(&pPakInfo->info5,1,1,fileHandle);
 	fread(&pPakInfo->offset,2,1,fileHandle);
 	
-	pPakInfo->discSize = READ_LE_U32(&pPakInfo->discSize);
-	pPakInfo->uncompressedSize = READ_LE_U32(&pPakInfo->uncompressedSize);
-	pPakInfo->offset = READ_LE_U16(&pPakInfo->offset);
+	pPakInfo->discSize = READ_LE_UINT32(&pPakInfo->discSize);
+	pPakInfo->uncompressedSize = READ_LE_UINT32(&pPakInfo->uncompressedSize);
+	pPakInfo->offset = READ_LE_UINT16(&pPakInfo->offset);
 }
 
 unsigned int PAK_getNumFiles(char* name)
@@ -68,7 +68,7 @@ unsigned int PAK_getNumFiles(char* name)
 	fseek(fileHandle,4,SEEK_CUR);
 	fread(&fileOffset,4,1,fileHandle);
 #ifdef MACOSX
-	fileOffset = READ_LE_U32(&fileOffset);
+	fileOffset = READ_LE_UINT32(&fileOffset);
 #endif
 	fclose(fileHandle);
 	
@@ -151,13 +151,13 @@ int getPakSize(char* name, int index)
 		
 		fread(&fileOffset,4,1,fileHandle);
 #ifdef MACOSX
-		fileOffset = READ_LE_U32(&fileOffset);
+		fileOffset = READ_LE_UINT32(&fileOffset);
 #endif
 		fseek(fileHandle,fileOffset,SEEK_SET);
 		
 		fread(&additionalDescriptorSize,4,1,fileHandle);
 #ifdef MACOSX
-		additionalDescriptorSize = READ_LE_U32(&additionalDescriptorSize);
+		additionalDescriptorSize = READ_LE_UINT32(&additionalDescriptorSize);
 #endif
 		
 		readPakInfo(&pakInfo,fileHandle);
@@ -232,7 +232,7 @@ char* loadPak(char* name, int index)
 		fread(&fileOffset,4,1,fileHandle);
 		
 #ifdef MACOSX
-		fileOffset = READ_LE_U32(&fileOffset);
+		fileOffset = READ_LE_UINT32(&fileOffset);
 #endif
 		
 		fseek(fileHandle,fileOffset,SEEK_SET);
@@ -240,7 +240,7 @@ char* loadPak(char* name, int index)
 		fread(&additionalDescriptorSize,4,1,fileHandle);
 		
 #ifdef MACOSX
-		additionalDescriptorSize = READ_LE_U32(&additionalDescriptorSize);
+		additionalDescriptorSize = READ_LE_UINT32(&additionalDescriptorSize);
 #endif
 		
 		readPakInfo(&pakInfo,fileHandle);

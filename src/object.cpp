@@ -236,12 +236,12 @@ int copyObjectToActor(int flag2, int var1, int foundName, short int flag, int x,
 							int tempY;
 							int tempZ;
 							
-							zvPtr->ZVX1 = READ_LE_S16(roomDataPtr+0x00);
-							zvPtr->ZVX2 = READ_LE_S16(roomDataPtr+0x02);
-							zvPtr->ZVY1 = READ_LE_S16(roomDataPtr+0x04);
-							zvPtr->ZVY2 = READ_LE_S16(roomDataPtr+0x06);
-							zvPtr->ZVZ1 = READ_LE_S16(roomDataPtr+0x08);
-							zvPtr->ZVZ2 = READ_LE_S16(roomDataPtr+0x0A);
+							zvPtr->ZVX1 = (int16)READ_LE_UINT16(roomDataPtr+0x00);
+							zvPtr->ZVX2 = (int16)READ_LE_UINT16(roomDataPtr+0x02);
+							zvPtr->ZVY1 = (int16)READ_LE_UINT16(roomDataPtr+0x04);
+							zvPtr->ZVY2 = (int16)READ_LE_UINT16(roomDataPtr+0x06);
+							zvPtr->ZVZ1 = (int16)READ_LE_UINT16(roomDataPtr+0x08);
+							zvPtr->ZVZ2 = (int16)READ_LE_UINT16(roomDataPtr+0x0A);
 							
 							x = 0;
 							y = 0;

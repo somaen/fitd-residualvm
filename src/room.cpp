@@ -42,7 +42,7 @@ cameraZoneDefStruct* currentCameraZoneList[NUM_MAX_CAMERA_IN_ROOM];
 
 roomDefStruct* getRoomData(int roomNumber)
 {
-	return (roomDefStruct*)(etageVar0 + READ_LE_U32(etageVar0 + roomNumber * 4));
+	return (roomDefStruct*)(etageVar0 + READ_LE_UINT32(etageVar0 + roomNumber * 4));
 }
 
 int getNumberOfRoom()
@@ -68,11 +68,11 @@ int getNumberOfRoom()
 	else
 	{
 		
-		int numMax = (((READ_LE_U32(etageVar0))/4));
+		int numMax = (((READ_LE_UINT32(etageVar0))/4));
 		
 		for(i=0;i<numMax;i++)
 		{
-			if(etageVar0Size >= READ_LE_U32(etageVar0 + i * 4))
+			if(etageVar0Size >= READ_LE_UINT32(etageVar0 + i * 4))
 			{
 				j++;
 			}
@@ -156,7 +156,7 @@ void loadRoom(int roomNumber)
 		
 		if(g_fitd->getGameType() < GType_AITD3)
 		{
-			roomVar5[i] = etageVar1 + READ_LE_U32(etageVar1 + currentCameraIdx * 4);
+			roomVar5[i] = etageVar1 + READ_LE_UINT32(etageVar1 + currentCameraIdx * 4);
 		}
 		
 		cameraDataTable[i] = &(globalCameraDataTable[currentCameraIdx]);

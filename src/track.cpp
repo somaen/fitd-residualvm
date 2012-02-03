@@ -134,14 +134,14 @@ int GetAngle(int X1, int Y1, int X2, int Y2)
 		ebx += edi;
 		ebx >>= 1;
 		
-		if (eax > READ_LE_S16((void*)ebx))
+		if (eax > (int16)READ_LE_UINT16((void*)ebx))
 		{
 			edi = ebx;
 		}
 		else
 		{
 			esi = ebx;
-			if (eax == READ_LE_S16((void*)ebx))
+			if (eax == (int16)READ_LE_UINT16((void*)ebx))
 			{
 				goto endCalc;
 			}
@@ -150,7 +150,7 @@ int GetAngle(int X1, int Y1, int X2, int Y2)
 		ebx -= esi;
 	}while (--ebx > 2);
 	
-	if ((READ_LE_S16((void*)esi) + READ_LE_S16((void*)edi)) / 2 <= eax)
+	if (((int16)READ_LE_UINT16((void*)esi) + (int16)READ_LE_UINT16((void*)edi)) / 2 <= eax)
 	{
 		esi = edi;
 	}
