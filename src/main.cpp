@@ -5351,9 +5351,8 @@ int main(int argc, char** argv)
 	startThreadTimer();
 	
 	g_fitd = new FitdEngine();
-	
-	g_fitd->sysInit();
-	
+	g_fitd->run();
+
 	paletteFill(palette,0,0,0);
 	
 	preloadResource();

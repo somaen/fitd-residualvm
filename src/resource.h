@@ -18,42 +18,17 @@
  *
  */
 
-#ifndef FITD_FITD_H
-#define FITD_FITD_H
-
-#include <cstdio>
-#include <cstdlib>
-#include "cvars.h"
-#include "common.h"
+#ifndef FITD_RESOURCE_H
+#define FITD_RESOURCE_H
 
 namespace Fitd {
 	
-enum gameType {
-	GType_AITD1 = 1,
-	GType_JACK = 2,
-	GType_AITD2 = 3,
-	GType_AITD3 = 4,
-	GType_TIMEGATE = 5,
-};
-
-void allocTextes(void);
-void sysInitSub1(char* var0, char* var1);
-	
-class FitdEngine {
-	gameType _gameType;
-	enumCVars* _currentCVarTable;
-	int _numCVars;
-
-	void sysInit();
-	void detectGame();
+class ResourceLoader {
 public:
-	FitdEngine();
-	void run();
-	int getGameType() {	return _gameType; }
-	int getNumCVars() {	return _numCVars; }
+	bool getFileExists(const char*);
 };
 
-extern FitdEngine *g_fitd;
+extern ResourceLoader* g_resourceLoader;
 
 } // end of namespace Fitd
 
