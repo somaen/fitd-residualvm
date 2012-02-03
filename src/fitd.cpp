@@ -142,12 +142,12 @@ void FitdEngine::sysInit(void)
 		case GType_AITD3:
 		case GType_TIMEGATE:
 		{
-			fontData = loadPakSafe("ITD_RESS",1);
+			fontData = g_resourceLoader->loadPakSafe("ITD_RESS",1);
 			break;
 		}
 		case GType_AITD1:
 		{
-			fontData = loadPakSafe("ITD_RESS",5);
+			fontData = g_resourceLoader->loadPakSafe("ITD_RESS",5);
 			break;
 		}
 	}
@@ -169,17 +169,17 @@ void FitdEngine::sysInit(void)
 		case GType_AITD2:
 		case GType_AITD3:
 		{
-			aitdBoxGfx = loadPakSafe("ITD_RESS",0);
+			aitdBoxGfx = g_resourceLoader->loadPakSafe("ITD_RESS",0);
 			break;
 		}
 		case GType_AITD1:
 		{
-			aitdBoxGfx = loadPakSafe("ITD_RESS",4);
+			aitdBoxGfx = g_resourceLoader->loadPakSafe("ITD_RESS",4);
 			break;
 		}
 	}
 	
-	priority = loadFromItd("PRIORITY.ITD");
+	priority = g_resourceLoader->loadFromItd("PRIORITY.ITD");
 	
 	fHandle = fopen("DEFINES.ITD","rb");
 	if(!fHandle)

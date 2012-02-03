@@ -26,6 +26,9 @@ namespace Fitd {
 class ResourceLoader {
 public:
 	bool getFileExists(const char*);
+	char* loadFromItd(const char* name);
+	char* loadPakSafe(const char* name, int index);
+	int getFileSize(const char* name);
 };
 
 extern ResourceLoader* g_resourceLoader;

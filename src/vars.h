@@ -302,7 +302,7 @@ extern actorStruct actorTable[NUM_MAX_ACTOR];
 
 extern short int currentCameraTarget;
 
-extern int fileSize;
+	//extern int fileSize;
 
 extern hqrEntryStruct* listBody;
 extern hqrEntryStruct* listAnim;

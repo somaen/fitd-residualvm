@@ -19,6 +19,7 @@
  */
 
 #include "fitd.h"
+#include "resource.h"
 #include "common.h"
 
 namespace Fitd {
@@ -56,8 +57,8 @@ void loadFloor(int floorNumber)
 		etageVar0Size = getPakSize(buffer,0);
 		cameraDataSize = getPakSize(buffer,1);
 		
-		etageVar0 = loadPakSafe(buffer,0);
-		etageVar1 = loadPakSafe(buffer,1);
+		etageVar0 = g_resourceLoader->loadPakSafe(buffer,0);
+		etageVar1 = g_resourceLoader->loadPakSafe(buffer,1);
 	}
 	
 	currentCamera = -1;
@@ -104,7 +105,7 @@ void loadFloor(int floorNumber)
 				sprintf(buffer,"ETAGE%02d",floorNumber);
 			}
 			
-			roomData = loadPakSafe(buffer,i);
+			roomData = g_resourceLoader->loadPakSafe(buffer,i);
 		}
 		else
 		{
@@ -241,7 +242,7 @@ void loadFloor(int floorNumber)
 			
 			offset = 0;
 			cameraDataSize = 1;
-			currentCameraData = loadPakSafe(buffer,i);
+			currentCameraData = g_resourceLoader->loadPakSafe(buffer,i);
 		}
 		else
 		{

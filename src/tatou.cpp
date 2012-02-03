@@ -21,6 +21,7 @@
 // seg 4
 
 #include "osystem.h"
+#include "resource.h"
 #include "common.h"
 
 #ifdef PCLIKE
@@ -388,9 +389,9 @@ int make3dTatou(void)
 	char paletteBackup[768];
 	unsigned int localChrono;
 	
-	tatou2d = loadPakSafe("ITD_RESS",2);
-	tatou3d = loadPakSafe("ITD_RESS",0);
-	tatouPal = loadPakSafe("ITD_RESS",1);
+	tatou2d = g_resourceLoader->loadPakSafe("ITD_RESS",2);
+	tatou3d = g_resourceLoader->loadPakSafe("ITD_RESS",0);
+	tatouPal = g_resourceLoader->loadPakSafe("ITD_RESS",1);
 	
 	time = 8920;
 	deltaTime = 50;

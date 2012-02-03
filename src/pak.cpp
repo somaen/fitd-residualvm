@@ -184,7 +184,7 @@ int getPakSize(char* name, int index)
 #endif
 }
 
-char* loadPak(char* name, int index)
+char* loadPak(const char* name, int index)
 {
 #ifdef USE_UNPACKED_DATA
 	char buffer[256];

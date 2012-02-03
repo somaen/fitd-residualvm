@@ -360,7 +360,7 @@ void allocTextes(void)
 		exit(1);
 	}
 	
-	systemTextes = loadPakSafe(languageNameString, 0); // todo: use real language name
+	systemTextes = g_resourceLoader->loadPakSafe(languageNameString, 0); // todo: use real language name
 	textLength = getPakSize(languageNameString, 0);
 	
 	for(currentIndex=0;currentIndex<NUM_MAX_TEXT_ENTRY;currentIndex++)
@@ -1253,9 +1253,9 @@ void initEngine(void)
 	 fclose(fHandle); */
 	//
 	
-	vars = (short int*)loadFromItd("VARS.ITD");
+	vars = (short int*)g_resourceLoader->loadFromItd("VARS.ITD");
 	
-	varSize = fileSize;
+	varSize = g_resourceLoader->getFileSize("VARS.ITD");
 	
 	if(g_fitd->getGameType() == GType_AITD1)
 	{

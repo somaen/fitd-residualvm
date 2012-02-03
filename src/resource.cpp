@@ -20,6 +20,8 @@
 
 #include <cstdio>
 #include "resource.h"
+#include "pak.h"
+#include "fileAccess.h"
 
 namespace Fitd {
 
@@ -38,4 +40,55 @@ bool ResourceLoader::getFileExists(const char *name) {
 	return 0;
 }
 
+char* ResourceLoader::loadFromItd(const char* name)
+{
+	FILE* fHandle;
+	char* ptr;
+	fHandle = fopen(name,"rb");
+	if(!fHandle)
+	{
+		theEnd(0,name);
+		return NULL;
+	}
+	fseek(fHandle,0,SEEK_END);
+	int fileSize = ftell(fHandle);
+	fseek(fHandle,0,SEEK_SET);
+	ptr = new char[fileSize];
+	
+	if(!ptr)
+	{
+		theEnd(1,name);
+		return NULL;
+	}
+	fread(ptr,fileSize,1,fHandle);
+	fclose(fHandle);
+	return(ptr);
+}
+	
+int ResourceLoader::getFileSize(const char* name) {
+	FILE* fHandle;
+	char* ptr;
+	fHandle = fopen(name,"rb");
+	if(!fHandle)
+	{
+		theEnd(0,name);
+		return NULL;
+	}
+	fseek(fHandle,0,SEEK_END);
+	int fileSize;
+	fileSize = ftell(fHandle);
+	return fileSize;
+}
+
+char* ResourceLoader::loadPakSafe(const char* name, int index)
+{
+	char* ptr;
+	ptr = loadPak(name, index);
+	if(!ptr)
+	{
+		theEnd(0,name);
+	}
+	return ptr;
+}
+	
 } // end of namespace Fitd
