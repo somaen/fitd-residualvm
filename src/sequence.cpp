@@ -177,9 +177,9 @@ void playSequence(int sequenceIdx, int fadeStart, int fadeOutVar)
 #define SLEEP_GRAN 1         /* Granularity of sleep */
 	
 	int frames=0;                   /* Number of frames displayed */
-	s32 t_start,t_left;
-	u32 t_end;
-	s32 q=0; 
+	int32 t_start,t_left;
+	uint32 t_end;
+	int32 q=0; 
 	
 	int var_4 = 1;
 	int var_6 = 0;

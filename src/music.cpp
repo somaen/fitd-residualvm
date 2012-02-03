@@ -38,38 +38,38 @@ void callMusicUpdate(void);
 
 struct channelTable2Element
 {
-	u16 index;
+	uint16 index;
 	struct channelTable2Element *var2;
-	u16 var4;
-	u8* dataPtr;
-	u8* commandPtr;
-	s16 varE;
-	u16 var10;
-	u8 var12;
-	u16 var13;
-	u16 var15;
-	u8 var17;
-	u16 var18;
-	u8 var1A;
-	u8 var1B;
-	u8 var1C;
-	u8 var1D;
-	u8 var1E;
+	uint16 var4;
+	uint8* dataPtr;
+	uint8* commandPtr;
+	int16 varE;
+	uint16 var10;
+	uint8 var12;
+	uint16 var13;
+	uint16 var15;
+	uint8 var17;
+	uint16 var18;
+	uint8 var1A;
+	uint8 var1B;
+	uint8 var1C;
+	uint8 var1D;
+	uint8 var1E;
 };
 
 typedef struct channelTable2Element channelTable2Element;
 
-typedef void(*musicCommandType)(channelTable2Element* entry, int param,u8* ptr);
+typedef void(*musicCommandType)(channelTable2Element* entry, int param,uint8* ptr);
 
 struct channelTableElement
 {
-	u16 var0;
-	u16 var2;
-	u8 var4;
-	u8 var5;
-	u8 var6;
-	u8 var7;
-	u16 var8;
+	uint16 var0;
+	uint16 var2;
+	uint8 var4;
+	uint8 var5;
+	uint8 var6;
+	uint8 var7;
+	uint16 var8;
 };
 
 typedef struct channelTableElement channelTableElement;
@@ -181,7 +181,7 @@ unsigned char channelTableRythme[] =
 unsigned char* channelTable;
 
 // global table is 300 entry long
-u16 globTableEntry[300] = {
+uint16 globTableEntry[300] = {
 	0x157,
 	0x158,
 	0x159,
@@ -484,7 +484,7 @@ u16 globTableEntry[300] = {
 	0x2B0,
 };
 
-u16* globTable[13] = 
+uint16* globTable[13] = 
 {
 	&globTableEntry[0],
 	&globTableEntry[25],
@@ -502,10 +502,10 @@ u16* globTable[13] =
 
 unsigned char musicParam1 = 0;
 
-u8* currentMusicPtr = NULL;
-u8* currentMusicPtr2 = NULL;
-u8* currentMusicPtr3 = NULL;
-u8 generalVolume = 0;
+uint8* currentMusicPtr = NULL;
+uint8* currentMusicPtr2 = NULL;
+uint8* currentMusicPtr3 = NULL;
+uint8 generalVolume = 0;
 
 void sendAdlib(int regIdx, int value)
 {
@@ -572,12 +572,12 @@ void resetChannelFrequency(int channelIdx)
 
 void setupChannelFrequency(int channelIdx, int cl, int dx,int bp)
 {
-	u16* di;
-	u16 frequency;
-	u8 frequencyLow;
-	u8 frequencyHigh;
+	uint16* di;
+	uint16 frequency;
+	uint8 frequencyLow;
+	uint8 frequencyHigh;
 	
-	u8 blockNumber;
+	uint8 blockNumber;
 	
 	if(!(bp&0x8000))
 	{
@@ -656,9 +656,9 @@ int musicStart(void* dummy)
 int musicLoad(void* ptr)
 {
 	int i;
-	u8 flag1;
+	uint8 flag1;
 	
-	u8* musicPtr = (u8*)ptr;
+	uint8* musicPtr = (uint8*)ptr;
 	
 	channelTable = channelTableMelodic;
 	
@@ -677,7 +677,7 @@ int musicLoad(void* ptr)
 	{
 		unsigned long int offset;
 		
-		offset = *((u32*)(musicPtr + i*4 + 8));
+		offset = *((uint32*)(musicPtr + i*4 + 8));
 		
 		if(offset)
 		{
@@ -691,7 +691,7 @@ int musicLoad(void* ptr)
 		channelTable2[i].var4 |= 0x40;
 	}
 	
-	currentMusicPtr = musicPtr + *((u16*)(musicPtr + 0x34));
+	currentMusicPtr = musicPtr + *((uint16*)(musicPtr + 0x34));
 	
 	return 0;
 }
@@ -728,11 +728,11 @@ int getSignature(void* dummy)
 	return 0;
 }
 
-void commandNop(channelTable2Element* entry, int param,u8* ptr)
+void commandNop(channelTable2Element* entry, int param,uint8* ptr)
 {
 }
 
-void command0(channelTable2Element* entry, int param,u8* ptr)
+void command0(channelTable2Element* entry, int param,uint8* ptr)
 {
 	entry->var4 |= 2;
 	
@@ -751,39 +751,39 @@ void command0(channelTable2Element* entry, int param,u8* ptr)
 	entry->var2->var4 &= 0xFFFB;
 }
 
-void command1(channelTable2Element* entry, int param,u8* ptr)
+void command1(channelTable2Element* entry, int param,uint8* ptr)
 {
-	u16 ax;
+	uint16 ax;
 	
-	ax = *(u16*)(ptr-1);
+	ax = *(uint16*)(ptr-1);
 	
 	entry->var10 = entry->varE = ax+entry->var13;
 	
 	entry->commandPtr ++;
 }
 
-void command2(channelTable2Element* entry, int param,u8* ptr)
+void command2(channelTable2Element* entry, int param,uint8* ptr)
 {
 	entry->var18++;
 	entry->var15 = param;
 }
 
-void command3(channelTable2Element* entry, int param,u8* ptr)
+void command3(channelTable2Element* entry, int param,uint8* ptr)
 {
 	entry->var12 = param;
 }
 
-void command4(channelTable2Element* entry, int param,u8* ptr)
+void command4(channelTable2Element* entry, int param,uint8* ptr)
 {
 	entry->var1E = param;
 }
 
-void command5(channelTable2Element* entry, int param,u8* ptr)
+void command5(channelTable2Element* entry, int param,uint8* ptr)
 {
 	entry->var17 = param;
 }
 
-void command6(channelTable2Element* entry, int param,u8* ptr)
+void command6(channelTable2Element* entry, int param,uint8* ptr)
 {
 	exit(1);
 }
@@ -804,7 +804,7 @@ musicCommandType musicCommandTable[10] =
 
 void executeMusicCommand(channelTable2Element* entry)
 {
-	u16 opcode;
+	uint16 opcode;
 	
 	if(entry->var4&0x40)
 		return;
@@ -836,7 +836,7 @@ void executeMusicCommand(channelTable2Element* entry)
 	
 	do
 	{
-		opcode = *(u16*)(entry->commandPtr);
+		opcode = *(uint16*)(entry->commandPtr);
 		entry->commandPtr+=2;
 		
 		ASSERT(musicCommandTable[opcode&0x7F]);
@@ -846,7 +846,7 @@ void executeMusicCommand(channelTable2Element* entry)
 	}while(!(opcode&0x80));
 }
 
-u8 smallTable[] = { 0x10, 8, 4, 2, 1 };
+uint8 smallTable[] = { 0x10, 8, 4, 2, 1 };
 
 void applyDirectFrequency(int index, int param1, int param2, int param3)
 {
@@ -942,7 +942,7 @@ unsigned char smallData2[] =
 };
 
 
-void configChannel(u8 value, u8* data)
+void configChannel(uint8 value, uint8* data)
 {
 	if(smallData2[value] != 0xFF)
 	{
@@ -955,7 +955,7 @@ void configChannel(u8 value, u8* data)
 	sendAdlib(0xE0 + value, data[3]); //  Waveform Select
 }
 
-void changeOuputLevel(u8 value, u8* data,int bp)
+void changeOuputLevel(uint8 value, uint8* data,int bp)
 {
 	int keyScaleLevel;
 	int outputLevel;
@@ -979,11 +979,11 @@ void changeOuputLevel(u8 value, u8* data,int bp)
 void applyMusicCommandToOPL(channelTable2Element* element2, channelTableElement* element)
 {
 	char al;
-	u16 dx;
-	u16 bp;
+	uint16 dx;
+	uint16 bp;
 	
-	u8 operator1;
-	u8 operator2;
+	uint8 operator1;
+	uint8 operator2;
 	
 	if((element2->var4 & 0x40) != element->var2)
 	{

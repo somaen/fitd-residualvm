@@ -11,30 +11,30 @@ namespace Fitd {
 struct hardColStruct
 {
   ZVStruct zv;
-  u32 type;
-  u32 parameter;
+  uint32 type;
+  uint32 parameter;
 };
 
 struct sceZoneStruct
 {
   ZVStruct zv;
-  u32 type;
-  u32 parameter;
+  uint32 type;
+  uint32 parameter;
 };
 
 typedef struct sceZoneStruct sceZoneStruct;
 
 struct cameraZonePointStruct
 {
-  s16 x;
-  s16 y;
+  int16 x;
+  int16 y;
 };
 
 typedef struct cameraZonePointStruct cameraZonePointStruct;
 
 struct cameraZoneEntryStruct
 {
-  u16 numPoints;
+  uint16 numPoints;
 
   cameraZonePointStruct* pointTable;
 };
@@ -43,16 +43,16 @@ typedef struct cameraZoneEntryStruct cameraZoneEntryStruct;
 
 struct cameraZoneDefStruct
 {
-  s16 dummy1;
-  s16 dummy2;
-  s16 dummy3;
-  s16 dummy4;
-  s16 dummy5;
-  s16 dummy6;
-  s16 dummy7;
-  s16 dummy8;
+  int16 dummy1;
+  int16 dummy2;
+  int16 dummy3;
+  int16 dummy4;
+  int16 dummy5;
+  int16 dummy6;
+  int16 dummy7;
+  int16 dummy8;
 
-  u16 numZones;
+  uint16 numZones;
   cameraZoneEntryStruct* cameraZoneEntryTable;
 };
 
@@ -60,19 +60,19 @@ typedef struct cameraZoneDefStruct cameraZoneDefStruct;
 
 struct cameraDataStruct
 {
-  s16 alpha;
-  s16 beta;
-  s16 gamma;
+  int16 alpha;
+  int16 beta;
+  int16 gamma;
 
-  s16 x;
-  s16 y;
-  s16 z;
+  int16 x;
+  int16 y;
+  int16 z;
 
-  s16 focal1;
-  s16 focal2;
-  s16 focal3;
+  int16 focal1;
+  int16 focal2;
+  int16 focal3;
 
-  u16 numCameraZoneDef;
+  uint16 numCameraZoneDef;
 
   cameraZoneDefStruct* cameraZoneDefTable;
 };
@@ -80,19 +80,19 @@ typedef struct cameraDataStruct cameraDataStruct;
 
 struct roomDataStruct
 {
-  u32 numCameraInRoom;
+  uint32 numCameraInRoom;
 
-  u32 numHardCol;
+  uint32 numHardCol;
   hardColStruct* hardColTable;
 
-  u32 numSceZone;
+  uint32 numSceZone;
   sceZoneStruct* sceZoneTable;
 
-  s32 worldX;
-  s32 worldY;
-  s32 worldZ;
+  int32 worldX;
+  int32 worldY;
+  int32 worldZ;
 
-  u16* cameraIdxTable;
+  uint16* cameraIdxTable;
 };
 typedef struct roomDataStruct roomDataStruct;
 

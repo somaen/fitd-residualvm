@@ -60,9 +60,9 @@ void mainLoop(int allowSystemMenu)
 #define SLEEP_GRAN 1         /* Granularity of sleep */
 	
 	int frames=0;                   /* Number of frames displayed */
-	s32 t_start,t_left;
-	u32 t_end;
-	s32 q=0;                     /* Dummy */
+	int32 t_start,t_left;
+	uint32 t_end;
+	int32 q=0;                     /* Dummy */
 	
 	while(input2==0x1B || input2 == 0x1C)
 	{

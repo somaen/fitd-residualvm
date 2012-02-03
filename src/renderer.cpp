@@ -35,7 +35,7 @@ typedef struct rendererPointStruct rendererPointStruct;
 
 rendererPointStruct primPointTable[NUM_MAX_POINT];
 
-u32 positionInPointTable = 0;
+uint32 positionInPointTable = 0;
 
 enum primTypeEnum
 {
@@ -49,7 +49,7 @@ typedef enum primTypeEnum primTypeEnum;
 
 struct primEntryLineStruct
 {
-	u8 color;
+	uint8 color;
 	
 	rendererPointStruct points[2];
 };
@@ -58,9 +58,9 @@ typedef struct primEntryLineStruct primEntryLineStruct;
 
 struct primEntryPolyStruct
 {
-	u16 numOfPoints;
-	u8 color;
-	u8 polyType;
+	uint16 numOfPoints;
+	uint8 color;
+	uint8 polyType;
 	rendererPointStruct* firstPointPtr;
 };
 
@@ -68,7 +68,7 @@ typedef struct primEntryPolyStruct primEntryPolyStruct;
 
 struct primEntryPointStruct
 {
-	u8 color;
+	uint8 color;
 	float X;
 	float Y;
 	float Z;
@@ -78,8 +78,8 @@ typedef struct primEntryPointStruct primEntryPointStruct;
 
 struct primEntryDiscStruct
 {
-	u8 color;
-	u16 size;
+	uint8 color;
+	uint16 size;
 	float X;
 	float Y;
 	float Z;
@@ -106,7 +106,7 @@ typedef struct primEntryStruct primEntryStruct;
 
 primEntryStruct primTable[NUM_MAX_PRIM_ENTRY];
 
-u32 positionInPrimEntry = 0;
+uint32 positionInPrimEntry = 0;
 
 int BBox3D1=0;
 int BBox3D2=0;
@@ -932,7 +932,7 @@ void primFunctionDefault(int primType,char** ptr,char** out)
 void primType0(int primType, char** ptr, char** out) // line tested
 {
 	int i;
-	u8 lineColor;
+	uint8 lineColor;
 	float depth = 32000.f;
 	primEntryStruct* pCurrentPrimEntry = &primTable[positionInPrimEntry];
 	
@@ -947,9 +947,9 @@ void primType0(int primType, char** ptr, char** out) // line tested
 	
 	for(i=0;i<2;i++)
 	{
-		u16 pointIndex;
+		uint16 pointIndex;
 		
-		pointIndex = *(u16*)(*ptr);
+		pointIndex = *(uint16*)(*ptr);
 		(*ptr)+=2;
 		
 		ASSERT((pointIndex%2) == 0);
@@ -974,8 +974,8 @@ void primType1(int primType, char** ptr, char** out) // poly
 {
 	int i;
 	int numOfPointInPoly;
-	u8 polyColor;
-	u8 polyType;
+	uint8 polyColor;
+	uint8 polyType;
 	float depth = 32000.f;
 	
 	rendererPointStruct* pCurrentPoint = &primPointTable[positionInPointTable];
@@ -1001,9 +1001,9 @@ void primType1(int primType, char** ptr, char** out) // poly
 	
 	for(i=0;i<numOfPointInPoly;i++)
 	{
-		u16 pointIndex;
+		uint16 pointIndex;
 		
-		pointIndex = *(u16*)(*ptr);
+		pointIndex = *(uint16*)(*ptr);
 		(*ptr)+=2;
 		
 		ASSERT((pointIndex%2) == 0);
@@ -1029,8 +1029,8 @@ void primType1(int primType, char** ptr, char** out) // poly
 
 void primType2(int primType, char** ptr, char** out) // point
 {
-	u8 pointColor;
-	u16 pointIndex;
+	uint8 pointColor;
+	uint16 pointIndex;
 	float depth = 32000.f;
 	primEntryStruct* pCurrentPrimEntry = &primTable[positionInPrimEntry];
 	
@@ -1042,7 +1042,7 @@ void primType2(int primType, char** ptr, char** out) // point
 	pCurrentPrimEntry->type = primTypeEnum_Point;
 	pCurrentPrimEntry->pointEntry.color = pointColor;
 	
-	pointIndex = *(u16*)(*ptr);
+	pointIndex = *(uint16*)(*ptr);
 	(*ptr)+=2;
 	
 	ASSERT((pointIndex%2) == 0);
@@ -1060,9 +1060,9 @@ void primType2(int primType, char** ptr, char** out) // point
 
 void primType3(int primType, char** ptr, char** out) // sphere
 {
-	u8 discColor;
-	u16 discSize;
-	u16 pointIndex;
+	uint8 discColor;
+	uint16 discSize;
+	uint16 pointIndex;
 	float depth = 32000.f;
 	primEntryStruct* pCurrentPrimEntry = &primTable[positionInPrimEntry];
 	
@@ -1070,14 +1070,14 @@ void primType3(int primType, char** ptr, char** out) // sphere
 	discColor = **ptr;
 	(*ptr)++;
 	(*ptr)++;
-	discSize = *(u16*)(*ptr);
+	discSize = *(uint16*)(*ptr);
 	(*ptr)+=2;
 	
 	pCurrentPrimEntry->type = primTypeEnum_Disc;
 	pCurrentPrimEntry->discEntry.color = discColor;
 	pCurrentPrimEntry->discEntry.size = discSize;
 	
-	pointIndex = *(u16*)(*ptr);
+	pointIndex = *(uint16*)(*ptr);
 	(*ptr)+=2;
 	
 	ASSERT((pointIndex%2) == 0);

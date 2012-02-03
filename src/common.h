@@ -24,13 +24,6 @@
 #else
 #include "common/endian.h"
 #endif
-typedef unsigned char u8;
-typedef unsigned short int u16;
-typedef unsigned long int u32;
-
-typedef signed char s8;
-typedef signed short int s16;
-typedef signed long int s32;
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -126,45 +119,7 @@ int getCVarsIdx(enumCVars);
 
 } // end of namespace Fitd
 
-//////////////////////
-/*
-#define	SAMPLE_PAGE				0
-#define	BODY_FLAMME				1
-#define	MAX_WEIGHT_LOADABLE		2
-#define	TEXTE_CREDITS			3
-#define	SAMPLE_TONNERRE			4
-#define	INTRO_DETECTIVE			5
-#define	INTRO_HERITIERE			6
-#define	WORLD_NUM_PERSO			7
-#define	CHOOSE_PERSO			8
-#define	SAMPLE_CHOC				9
-#define	SAMPLE_PLOUF			10
-#define	REVERSE_OBJECT			11
-#define	KILLED_SORCERER			12
-#define	LIGHT_OBJECT			13
-#define	FOG_FLAG				14
-#define	DEAD_PERSO				15*/
-
-
 //////////////////
-/*
-typedef unsigned char uint8;
-typedef unsigned short uint16;
-typedef unsigned long uint32;
-#ifndef UNIX
-typedef unsigned int uint;
-#endif
-typedef signed char int8;
-typedef signed short int16;
-typedef signed long int32;*/
-
-typedef unsigned char U8;
-typedef unsigned short U16;
-typedef unsigned long U32;
-typedef signed char S8;
-typedef signed short S16;
-typedef signed long S32;
-
 #define TYPE_MASK 0x1D1
 
 #define ANIM_ONCE             0
@@ -224,77 +179,65 @@ int triangulate_polygon(int ncontours,int cntr[],double (*vertices)[2],int (*tri
 
 ////
 
-//typedef unsigned char byte;
-/*
-#ifdef UNIX
-#define FORCEINLINE static inline
-#else
-#ifdef WIN32
-#define FORCEINLINE __forceinline
-#else
-#define FORCEINLINE inline
-#endif
-#endif*/
-
 // Disable byte-swapping for now.
 #ifdef BIG_ENDIAN
 #undef BIG_ENDIAN
 #endif
 
-FORCEINLINE u16 READ_LE_U16(void *ptr)
+FORCEINLINE uint16 READ_LE_U16(void *ptr)
 {
 #ifdef BIG_ENDIAN
   return (((u8*)ptr)[1]<<8)|((u8*)ptr)[0];
 #else
-  return *(u16*)ptr;
+  return *(uint16*)ptr;
 #endif
 }
 
-FORCEINLINE s16 READ_LE_S16(void *ptr)
+FORCEINLINE int16 READ_LE_S16(void *ptr)
 {
-  return (s16)READ_LE_U16(ptr);
+  return (int16)READ_LE_U16(ptr);
 }
 
-FORCEINLINE u16 READ_BE_U16(void *ptr)
+FORCEINLINE uint16 READ_BE_U16(void *ptr)
 {
 #ifdef BIG_ENDIAN
   return *(u16*)ptr;
 #else
-  return (((u8*)ptr)[1]<<8)|((u8*)ptr)[0];
+  return (((uint8*)ptr)[1]<<8)|((uint8*)ptr)[0];
 #endif
 }
 
-FORCEINLINE s16 READ_BE_S16(void *ptr)
+FORCEINLINE int16 READ_BE_S16(void *ptr)
 {
-  return (s16)READ_BE_S16(ptr);
+  return (int16)READ_BE_S16(ptr);
 }
 
-FORCEINLINE u32 READ_LE_U32(void *ptr)
+FORCEINLINE uint32 READ_LE_U32(void *ptr)
 {
 #ifdef BIG_ENDIAN
   return (((u8*)ptr)[3]<<24)|(((u8*)ptr)[2]<<16)|(((u8*)ptr)[1]<<8)|((u8*)ptr)[0];
 #else
-  return *(u32*)ptr;
+  return *(uint32*)ptr;
 #endif
 }
 
-FORCEINLINE s32 READ_LE_S32(void *ptr)
+FORCEINLINE int32 READ_LE_S32(void *ptr)
 {
-  return (s32)READ_LE_U32(ptr);
+  return (int32)READ_LE_U32(ptr);
 }
 
-FORCEINLINE u32 READ_BE_U32(void *ptr)
+FORCEINLINE uint32 READ_BE_U32(void *ptr)
 {
 #ifdef BIG_ENDIAN
   return *(u32*)ptr;
 #else
-  return (((u8*)ptr)[3]<<24)|(((u8*)ptr)[2]<<16)|(((u8*)ptr)[1]<<8)|((u8*)ptr)[0];
+  return (((uint8*)ptr)[3]<<24)|(((uint8*)ptr)[2]<<16)|(((uint8*)ptr)[1]<<8)|((uint8*)ptr)[0];
 #endif
 }
 
-FORCEINLINE s32 READ_BE_S32(void *ptr)
+FORCEINLINE int32 READ_BE_S32(void *ptr)
 {
-  return (s32)READ_LE_U32(ptr);
+  return (int32)READ_LE_U32(ptr);
 }
 
 #endif

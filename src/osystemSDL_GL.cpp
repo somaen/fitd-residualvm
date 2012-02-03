@@ -782,7 +782,7 @@ void osystem_stopModelRender()
 	//glEndList();
 }
 
-void osystem_fillPoly(float* buffer, int numPoint, unsigned char color,u8 polyType)
+void osystem_fillPoly(float* buffer, int numPoint, unsigned char color,uint8 polyType)
 {
 	int i;
 	
@@ -1120,7 +1120,7 @@ void osystem_draw3dQuad(float x1, float y1, float z1, float x2, float y2, float 
 	}
 }
 
-void osystem_drawSphere(float X, float Y, float Z, u8 color, float size)
+void osystem_drawSphere(float X, float Y, float Z, uint8 color, float size)
 {
 	glMatrixMode(GL_MODELVIEW);
 	
@@ -1156,8 +1156,8 @@ void osystem_drawDebugText(const u32 X, const u32 Y, const u8* string)
 		float textX2;
 		float textY2;
 		
-		u8 lineNumber;
-		u8 colNumber;
+		uint8 lineNumber;
+		uint8 colNumber;
 		
 		lineNumber = string[i]>>4;
 		colNumber = string[i]&0xF;

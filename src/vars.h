@@ -73,12 +73,12 @@ struct hqrEntryStruct
 
 struct ZVStruct
 {
-	 s32 ZVX1;
-	 s32 ZVX2;
-	 s32 ZVY1;
-	 s32 ZVY2;
-	 s32 ZVZ1;
-	 s32 ZVZ2;
+	 int32 ZVX1;
+	 int32 ZVX2;
+	 int32 ZVY1;
+	 int32 ZVY2;
+	 int32 ZVZ1;
+	 int32 ZVZ2;
 };
 
 struct rotateStruct
@@ -91,22 +91,22 @@ struct rotateStruct
 
 struct actorFlags
 {
-  u16 flag0x0001:1;
-  u16 flag0x0002:1;
-  u16 flag0x0004:1;
-  u16 flag0x0008:1;
-  u16 flag0x0010:1;
-  u16 flag0x0020:1;
-  u16 flag0x0040:1;
-  u16 tackable:1;
-  u16 flag0x0100:1;
-  u16 flag0x0200:1;
-  u16 flag0x0400:1;
-  u16 flag0x0800:1;
-  u16 flag0x1000:1;
-  u16 flag0x2000:1;
-  u16 flag0x4000:1;
-  u16 flag0x8000:1;
+  uint16 flag0x0001:1;
+  uint16 flag0x0002:1;
+  uint16 flag0x0004:1;
+  uint16 flag0x0008:1;
+  uint16 flag0x0010:1;
+  uint16 flag0x0020:1;
+  uint16 flag0x0040:1;
+  uint16 tackable:1;
+  uint16 flag0x0100:1;
+  uint16 flag0x0200:1;
+  uint16 flag0x0400:1;
+  uint16 flag0x0800:1;
+  uint16 flag0x1000:1;
+  uint16 flag0x2000:1;
+  uint16 flag0x4000:1;
+  uint16 flag0x8000:1;
 };
 
 

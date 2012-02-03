@@ -53,11 +53,11 @@ class OSystem
 	void osystem_startModelRender();
 	void osystem_stopModelRender();
 #ifdef USE_GL
-	void osystem_fillPoly(float* buffer, int numPoint, unsigned char color,u8 polyType);
+	void osystem_fillPoly(float* buffer, int numPoint, unsigned char color,uint8 polyType);
 	void osystem_draw3dLine(float x1, float y1, float z1, float x2, float y2, float z2, unsigned char color);
 	void osystem_draw3dQuad(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4, unsigned char color, int transparency);
 	void osystem_cleanScreenKeepZBuffer();
-  void osystem_drawSphere(float X, float Y, float Z, u8 color, float size);
+  void osystem_drawSphere(float X, float Y, float Z, uint8 color, float size);
 
 	void osystem_startBgPoly();
 	void osystem_endBgPoly();

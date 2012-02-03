@@ -468,7 +468,7 @@ int evalVar(void)
 					}
 					case 0x1B:
 					{
-						return(*(u16*)(((currentCamera+6)*2)+cameraPtr));
+						return(*(uint16*)(((currentCamera+6)*2)+cameraPtr));
 						break;
 					}
 					case 0x1C:
@@ -859,7 +859,7 @@ int evalVar2(void)
 					}
 					case 0x1B:
 					{
-						return(*(u16*)(((currentCamera+6)*2)+cameraPtr));
+						return(*(uint16*)(((currentCamera+6)*2)+cameraPtr));
 						break;
 					}
 					case 0x1C:

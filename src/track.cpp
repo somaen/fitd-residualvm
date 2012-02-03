@@ -458,9 +458,9 @@ void processTrack(void)
 					currentProcessedActorPtr->worldZ = currentProcessedActorPtr->roomZ = *(short int*)(trackPtr);
 					trackPtr += 2;
 					
-					currentProcessedActorPtr->worldX -= (s16)((roomDataTable[currentDisplayedRoom].worldX - roomDataTable[currentProcessedActorPtr->room].worldX) * 10);
-					currentProcessedActorPtr->worldY += (s16)((roomDataTable[currentDisplayedRoom].worldY - roomDataTable[currentProcessedActorPtr->room].worldY) * 10);
-					currentProcessedActorPtr->worldZ += (s16)((roomDataTable[currentDisplayedRoom].worldZ - roomDataTable[currentProcessedActorPtr->room].worldZ) * 10);
+					currentProcessedActorPtr->worldX -= (int16)((roomDataTable[currentDisplayedRoom].worldX - roomDataTable[currentProcessedActorPtr->room].worldX) * 10);
+					currentProcessedActorPtr->worldY += (int16)((roomDataTable[currentDisplayedRoom].worldY - roomDataTable[currentProcessedActorPtr->room].worldY) * 10);
+					currentProcessedActorPtr->worldZ += (int16)((roomDataTable[currentDisplayedRoom].worldZ - roomDataTable[currentProcessedActorPtr->room].worldZ) * 10);
 					
 					currentProcessedActorPtr->zv.ZVX1 += currentProcessedActorPtr->roomX + currentProcessedActorPtr->modX;
 					currentProcessedActorPtr->zv.ZVX2 += currentProcessedActorPtr->roomX + currentProcessedActorPtr->modX;
@@ -949,9 +949,9 @@ void processTrack2(void)
 					currentProcessedActorPtr->worldZ = currentProcessedActorPtr->roomZ = *(short int*)(trackPtr);
 					trackPtr += 2;
 					
-					currentProcessedActorPtr->worldX -= (s16)((roomDataTable[currentDisplayedRoom].worldX - roomDataTable[currentProcessedActorPtr->room].worldX) * 10);
-					currentProcessedActorPtr->worldY += (s16)((roomDataTable[currentDisplayedRoom].worldY - roomDataTable[currentProcessedActorPtr->room].worldY) * 10);
-					currentProcessedActorPtr->worldZ += (s16)((roomDataTable[currentDisplayedRoom].worldZ - roomDataTable[currentProcessedActorPtr->room].worldZ) * 10);
+					currentProcessedActorPtr->worldX -= (int16)((roomDataTable[currentDisplayedRoom].worldX - roomDataTable[currentProcessedActorPtr->room].worldX) * 10);
+					currentProcessedActorPtr->worldY += (int16)((roomDataTable[currentDisplayedRoom].worldY - roomDataTable[currentProcessedActorPtr->room].worldY) * 10);
+					currentProcessedActorPtr->worldZ += (int16)((roomDataTable[currentDisplayedRoom].worldZ - roomDataTable[currentProcessedActorPtr->room].worldZ) * 10);
 					
 					currentProcessedActorPtr->zv.ZVX1 += currentProcessedActorPtr->roomX + currentProcessedActorPtr->modX;
 					currentProcessedActorPtr->zv.ZVX2 += currentProcessedActorPtr->roomX + currentProcessedActorPtr->modX;

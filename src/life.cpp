@@ -140,9 +140,9 @@ int createFlow( int mode, int X, int Y, int Z, int stage, int room, int alpha, i
 	
 	if(currentDisplayedRoom != room)
 	{
-		currentActorPtr->worldX -= (s16)((roomDataTable[currentDisplayedRoom].worldX - roomDataTable[room].worldX)*10);
-		currentActorPtr->worldY += (s16)((roomDataTable[currentDisplayedRoom].worldY - roomDataTable[room].worldY)*10);
-		currentActorPtr->worldZ += (s16)((roomDataTable[currentDisplayedRoom].worldZ - roomDataTable[room].worldZ)*10);
+		currentActorPtr->worldX -= (int16)((roomDataTable[currentDisplayedRoom].worldX - roomDataTable[room].worldX)*10);
+		currentActorPtr->worldY += (int16)((roomDataTable[currentDisplayedRoom].worldY - roomDataTable[room].worldY)*10);
+		currentActorPtr->worldZ += (int16)((roomDataTable[currentDisplayedRoom].worldZ - roomDataTable[room].worldZ)*10);
 	}
 	
 	currentActorPtr->alpha = alpha;
@@ -365,9 +365,9 @@ void setStage(int newStage, int newRoomLocal, int X, int Y, int Z)
 	{
 		if(currentDisplayedRoom != newRoomLocal)
 		{
-			currentProcessedActorPtr->worldX -= (s16)((roomDataTable[currentDisplayedRoom].worldX - roomDataTable[newRoomLocal].worldX)*10);
-			currentProcessedActorPtr->worldY += (s16)((roomDataTable[currentDisplayedRoom].worldY - roomDataTable[newRoomLocal].worldY)*10);
-			currentProcessedActorPtr->worldZ += (s16)((roomDataTable[currentDisplayedRoom].worldZ - roomDataTable[newRoomLocal].worldZ)*10);
+			currentProcessedActorPtr->worldX -= (int16)((roomDataTable[currentDisplayedRoom].worldX - roomDataTable[newRoomLocal].worldX)*10);
+			currentProcessedActorPtr->worldY += (int16)((roomDataTable[currentDisplayedRoom].worldY - roomDataTable[newRoomLocal].worldY)*10);
+			currentProcessedActorPtr->worldZ += (int16)((roomDataTable[currentDisplayedRoom].worldZ - roomDataTable[newRoomLocal].worldZ)*10);
 		}
 		
 		//    objModifFlag1 = 1;

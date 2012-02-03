@@ -1221,8 +1221,8 @@ int makeIntroScreens(void)
 
 void initEngine(void)
 {
-	u8* pObjectData;
-	u8* pObjectDataBackup;
+	uint8* pObjectData;
+	uint8* pObjectDataBackup;
 	unsigned long int objectDataSize;
 	FILE* fHandle;
 	int i;
@@ -1236,7 +1236,7 @@ void initEngine(void)
 	objectDataSize= ftell(fHandle);
 	fseek(fHandle,0,SEEK_SET);
 	
-	pObjectDataBackup = pObjectData = (u8*)malloc(objectDataSize);
+	pObjectDataBackup = pObjectData = (uint8*)malloc(objectDataSize);
 	ASSERT(pObjectData);
 	
 	fread(pObjectData,objectDataSize,1,fHandle);
@@ -1645,7 +1645,7 @@ int setupCameraSub1Sub1(int value)
 // setup visibility list
 void setupCameraSub1()
 {
-	u32 i;
+	uint32 i;
 	int j;
 	int var_10;
 	
@@ -1938,7 +1938,7 @@ void setMoveMode(int trackMode, int trackNumber)
 	}
 }
 
-s16 cameraVisibilityVar = 0;
+int16 cameraVisibilityVar = 0;
 
 int checkRoomAitd2Only(int roomNumber)
 {
@@ -2636,7 +2636,7 @@ void deleteObject(int objIdx)
 void line(int x1, int y1, int x2, int y2, char c);
 
 #ifdef USE_GL
-void drawProjectedLine(s32 x1s, s32 y1s, s32 z1s, s32 x2s, s32 y2s, s32 z2s,int c)
+void drawProjectedLine(int32 x1s, int32 y1s, int32 z1s, int32 x2s, int32 y2s, int32 z2s,int c)
 #else
 void drawProjectedLine(int x1, int y1, int z1, int x2, int y2, int z2,int c)
 #endif
@@ -3052,7 +3052,7 @@ void drawOverlayZone(char* zoneData,int color)
 #ifdef INTERNAL_DEBUGGER
 void drawSceZone(int roomNumber)
 {
-	u32 i;
+	uint32 i;
 	ZVStruct dataLocal;
 	
 	for(i=0;i<roomDataTable[roomNumber].numSceZone;i++)
@@ -3075,7 +3075,7 @@ void drawSceZone(int roomNumber)
 #ifdef INTERNAL_DEBUGGER
 void drawHardCol(int roomNumber)
 {
-	u32 i;
+	uint32 i;
 	ZVStruct dataLocal;
 	
 	for(i=0;i<roomDataTable[roomNumber].numHardCol;i++)
@@ -3994,12 +3994,12 @@ void hardColSuB1Sub1(int flag)
 
 void hardColSuB1(ZVStruct* startZv, ZVStruct* zvPtr2, ZVStruct* zvPtr3)
 {
-	s32 flag = 0;
-	s32 var_8;
-	s32 halfX;
-	s32 halfZ;
-	s32 var_A;
-	s32 var_6;
+	int32 flag = 0;
+	int32 var_8;
+	int32 halfX;
+	int32 halfZ;
+	int32 var_A;
+	int32 var_6;
 	
 	if(startZv->ZVX2 > zvPtr3->ZVX1)
 	{
@@ -4139,7 +4139,7 @@ void hardColSuB1(ZVStruct* startZv, ZVStruct* zvPtr2, ZVStruct* zvPtr3)
 
 int checkForHardCol(ZVStruct* zvPtr, roomDataStruct* pRoomData)
 {
-	u16 i;
+	uint16 i;
 	int hardColVar = 0;
 	hardColStruct* pCurrentEntry = pRoomData->hardColTable;
 	
@@ -4887,7 +4887,7 @@ void checkIfCameraChangeIsRequired(void)
 
 sceZoneStruct* processActor2Sub(int x, int y, int z, roomDataStruct* pRoomData)
 {
-	u32 i;
+	uint32 i;
 	sceZoneStruct* pCurrentZone;  
 	
 	pCurrentZone = pRoomData->sceZoneTable;
@@ -5189,9 +5189,9 @@ void throwStoppedAt(int x, int z)
 	
 	ZVStruct zvCopy;
 	ZVStruct zvLocal;
-	u8* bodyPtr;
+	uint8* bodyPtr;
 	
-	bodyPtr = (u8*)HQR_Get(listBody,currentProcessedActorPtr->bodyNum);
+	bodyPtr = (uint8*)HQR_Get(listBody,currentProcessedActorPtr->bodyNum);
 	
 	getZvNormal((char*)bodyPtr,&zvLocal);
 	

@@ -54,9 +54,9 @@ int copyObjectToActor(int flag2, int var1, int foundName, short int flag, int x,
 	
 	if(room != currentDisplayedRoom)
 	{
-		actorPtr->worldX -= (s16)((roomDataTable[currentDisplayedRoom].worldX - roomDataTable[actorPtr->room].worldX) * 10);
-		actorPtr->worldY += (s16)((roomDataTable[currentDisplayedRoom].worldY - roomDataTable[actorPtr->room].worldY) * 10);
-		actorPtr->worldZ += (s16)((roomDataTable[currentDisplayedRoom].worldZ - roomDataTable[actorPtr->room].worldZ) * 10);
+		actorPtr->worldX -= (int16)((roomDataTable[currentDisplayedRoom].worldX - roomDataTable[actorPtr->room].worldX) * 10);
+		actorPtr->worldY += (int16)((roomDataTable[currentDisplayedRoom].worldY - roomDataTable[actorPtr->room].worldY) * 10);
+		actorPtr->worldZ += (int16)((roomDataTable[currentDisplayedRoom].worldZ - roomDataTable[actorPtr->room].worldZ) * 10);
 	}
 	
 	actorPtr->alpha = alpha;
