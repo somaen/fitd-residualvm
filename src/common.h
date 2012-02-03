@@ -17,6 +17,13 @@
 #define USE_GL
 #endif
 
+#ifdef HAVE_CONFIG_H
+#undef HAVE_CONFIG_H
+#include "common/endian.h"
+#define HAVE_CONFIG_H
+#else
+#include "common/endian.h"
+#endif
 typedef unsigned char u8;
 typedef unsigned short int u16;
 typedef unsigned long int u32;
@@ -140,7 +147,7 @@ int getCVarsIdx(enumCVars);
 
 
 //////////////////
-
+/*
 typedef unsigned char uint8;
 typedef unsigned short uint16;
 typedef unsigned long uint32;
@@ -149,7 +156,7 @@ typedef unsigned int uint;
 #endif
 typedef signed char int8;
 typedef signed short int16;
-typedef signed long int32;
+typedef signed long int32;*/
 
 typedef unsigned char U8;
 typedef unsigned short U16;
@@ -218,7 +225,7 @@ int triangulate_polygon(int ncontours,int cntr[],double (*vertices)[2],int (*tri
 ////
 
 //typedef unsigned char byte;
-
+/*
 #ifdef UNIX
 #define FORCEINLINE static inline
 #else
@@ -227,9 +234,8 @@ int triangulate_polygon(int ncontours,int cntr[],double (*vertices)[2],int (*tri
 #else
 #define FORCEINLINE inline
 #endif
-#endif
+#endif*/
 
-#include "common/endian.h"
 // Disable byte-swapping for now.
 #ifdef BIG_ENDIAN
 #undef BIG_ENDIAN
