@@ -58,9 +58,6 @@ enum enumCVars {
 	UNKNOWN_CVAR = -1 // for table padding, shouldn't be called !
 };
 
-extern enumCVars AITD1KnownCVars[];
-extern enumCVars AITD2KnownCVars[];
-
 extern enumCVars *currentCVarTable;
 
 int getCVarsIdx(enumCVars);

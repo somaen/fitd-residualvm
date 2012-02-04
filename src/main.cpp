@@ -43,64 +43,11 @@ char scaledScreen[640*400];
 
 int input5;
 
-enumCVars AITD1KnownCVars[] = {
-	SAMPLE_PAGE,
-	BODY_FLAMME,
-	MAX_WEIGHT_LOADABLE,
-	TEXTE_CREDITS,
-	SAMPLE_TONNERRE,
-	INTRO_DETECTIVE,
-	INTRO_HERITIERE,
-	WORLD_NUM_PERSO,
-	CHOOSE_PERSO,
-	SAMPLE_CHOC,
-	SAMPLE_PLOUF,
-	REVERSE_OBJECT,
-	KILLED_SORCERER,
-	LIGHT_OBJECT,
-	FOG_FLAG,
-	DEAD_PERSO,
-	UNKNOWN_CVAR
-};
-
-enumCVars AITD2KnownCVars[] = {
-	SAMPLE_PAGE,
-	BODY_FLAMME,
-	MAX_WEIGHT_LOADABLE,
-	SAMPLE_CHOC,
-	DEAD_PERSO,
-	JET_SARBACANE,
-	TIR_CANON,
-	JET_SCALPEL,
-	POIVRE,
-	DORTOIR,
-	EXT_JACK,
-	NUM_MATRICE_PROTECT_1,
-	NUM_MATRICE_PROTECT_2,
-	NUM_PERSO,
-	TYPE_INVENTAIRE,
-	PROLOGUE,
-	POIGNARD,
-	UNKNOWN_CVAR
-};
-
 enumCVars *currentCVarTable = NULL;
 
 int getCVarsIdx(enumCVars searchedType) { // TODO: optimize by reversing the table....
 	return g_fitd->getCVarsIdx(searchedType);
-#if 0
-	int i;
 
-	for(i = 0; i < g_fitd->getNumCVars(); i++) {
-		if(currentCVarTable[i] == -1) {
-			ASSERT(0);
-		}
-
-
-		if(currentCVarTable[i] == searchedType)
-			return i;
-	}
-#endif
 }
 const unsigned char defaultPalette[0x30] = {
 	0x00,
@@ -438,11 +385,8 @@ void fillBox(int x1, int y1, int x2, int y2, char color) { // fast recode. No RE
 
 	char *dest = screen + y1 * 320 + x1;
 
-	int i;
-	int j;
-
-	for(i = 0; i < height; i++) {
-		for(j = 0; j < width; j++) {
+	for(int i = 0; i < height; i++) {
+		for(int j = 0; j < width; j++) {
 			*(dest++) = color;
 		}
 
@@ -450,28 +394,9 @@ void fillBox(int x1, int y1, int x2, int y2, char color) { // fast recode. No RE
 	}
 }
 
-void preloadResource(void) {
-	char localPalette[768];
-
-	if(g_fitd->getGameType() == GType_AITD2) {
-		loadPakToPtr("ITD_RESS", 59, aux);
-	} else {
-		loadPakToPtr("ITD_RESS", 3, aux);
-	}
-	copyPalette(aux, palette);
-
-	copyPalette(palette, localPalette);
-	//  fadeInSub1(localPalette);
-
-	// to finish
-}
-
 void selectHeroSub1(int x1, int y1, int x2, int y2) {
-	int i;
-	int j;
-
-	for(i = y1; i < y2; i++) {
-		for(j = x1; j < x2; j++) {
+	for(int i = y1; i < y2; i++) {
+		for(int j = x1; j < x2; j++) {
 			*(screenSm3 + i * 320 + j) = *(screenSm1 + i * 320 + j);
 		}
 	}
@@ -911,7 +836,7 @@ pageChange:
 	return(mode);
 }
 
-int makeIntroScreens(void) {
+void makeIntroScreens(void) {
 	char *data;
 	unsigned int chrono;
 
@@ -944,8 +869,6 @@ int makeIntroScreens(void) {
 	 soundVar1 = 0; */
 	//  readVar = 1;
 	printText(CVars[getCVarsIdx(TEXTE_CREDITS)] + 1, 48, 2, 260, 197, 1, 26);
-
-	return(0);
 }
 
 void initEngine(void) {
@@ -4515,7 +4438,6 @@ void cleanupAndExit(void) {
 using namespace Fitd;
 
 int main(int argc, char **argv) {
-	int startupMenuResult;
 	//  int protectionToBeDone = 1;
 	char version[256];
 
@@ -4525,163 +4447,9 @@ int main(int argc, char **argv) {
 
 	g_fitd = new FitdEngine();
 
-	g_driver->init();
-	g_driver->initBuffer(scaledScreen, 640, 400);
 	startThreadTimer();
 
 	g_fitd->run();
-
-	paletteFill(palette, 0, 0, 0);
-
-	preloadResource();
-
-	switch(g_fitd->getGameType()) {
-	case GType_AITD1: {
-		fadeIn(palette);
-
-		if(!make3dTatou()) {
-			makeIntroScreens();
-		}
-		break;
-	}
-	case GType_JACK: {
-		startGame(16, 1, 1);
-		break;
-	}
-	case GType_AITD2: {
-		startGame(8, 0, 0);
-		break;
-	}
-	case GType_AITD3: {
-		startGame(0, 12, 1);
-		startGame(0, 0, 1);
-		break;
-	}
-	case GType_TIMEGATE: {
-		startGame(0, 0, 1);
-		break;
-	}
-	}
-
-	while(1) {
-		startupMenuResult = processStartupMenu();
-
-		switch(startupMenuResult) {
-		case -1: { // timeout
-			CVars[getCVarsIdx(CHOOSE_PERSO)] = g_fitd->randRange(0,2);
-			/*  startGame(7,1,0);
-
-			 if(!make3dTatou())
-			 {
-			 if(!makeIntroScreens())
-			 {
-			 makeSlideshow();
-			 }
-			 } */
-
-			break;
-		}
-		case 0: { // new game
-			/*  if(protectionToBeDone)
-			 {
-			 makeProtection();
-			 protectionToBeDone = 0;
-			 }*/
-
-			//if(selectHero()!=-1)
-			{
-				readKeyboard();
-				while(input2)
-					readKeyboard();
-
-				if(g_fitd->getGameType() == GType_AITD1) {
-					CVars[getCVarsIdx(CHOOSE_PERSO)] = 0;
-				}
-
-				switch(g_fitd->getGameType()) {
-				case GType_JACK: {
-					startGame(16, 1, 0);
-					break;
-				}
-				case GType_AITD2: {
-					startGame(8, 7, 1);
-					break;
-				}
-				case GType_AITD3: {
-					startGame(0, 12, 1);
-					break;
-				}
-				case GType_AITD1: {
-					startGame(7, 1, 0);
-
-					/*  if(!protectionState)
-					 {
-					 freeAll();
-					 exit(-1);
-					 }
-					 */
-					readKeyboard();
-					while(input2)
-						readKeyboard();
-
-					startGame(0, 0, 1);
-					break;
-				}
-				}
-				/*
-				 if(giveUp == 0)
-				 {
-				 freeAll();
-				 exit(-1);
-				 }*/
-			}
-
-			break;
-		}
-		case 1: { // continue
-			/*  if(protectionToBeDone)
-			 {
-			 makeProtection();
-			 protectionToBeDone = 0;
-			 }*/
-
-			if(restoreSave(12, 0)) {
-				/*  if(!protectionState)
-				 {
-				 freeAll();
-				 exit(-1);
-				 }*/
-
-				//          updateShaking();
-
-				mainVar1 = 2;
-
-				setupCamera();
-
-				mainLoop(1);
-
-				//          freeScene();
-
-				fadeOut(8, 0);
-
-				/*  if(giveUp == 0)
-				 {
-				 freeAll();
-				 exit(-1);
-				 } */
-			}
-
-			break;
-		}
-		case 2: { // exit
-			freeAll();
-			error("Exiting");
-			//exit(-1);
-
-			break;
-		}
-		}
-	}
 
 	return(0);
 }

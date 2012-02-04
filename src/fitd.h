@@ -49,6 +49,8 @@ class FitdEngine {
 public:
 	FitdEngine();
 	void run();
+	void startup();
+	void preloadResource();
 	uint32 getGameType() {
 		return _gameType;
 	}

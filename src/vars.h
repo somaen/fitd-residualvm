@@ -204,8 +204,6 @@ struct boxStruct {
 	int16 var3;
 };
 
-typedef struct boxStruct boxStruct;
-
 struct roomDefStruct {
 	int16 offsetToCameraDef; // 0
 	int16 offsetToPosDef; // 2
@@ -214,8 +212,6 @@ struct roomDefStruct {
 	int16 worldZ;//8
 	int16 numCameraInRoom;//0xA
 };
-
-typedef struct roomDefStruct roomDefStruct;
 
 extern hqrEntryStruct *hqrUnk;
 
