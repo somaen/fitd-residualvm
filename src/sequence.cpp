@@ -199,8 +199,8 @@ void playSequence(int sequenceIdx, int fadeStart, int fadeOutVar) {
 					 flipOtherPalette(palette);
 					 } */
 
-					g_driver->setPalette((char *)localPalette);
-					copyPalette((char *)localPalette, palette);
+					g_driver->setPalette(localPalette);
+					copyPalette((char*)localPalette,(char*) palette);
 				}
 			} else { // not first frame
 				unsigned long int frameSize;

@@ -23,6 +23,7 @@
 #include "pak.h"
 #include "file_access.h"
 #include "filestream.h"
+#include "common/forbidden.h"
 
 namespace Fitd {
 

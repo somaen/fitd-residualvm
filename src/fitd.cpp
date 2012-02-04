@@ -80,6 +80,20 @@ void FitdEngine::detectGame(void) {
 	exit(1);
 }
 
+int FitdEngine::getCVarsIdx(enumCVars searchedType) { // TODO: optimize by reversing the table....
+	int i;
+	
+	for(i = 0; i < g_fitd->getNumCVars(); i++) {
+		if(_currentCVarTable[i] == -1) {
+			ASSERT(0);
+		}
+		
+		
+		if(_currentCVarTable[i] == searchedType)
+			return i;
+	}
+}
+	
 void FitdEngine::sysInit(void) {
 	int i;
 

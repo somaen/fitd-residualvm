@@ -121,7 +121,7 @@ void blitPalette(char *palettePtr, unsigned char startColor, unsigned char nbCol
 
 	}
 
-	g_driver->setPalette(paletteRGBA);
+	g_driver->setPalette((byte*)paletteRGBA);
 	g_driver->flip((unsigned char *)scaledScreen);
 }
 
@@ -156,7 +156,7 @@ void flipOtherPalette(char *palettePtr) {
 
 	}
 
-	g_driver->setPalette(paletteRGBA);
+	g_driver->setPalette((byte*)paletteRGBA);
 	g_driver->flip((unsigned char *)scaledScreen);
 }
 
@@ -251,7 +251,7 @@ void flip() {
 
 	}
 
-	g_driver->setPalette(paletteRGBA);
+	g_driver->setPalette((byte*)paletteRGBA);
 	g_driver->flip((unsigned char *)scaledScreen);
 }
 

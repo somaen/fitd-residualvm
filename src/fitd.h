@@ -55,6 +55,10 @@ public:
 	int getNumCVars() {
 		return _numCVars;
 	}
+	int randRange(int min, int max) {
+		return((rand() % (max - min)) + min);
+	}
+	int getCVarsIdx(enumCVars searchedType);
 };
 
 extern FitdEngine *g_fitd;

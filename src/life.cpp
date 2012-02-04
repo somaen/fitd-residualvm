@@ -95,10 +95,6 @@ void fire(int fireAnim, int X, int Y, int Z, int hitForce, int nextAnim) {
 	}
 }
 
-int randRange(int min, int max) {
-	return((rand() % (max - min)) + min);
-}
-
 int createFlow(int mode, int X, int Y, int Z, int stage, int room, int alpha, int beta, int gamma, ZVStruct *zvPtr) {
 	short int localSpecialTable[4];
 	actorStruct *currentActorPtr;
@@ -176,18 +172,18 @@ int createFlow(int mode, int X, int Y, int Z, int stage, int room, int alpha, in
 
 
 		for(j = 0; j < 30; j++) {
-			*(short int *)flowPtr = randRange(actorZvPtr->ZVX1, actorZvPtr->ZVX2); //X
+			*(short int *)flowPtr = g_fitd->randRange(actorZvPtr->ZVX1, actorZvPtr->ZVX2); //X
 			flowPtr += 2;
-			*(short int *)flowPtr = randRange(actorZvPtr->ZVY1, actorZvPtr->ZVY2); //Y
+			*(short int *)flowPtr = g_fitd->randRange(actorZvPtr->ZVY1, actorZvPtr->ZVY2); //Y
 			flowPtr += 2;
-			*(short int *)flowPtr = randRange(actorZvPtr->ZVZ1, actorZvPtr->ZVZ2); //Z
+			*(short int *)flowPtr = g_fitd->randRange(actorZvPtr->ZVZ1, actorZvPtr->ZVZ2); //Z
 			flowPtr += 2;
 		}
 
 		for(j = 0; j < 30; j++) {
-			*(short int *)flowPtr = randRange(150, 300); // ?
+			*(short int *)flowPtr = g_fitd->randRange(150, 300); // ?
 			flowPtr += 2;
-			*(short int *)flowPtr = randRange(30, 80); // ?
+			*(short int *)flowPtr = g_fitd->randRange(30, 80); // ?
 			flowPtr += 2;
 		}
 
@@ -1642,7 +1638,7 @@ processOpcode:
 					fadeOut(0x10, 0);
 					fadeIn(lpalette);
 
-					g_driver->setPalette((char *)lpalette);
+					g_driver->setPalette(lpalette);
 					copyPalette((char *)lpalette, palette);
 
 					copyToScreen(aux, screen);

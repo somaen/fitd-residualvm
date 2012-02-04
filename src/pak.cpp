@@ -21,6 +21,7 @@
 // seg 55
 #include "filestream.h"
 #include "common.h"
+#include "common/forbidden.h"
 
 namespace Fitd {
 
@@ -42,16 +43,6 @@ void readPakInfo(pakInfoStruct *pPakInfo, Common::ReadFileStream *file) {
 	pPakInfo->compressionFlag = file->readByte();
 	pPakInfo->info5 = file->readByte();
 	pPakInfo->offset = file->readUint16LE();
-
-	//fread(&pPakInfo->discSize, 4, 1, fileHandle);
-	//fread(&pPakInfo->uncompressedSize, 4, 1, fileHandle);
-	//fread(&pPakInfo->compressionFlag, 1, 1, fileHandle);
-	//fread(&pPakInfo->info5, 1, 1, fileHandle);
-	//fread(&pPakInfo->offset, 2, 1, fileHandle);
-
-	//pPakInfo->discSize = READ_LE_UINT32(&pPakInfo->discSize);
-	//pPakInfo->uncompressedSize = READ_LE_UINT32(&pPakInfo->uncompressedSize);
-	//pPakInfo->offset = READ_LE_UINT16(&pPakInfo->offset);
 }
 
 unsigned int PAK_getNumFiles(char *name) {

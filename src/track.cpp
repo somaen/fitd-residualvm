@@ -116,7 +116,8 @@ int GetAngle(int X1, int Y1, int X2, int Y2) {
 	 }
 	 }while(--currentAngle);
 	 */
-
+	// TODO: Add a proper pointer-variable
+#if 0
 	esi = (int) tab3;
 	edi = esi + 0x200;
 
@@ -157,6 +158,8 @@ endCalc:
 	}
 
 	return (eax & 0x3FF);
+#endif 
+	return NULL;
 }
 
 int makeProportional(int x1, int x2, int y1, int y2) {

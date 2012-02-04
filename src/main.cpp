@@ -27,11 +27,12 @@
 
 // seg002
 #include "common/textconsole.h"
+
 #include "fitd.h"
 #include "resource.h"
 #include "osystem.h"
 #include "common.h"
-
+//#include "common/forbidden.h"
 namespace Fitd {
 
 // TODO: Move
@@ -85,6 +86,8 @@ enumCVars AITD2KnownCVars[] = {
 enumCVars *currentCVarTable = NULL;
 
 int getCVarsIdx(enumCVars searchedType) { // TODO: optimize by reversing the table....
+	return g_fitd->getCVarsIdx(searchedType);
+#if 0
 	int i;
 
 	for(i = 0; i < g_fitd->getNumCVars(); i++) {
@@ -96,6 +99,7 @@ int getCVarsIdx(enumCVars searchedType) { // TODO: optimize by reversing the tab
 		if(currentCVarTable[i] == searchedType)
 			return i;
 	}
+#endif
 }
 const unsigned char defaultPalette[0x30] = {
 	0x00,
@@ -1252,7 +1256,7 @@ void loadCamera(int cameraIdx) {
 			convertPaletteIfRequired((unsigned char *)palette);
 		}
 
-		g_driver->setPalette(palette);
+		g_driver->setPalette((byte*)palette);
 	}
 }
 

@@ -24,12 +24,12 @@
 #ifndef USE_GL
 #define USE_GL
 #endif
-
+/*
 #define byte char
 
 #define bool char
 #define true 1
-#define false 0
+#define false 0*/
 namespace Fitd {
 
 class GFXSystem {
