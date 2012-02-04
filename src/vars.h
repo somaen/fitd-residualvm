@@ -2,6 +2,7 @@
 #define _VARS_
 
 #include "osystem.h"
+#include "common/stream.h"
 
 #pragma pack(1)
 namespace Fitd {
@@ -11,20 +12,20 @@ extern int currentFoundBodyIdx;
 extern int statusVar1;
 
 struct point3dStruct {
-	short int x;
-	short int y;
-	short int z;
+	int16 x;
+	int16 y;
+	int16 z;
 };
 
 struct textEntryStruct {
-	short int index;
+	int16 index;
 	char *textPtr;
-	short int width;
+	int16 width;
 };
 
 struct messageStruct {
 	textEntryStruct *string;
-	short int time;
+	int16 time;
 };
 
 struct saveEntry {
@@ -34,22 +35,22 @@ struct saveEntry {
 
 struct regularTextEntryStruct {
 	char *textPtr;
-	short int width;
+	int16 width;
 };
 
 struct hqrSubEntryStruct {
-	short int key;
-	short int size;
+	int16 key;
+	int16 size;
 	unsigned int lastTimeUsed;
 	char *ptr;
 };
 
 struct hqrEntryStruct {
 	char string[10];
-	unsigned short int maxFreeData;
-	unsigned short int sizeFreeData;
-	unsigned short int numMaxEntry;
-	unsigned short int numUsedEntry;
+	uint16 maxFreeData;
+	uint16 sizeFreeData;
+	uint16 numMaxEntry;
+	uint16 numUsedEntry;
 	hqrSubEntryStruct *entries;
 };
 
@@ -63,10 +64,10 @@ struct ZVStruct {
 };
 
 struct rotateStruct {
-	short int oldAngle;
-	short int newAngle;
-	short int param;
-	short int timeOfRotate;
+	int16 oldAngle;
+	int16 newAngle;
+	int16 param;
+	int16 timeOfRotate;
 };
 
 struct actorFlags {
@@ -90,127 +91,128 @@ struct actorFlags {
 
 
 struct actorStruct { // used to read data from file too
-	short int field_0;
-	short int bodyNum;
+	int16 field_0;
+	int16 bodyNum;
 	union {
-		short int flags;
+		int16 flags;
 		actorFlags bitField;
 	};
-	short int dynFlags;
+	int16 dynFlags;
 	ZVStruct zv;
-	short int field_14;
-	short int field_16;
-	short int field_18;
-	short int field_1A;
-	short int roomX;
-	short int roomY;
-	short int roomZ;
-	short int worldX;
-	short int worldY;
-	short int worldZ;
-	short int alpha;
-	short int beta;
-	short int gamma;
-	short int stage;
-	short int room;
-	short int lifeMode;
-	short int life;
+	int16 field_14;
+	int16 field_16;
+	int16 field_18;
+	int16 field_1A;
+	int16 roomX;
+	int16 roomY;
+	int16 roomZ;
+	int16 worldX;
+	int16 worldY;
+	int16 worldZ;
+	int16 alpha;
+	int16 beta;
+	int16 gamma;
+	int16 stage;
+	int16 room;
+	int16 lifeMode;
+	int16 life;
 	unsigned int CHRONO;
 	unsigned int ROOM_CHRONO;
-	short int ANIM;
-	short int field_40;
-	short int field_42;
-	short int field_44;
-	short int field_46;
-	short int field_48;
-	short int FRAME;
-	short int field_4C;
-	short int END_FRAME;
-	short int END_ANIM;
-	short int trackMode;
-	short int trackNumber;
-	short int MARK;
-	short int positionInTrack;
+	int16 ANIM;
+	int16 field_40;
+	int16 field_42;
+	int16 field_44;
+	int16 field_46;
+	int16 field_48;
+	int16 FRAME;
+	int16 field_4C;
+	int16 END_FRAME;
+	int16 END_ANIM;
+	int16 trackMode;
+	int16 trackNumber;
+	int16 MARK;
+	int16 positionInTrack;
 
-	short int modX;
-	short int modY;
-	short int modZ;
+	int16 modX;
+	int16 modY;
+	int16 modZ;
 
 	rotateStruct field_60;
-	short int falling;
+	int16 falling;
 	rotateStruct rotate;
-	short int field_72;
-	short int speed;
+	int16 field_72;
+	int16 speed;
 	rotateStruct speedChange;
-	short int COL[3];
-	short int COL_BY;
-	short int HARD_DEC;
-	short int HARD_COL;
-	short int HIT;
-	short int HIT_BY;
-	short int animActionType;
-	short int animActionANIM;
-	short int animActionFRAME;
-	short int animActionParam;
-	short int hitForce;
-	short int field_98;
+	int16 COL[3];
+	int16 COL_BY;
+	int16 HARD_DEC;
+	int16 HARD_COL;
+	int16 HIT;
+	int16 HIT_BY;
+	int16 animActionType;
+	int16 animActionANIM;
+	int16 animActionFRAME;
+	int16 animActionParam;
+	int16 hitForce;
+	int16 field_98;
 	point3dStruct hotPoint;
 
 	// aitd2
-	short int hardMat;
+	int16 hardMat;
 };
 
 struct objectStruct {
-	short int ownerIdx;
-	short int body;
+	int16 ownerIdx;
+	int16 body;
 	union {
-		short int flags;
+		int16 flags;
 		actorFlags bitField;
 	};
-	short int field_6;
-	short int foundBody;
-	short int foundName;
-	short int flags2;
-	short int foundLife;
-	short int x;
-	short int y;
-	short int z;
-	short int alpha;
-	short int beta;
-	short int gamma;
-	short int stage;
-	short int room;
-	short int lifeMode;
-	short int life;
-	short int field_24;
-	short int anim;
-	short int frame;
-	short int animType;
-	short int animInfo;
-	short int trackMode;
-	short int trackNumber;
-	short int positionInTrack;
+	int16 field_6;
+	int16 foundBody;
+	int16 foundName;
+	int16 flags2;
+	int16 foundLife;
+	int16 x;
+	int16 y;
+	int16 z;
+	int16 alpha;
+	int16 beta;
+	int16 gamma;
+	int16 stage;
+	int16 room;
+	int16 lifeMode;
+	int16 life;
+	int16 field_24;
+	int16 anim;
+	int16 frame;
+	int16 animType;
+	int16 animInfo;
+	int16 trackMode;
+	int16 trackNumber;
+	int16 positionInTrack;
 
 	// AITD2
-	short int mark;
+	int16 mark;
+	void readFromStream(Common::SeekableReadStream *stream);
 };
 
 struct boxStruct {
-	short int var0;
-	short int var1;
-	short int var2;
-	short int var3;
+	int16 var0;
+	int16 var1;
+	int16 var2;
+	int16 var3;
 };
 
 typedef struct boxStruct boxStruct;
 
 struct roomDefStruct {
-	short int offsetToCameraDef; // 0
-	short int offsetToPosDef; // 2
-	short int worldX;//4
-	short int worldY;//6
-	short int worldZ;//8
-	short int numCameraInRoom;//0xA
+	int16 offsetToCameraDef; // 0
+	int16 offsetToPosDef; // 2
+	int16 worldX;//4
+	int16 worldY;//6
+	int16 worldZ;//8
+	int16 numCameraInRoom;//0xA
 };
 
 typedef struct roomDefStruct roomDefStruct;
@@ -233,7 +235,7 @@ extern char *screen;
 extern int screenBufferSize;
 extern int unkScreenVar2;
 
-extern short int *CVars;
+extern int16 *CVars;
 
 extern char *priority;
 
@@ -284,7 +286,7 @@ extern char *screenSm5;
 
 extern actorStruct actorTable[NUM_MAX_ACTOR];
 
-extern short int currentCameraTarget;
+extern int16 currentCameraTarget;
 
 //extern int fileSize;
 
@@ -294,17 +296,17 @@ extern hqrEntryStruct *listLife;
 extern hqrEntryStruct *listTrack;
 extern hqrEntryStruct *listMatrix;
 
-extern short int maxObjects;
+extern int16 maxObjects;
 
 extern objectStruct *objectTable; // may be less
 
-extern short int *vars;
+extern int16 *vars;
 
 extern int varSize;
 
 extern messageStruct messageTable[5];
 
-extern short int currentMusic;
+extern int16 currentMusic;
 extern int action;
 
 extern boxStruct genVar2[15]; // recheckSize
@@ -316,27 +318,27 @@ extern int genVar5;
 extern int genVar6;
 extern int genVar7;
 extern int nextMusic;
-extern short int genVar9;
-extern short int giveUp;
-extern short int inHand;
-extern short int lightVar1;
+extern int16 genVar9;
+extern int16 giveUp;
+extern int16 inHand;
+extern int16 lightVar1;
 extern int lightVar2;
-extern short int numObjInInventory;
+extern int16 numObjInInventory;
 extern int soundVar1;
 extern int soundVar2;
-extern short int statusScreenAllowed;
+extern int16 statusScreenAllowed;
 
 extern char *etageVar0;
 extern char *etageVar1;
 
 extern int changeFloor;
-extern short int currentCamera;
-extern short int currentEtage;
+extern int16 currentCamera;
+extern int16 currentEtage;
 extern int needChangeRoom;
 
 extern char *cameraPtr;
 extern roomDefStruct *pCurrentRoomData;
-extern short int currentDisplayedRoom;
+extern int16 currentDisplayedRoom;
 extern int mainVar1;
 extern int numCameraInRoom;
 extern int numCameraZone;
@@ -387,7 +389,7 @@ extern int setupCameraVar1;
 #ifdef USE_GL
 extern float renderPointList[6400];
 #else
-extern short int renderPointList[6400];
+extern int16 renderPointList[6400];
 #endif
 
 extern int numActorInList;
@@ -411,7 +413,7 @@ extern char *animVar1;
 extern char *animVar3;
 extern char *animVar4;
 
-extern short int newFloor;
+extern int16 newFloor;
 
 extern int paletteVar;
 
@@ -429,21 +431,21 @@ extern int overlaySize2;
 
 extern int bgOverlayVar1;
 
-extern short int newRoom;
+extern int16 newRoom;
 
 extern char *listBodySelect[];
 extern char *listAnimSelect[];
 
-extern short int inventory[30];
+extern int16 inventory[30];
 
-extern short int shakeVar1;
-extern short int shakingAmplitude;
+extern int16 shakeVar1;
+extern int16 shakingAmplitude;
 extern unsigned int timerFreeze1;
 
 extern hardColStruct *hardColTable[10];
 
-extern short int hardColVar1;
-extern short int hardColVar2;
+extern int16 hardColVar1;
+extern int16 hardColVar2;
 
 extern ZVStruct hardClip;
 

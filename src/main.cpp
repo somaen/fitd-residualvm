@@ -965,11 +965,7 @@ void initEngine(void) {
 	pObjectDataBackup = pObjectData = (uint8 *)malloc(objectDataSize);
 	ASSERT(pObjectData);
 
-	stream->read(pObjectData, objectDataSize);
-	delete stream;
-
-	maxObjects = READ_LE_UINT16(pObjectData);
-	pObjectData += 2;
+	maxObjects = stream->readUint16LE();
 
 	if(g_fitd->getGameType() == GType_AITD1) {
 		objectTable = (objectStruct *)malloc(300 * sizeof(objectStruct));
@@ -978,91 +974,9 @@ void initEngine(void) {
 	}
 
 	for(i = 0; i < maxObjects; i++) {
-		objectTable[i].ownerIdx = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].body = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].flags = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].field_6 = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].foundBody = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].foundName = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].flags2 = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].foundLife = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].x = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].y = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].z = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].alpha = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].beta = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].gamma = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].stage = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].room = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].lifeMode = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].life = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].field_24 = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].anim = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].frame = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].animType = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].animInfo = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].trackMode = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].trackNumber = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		objectTable[i].positionInTrack = READ_LE_UINT16(pObjectData);
-		pObjectData += 2;
-
-		if(g_fitd->getGameType() >= GType_JACK) {
-			objectTable[i].mark = READ_LE_UINT16(pObjectData);
-			pObjectData += 2;
-		}
-		objectTable[i].flags |= 0x20;
+		objectTable[i].readFromStream(stream);
 	}
-
+	delete stream;
 	free(pObjectDataBackup);
 
 

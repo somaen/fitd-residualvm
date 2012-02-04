@@ -18,6 +18,7 @@
  *
  */
 
+#include "fitd.h"
 #include "common.h"
 
 namespace Fitd {
@@ -41,7 +42,7 @@ char *screen;
 int screenBufferSize;
 int unkScreenVar2;
 
-short int *CVars;
+int16 *CVars;
 
 char *priority;
 
@@ -100,7 +101,7 @@ char *screenSm5;
 
 actorStruct actorTable[NUM_MAX_ACTOR];
 
-short int currentCameraTarget;
+int16 currentCameraTarget;
 
 int fileSize;
 
@@ -110,17 +111,17 @@ hqrEntryStruct *listLife;
 hqrEntryStruct *listTrack;
 hqrEntryStruct *listMatrix;
 
-short int maxObjects;
+int16 maxObjects;
 
 objectStruct *objectTable;
 
-short int *vars;
+int16 *vars;
 
 int varSize;
 
 messageStruct messageTable[NUM_MAX_MESSAGE];
 
-short int currentMusic;
+int16 currentMusic;
 int action;
 
 boxStruct genVar2[15]; // recheckSize
@@ -132,28 +133,28 @@ int genVar5;
 int genVar6;
 int genVar7;
 int nextMusic;
-short int genVar9;
-short int giveUp;
-short int inHand;
-short int lightVar1;
+int16 genVar9;
+int16 giveUp;
+int16 inHand;
+int16 lightVar1;
 int lightVar2;
-short int numObjInInventory;
+int16 numObjInInventory;
 int soundVar1;
 int soundVar2;
-short int statusScreenAllowed;
+int16 statusScreenAllowed;
 
 char *etageVar0 = NULL;
 char *etageVar1 = NULL;
 
 int changeFloor;
-short int currentCamera;
-short int currentEtage;
+int16 currentCamera;
+int16 currentEtage;
 int needChangeRoom;
 
 char *cameraPtr;
 roomDefStruct *pCurrentRoomData;
 
-short int currentDisplayedRoom;
+int16 currentDisplayedRoom;
 int mainVar1;
 int numCameraInRoom;
 int numCameraZone;
@@ -204,7 +205,7 @@ int setupCameraVar1;
 #ifdef USE_GL
 float renderPointList[6400];
 #else
-short int renderPointList[6400];
+int16 renderPointList[6400];
 #endif
 
 int numActorInList;
@@ -228,7 +229,7 @@ char *animVar1;
 char *animVar3;
 char *animVar4;
 
-short int newFloor;
+int16 newFloor;
 
 int paletteVar;
 
@@ -246,18 +247,18 @@ int overlaySize2;
 
 int bgOverlayVar1;
 
-short int newRoom;
+int16 newRoom;
 
-short int inventory[INVENTORY_SIZE];
+int16 inventory[INVENTORY_SIZE];
 
-short int shakeVar1;
-short int shakingAmplitude;
+int16 shakeVar1;
+int16 shakingAmplitude;
 unsigned int timerFreeze1;
 
 hardColStruct *hardColTable[10];
 
-short int hardColVar1;
-short int hardColVar2;
+int16 hardColVar1;
+int16 hardColVar2;
 
 ZVStruct hardClip;
 
@@ -288,5 +289,39 @@ hqrEntryStruct *listSamp;
 #ifdef INTERNAL_DEBUGGER
 backgroundModeEnum backgroundMode = backgroundModeEnum_2D;
 #endif
+
+void objectStruct::readFromStream(Common::SeekableReadStream *stream) {
+	this->ownerIdx = stream->readUint16LE();
+	this->body = stream->readUint16LE();
+	this->flags = stream->readUint16LE();
+	this->field_6 = stream->readUint16LE();
+	this->foundBody = stream->readUint16LE();
+	this->foundName = stream->readUint16LE();
+	this->flags2 = stream->readUint16LE();
+	this->foundLife = stream->readUint16LE();
+	this->x = stream->readUint16LE();
+	this->y = stream->readUint16LE();
+	this->z = stream->readUint16LE();
+	this->alpha = stream->readUint16LE();
+	this->beta = stream->readUint16LE();
+	this->gamma = stream->readUint16LE();
+	this->stage = stream->readUint16LE();
+	this->room = stream->readUint16LE();
+	this->lifeMode = stream->readUint16LE();
+	this->life = stream->readUint16LE();	
+	this->field_24 = stream->readUint16LE();
+	this->anim = stream->readUint16LE();
+	this->frame = stream->readUint16LE();
+	this->animType = stream->readUint16LE();
+	this->animInfo = stream->readUint16LE();
+	this->trackMode = stream->readUint16LE();
+	this->trackNumber = stream->readUint16LE();
+	this->positionInTrack = stream->readUint16LE();
+
+	if(g_fitd->getGameType() >= GType_JACK) {
+		this->mark = stream->readUint16LE();
+	}
+	this->flags |= 0x20;
+}
 
 } // end of namespace Fitd
