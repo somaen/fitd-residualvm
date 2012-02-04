@@ -8,8 +8,8 @@
 namespace Fitd {
 
 extern char *currentFoundBody;
-extern int currentFoundBodyIdx;
-extern int statusVar1;
+extern int32 currentFoundBodyIdx;
+extern int32 statusVar1;
 
 struct point3dStruct {
 	int16 x;
@@ -30,7 +30,7 @@ struct messageStruct {
 
 struct saveEntry {
 	void *ptr;
-	unsigned int size;
+	uint32 size;
 };
 
 struct regularTextEntryStruct {
@@ -41,7 +41,7 @@ struct regularTextEntryStruct {
 struct hqrSubEntryStruct {
 	int16 key;
 	int16 size;
-	unsigned int lastTimeUsed;
+	uint32 lastTimeUsed;
 	char *ptr;
 };
 
@@ -116,8 +116,8 @@ struct actorStruct { // used to read data from file too
 	int16 room;
 	int16 lifeMode;
 	int16 life;
-	unsigned int CHRONO;
-	unsigned int ROOM_CHRONO;
+	uint32 CHRONO;
+	uint32 ROOM_CHRONO;
 	int16 ANIM;
 	int16 field_40;
 	int16 field_42;
@@ -222,9 +222,9 @@ extern hqrEntryStruct *hqrUnk;
 extern hqrEntryStruct *listMus;
 extern hqrEntryStruct *listSamp;
 
-extern int videoMode;
-extern int musicConfigured;
-extern int musicEnabled;
+extern int32 videoMode;
+extern int32 musicConfigured;
+extern int32 musicEnabled;
 
 extern char *aux;
 extern char *aux2;
@@ -232,8 +232,8 @@ extern char *bufferAnim;
 
 extern char *screen;
 
-extern int screenBufferSize;
-extern int unkScreenVar2;
+extern int32 screenBufferSize;
+extern int32 unkScreenVar2;
 
 extern int16 *CVars;
 
@@ -251,13 +251,13 @@ extern char unkScreenVar[320*200];
 
 extern char rgbaBuffer[320*200*4];
 
-extern unsigned int timer;
-extern volatile unsigned int timeGlobal;
+extern uint32 timer;
+extern volatile uint32 timeGlobal;
 
-extern int currentMenuLeft;
-extern int currentMenuTop;
-extern int currentMenuRight;
-extern int currentMenuBottom;
+extern int32 currentMenuLeft;
+extern int32 currentMenuTop;
+extern int32 currentMenuRight;
+extern int32 currentMenuBottom;
 
 extern textEntryStruct *tabTextes;
 extern char *systemTextes;
@@ -274,9 +274,9 @@ extern char *languageNameTable[];
 
 extern regularTextEntryStruct textTable[40];
 
-extern int readVar;
+extern int32 readVar;
 
-extern int hqrKeyGen;
+extern int32 hqrKeyGen;
 
 extern char *screenSm1;
 extern char *screenSm2;
@@ -302,89 +302,89 @@ extern objectStruct *objectTable; // may be less
 
 extern int16 *vars;
 
-extern int varSize;
+extern int32 varSize;
 
 extern messageStruct messageTable[5];
 
 extern int16 currentMusic;
-extern int action;
+extern int32 action;
 
 extern boxStruct genVar2[15]; // recheckSize
 extern boxStruct genVar4[50];
 extern boxStruct *genVar1;
 extern boxStruct *genVar3;
 
-extern int genVar5;
-extern int genVar6;
-extern int genVar7;
-extern int nextMusic;
+extern int32 genVar5;
+extern int32 genVar6;
+extern int32 genVar7;
+extern int32 nextMusic;
 extern int16 genVar9;
 extern int16 giveUp;
 extern int16 inHand;
 extern int16 lightVar1;
-extern int lightVar2;
+extern int32 lightVar2;
 extern int16 numObjInInventory;
-extern int soundVar1;
-extern int soundVar2;
+extern int32 soundVar1;
+extern int32 soundVar2;
 extern int16 statusScreenAllowed;
 
 extern char *etageVar0;
 extern char *etageVar1;
 
-extern int changeFloor;
+extern int32 changeFloor;
 extern int16 currentCamera;
 extern int16 currentEtage;
-extern int needChangeRoom;
+extern int32 needChangeRoom;
 
 extern char *cameraPtr;
 extern roomDefStruct *pCurrentRoomData;
 extern int16 currentDisplayedRoom;
-extern int mainVar1;
-extern int numCameraInRoom;
-extern int numCameraZone;
+extern int32 mainVar1;
+extern int32 numCameraInRoom;
+extern int32 numCameraZone;
 extern char *cameraZoneData;
-extern int numRoomZone;
+extern int32 numRoomZone;
 extern char *roomZoneData;
 extern char *roomVar5[NUM_MAX_CAMERA_IN_ROOM];
-extern int startGameVar1;
+extern int32 startGameVar1;
 
-extern int transformX;
-extern int transformY;
-extern int transformZ;
-extern int transformXCos;
-extern int transformXSin;
-extern int transformYCos;
-extern int transformYSin;
-extern int transformZCos;
-extern int transformZSin;
+extern int32 transformX;
+extern int32 transformY;
+extern int32 transformZ;
+extern int32 transformXCos;
+extern int32 transformXSin;
+extern int32 transformYCos;
+extern int32 transformYSin;
+extern int32 transformZCos;
+extern int32 transformZSin;
 extern bool transformUseX;
 extern bool transformUseY;
 extern bool transformUseZ;
 
-extern int translateX;
-extern int translateY;
-extern int translateZ;
+extern int32 translateX;
+extern int32 translateY;
+extern int32 translateZ;
 
-extern int cameraCenterX;
-extern int cameraCenterY;
-extern int cameraX;
-extern int cameraY;
-extern int cameraZ;
+extern int32 cameraCenterX;
+extern int32 cameraCenterY;
+extern int32 cameraX;
+extern int32 cameraY;
+extern int32 cameraZ;
 
 extern char currentCameraVisibilityList[30];
 
-extern int actorTurnedToObj;
+extern int32 actorTurnedToObj;
 
-extern int currentProcessedActorIdx;
+extern int32 currentProcessedActorIdx;
 extern actorStruct *currentProcessedActorPtr;
 
-extern int currentLifeActorIdx;
+extern int32 currentLifeActorIdx;
 extern actorStruct *currentLifeActorPtr;
-extern int currentLifeNum;
+extern int32 currentLifeNum;
 
 extern char *currentLifePtr;
 
-extern int setupCameraVar1;
+extern int32 setupCameraVar1;
 
 #ifdef USE_GL
 extern float renderPointList[6400];
@@ -392,30 +392,30 @@ extern float renderPointList[6400];
 extern int16 renderPointList[6400];
 #endif
 
-extern int numActorInList;
-extern int sortedActorTable[NUM_MAX_ACTOR];
+extern int32 numActorInList;
+extern int32 sortedActorTable[NUM_MAX_ACTOR];
 
-extern int angleCompX;
-extern int angleCompZ;
-extern int angleCompBeta;
+extern int32 angleCompX;
+extern int32 angleCompZ;
+extern int32 angleCompBeta;
 
-extern int bufferAnimCounter;
+extern int32 bufferAnimCounter;
 
-extern int animCurrentTime;
-extern int animKeyframeLength;
-extern int animMoveX;
-extern int animMoveY;
-extern int animMoveZ;
-extern int animRot1;
-extern int animRot2;
-extern int animRot3;
+extern int32 animCurrentTime;
+extern int32 animKeyframeLength;
+extern int32 animMoveX;
+extern int32 animMoveY;
+extern int32 animMoveZ;
+extern int32 animRot1;
+extern int32 animRot2;
+extern int32 animRot3;
 extern char *animVar1;
 extern char *animVar3;
 extern char *animVar4;
 
 extern int16 newFloor;
 
-extern int paletteVar;
+extern int32 paletteVar;
 
 extern char cameraBuffer[256];
 extern char cameraBuffer2[256];
@@ -426,10 +426,10 @@ extern char *cameraBufferPtr;
 extern char *cameraBuffer2Ptr;
 extern char *cameraBuffer3Ptr;
 
-extern int overlaySize1;
-extern int overlaySize2;
+extern int32 overlaySize1;
+extern int32 overlaySize2;
 
-extern int bgOverlayVar1;
+extern int32 bgOverlayVar1;
 
 extern int16 newRoom;
 
@@ -440,7 +440,7 @@ extern int16 inventory[30];
 
 extern int16 shakeVar1;
 extern int16 shakingAmplitude;
-extern unsigned int timerFreeze1;
+extern uint32 timerFreeze1;
 
 extern hardColStruct *hardColTable[10];
 
@@ -451,14 +451,14 @@ extern ZVStruct hardClip;
 
 extern saveEntry saveTable[];
 
-extern int hqrVar1;
-extern int mainVar3;
-extern int mainVar2;
+extern int32 hqrVar1;
+extern int32 mainVar3;
+extern int32 mainVar2;
 
-extern int clipLeft;
-extern int clipTop;
-extern int clipRight;
-extern int clipBottom;
+extern int32 clipLeft;
+extern int32 clipTop;
+extern int32 clipRight;
+extern int32 clipBottom;
 
 #ifdef INTERNAL_DEBUGGER
 enum backgroundModeEnum {

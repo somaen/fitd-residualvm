@@ -24,14 +24,14 @@
 namespace Fitd {
 
 char *currentFoundBody;
-int currentFoundBodyIdx;
-int statusVar1;
+int32 currentFoundBodyIdx;
+int32 statusVar1;
 
 hqrEntryStruct *hqrUnk;
 
-int videoMode;
-int musicConfigured;
-int musicEnabled;
+int32 videoMode;
+int32 musicConfigured;
+int32 musicEnabled;
 
 char *aux;
 char *aux2;
@@ -39,8 +39,8 @@ char *bufferAnim;
 
 char *screen;
 
-int screenBufferSize;
-int unkScreenVar2;
+int32 screenBufferSize;
+int32 unkScreenVar2;
 
 int16 *CVars;
 
@@ -58,13 +58,13 @@ char unkScreenVar[320*200];
 
 char rgbaBuffer[320*200*4];
 
-unsigned int timer;
-volatile unsigned int timeGlobal;
+uint32 timer;
+volatile uint32 timeGlobal;
 
-int currentMenuLeft;
-int currentMenuTop;
-int currentMenuRight;
-int currentMenuBottom;
+int32 currentMenuLeft;
+int32 currentMenuTop;
+int32 currentMenuRight;
+int32 currentMenuBottom;
 
 textEntryStruct *tabTextes;
 char *systemTextes;
@@ -89,9 +89,9 @@ char languageNameString[20] = "";
 
 regularTextEntryStruct textTable[NUM_MAX_TEXT];
 
-int readVar;
+int32 readVar;
 
-int hqrKeyGen = 0;
+int32 hqrKeyGen = 0;
 
 char *screenSm1;
 char *screenSm2;
@@ -103,7 +103,7 @@ actorStruct actorTable[NUM_MAX_ACTOR];
 
 int16 currentCameraTarget;
 
-int fileSize;
+int32 fileSize;
 
 hqrEntryStruct *listBody;
 hqrEntryStruct *listAnim;
@@ -117,90 +117,90 @@ objectStruct *objectTable;
 
 int16 *vars;
 
-int varSize;
+int32 varSize;
 
 messageStruct messageTable[NUM_MAX_MESSAGE];
 
 int16 currentMusic;
-int action;
+int32 action;
 
 boxStruct genVar2[15]; // recheckSize
 boxStruct genVar4[50];
 boxStruct *genVar1;
 boxStruct *genVar3;
 
-int genVar5;
-int genVar6;
-int genVar7;
+int32 genVar5;
+int32 genVar6;
+int32 genVar7;
 int nextMusic;
 int16 genVar9;
 int16 giveUp;
 int16 inHand;
 int16 lightVar1;
-int lightVar2;
+int32 lightVar2;
 int16 numObjInInventory;
-int soundVar1;
-int soundVar2;
+int32 soundVar1;
+int32 soundVar2;
 int16 statusScreenAllowed;
 
 char *etageVar0 = NULL;
 char *etageVar1 = NULL;
 
-int changeFloor;
+int32 changeFloor;
 int16 currentCamera;
 int16 currentEtage;
-int needChangeRoom;
+int32 needChangeRoom;
 
 char *cameraPtr;
 roomDefStruct *pCurrentRoomData;
 
 int16 currentDisplayedRoom;
-int mainVar1;
-int numCameraInRoom;
-int numCameraZone;
+int32 mainVar1;
+int32 numCameraInRoom;
+int32 numCameraZone;
 char *cameraZoneData;
-int numRoomZone;
+int32 numRoomZone;
 char *roomZoneData;
 char *roomVar5[NUM_MAX_CAMERA_IN_ROOM];
-int startGameVar1;
+int32 startGameVar1;
 
-int transformX;
-int transformY;
-int transformZ;
-int transformXCos;
-int transformXSin;
-int transformYCos;
-int transformYSin;
-int transformZCos;
-int transformZSin;
+int32 transformX;
+int32 transformY;
+int32 transformZ;
+int32 transformXCos;
+int32 transformXSin;
+int32 transformYCos;
+int32 transformYSin;
+int32 transformZCos;
+int32 transformZSin;
 bool transformUseX;
 bool transformUseY;
 bool transformUseZ;
 
-int translateX;
-int translateY;
-int translateZ;
+int32 translateX;
+int32 translateY;
+int32 translateZ;
 
-int cameraCenterX;
-int cameraCenterY;
-int cameraX;
-int cameraY;
-int cameraZ;
+int32 cameraCenterX;
+int32 cameraCenterY;
+int32 cameraX;
+int32 cameraY;
+int32 cameraZ;
 
 char currentCameraVisibilityList[30];
 
-int actorTurnedToObj = 0;
+int32 actorTurnedToObj = 0;
 
-int currentProcessedActorIdx;
+int32 currentProcessedActorIdx;
 actorStruct *currentProcessedActorPtr;
 
-int currentLifeActorIdx;
+int32 currentLifeActorIdx;
 actorStruct *currentLifeActorPtr;
-int currentLifeNum;
+int32 currentLifeNum;
 
 char *currentLifePtr;
 
-int setupCameraVar1;
+int32 setupCameraVar1;
 
 #ifdef USE_GL
 float renderPointList[6400];
@@ -208,30 +208,30 @@ float renderPointList[6400];
 int16 renderPointList[6400];
 #endif
 
-int numActorInList;
-int sortedActorTable[NUM_MAX_ACTOR];
+int32 numActorInList;
+int32 sortedActorTable[NUM_MAX_ACTOR];
 
-int angleCompX;
-int angleCompZ;
-int angleCompBeta;
+int32 angleCompX;
+int32 angleCompZ;
+int32 angleCompBeta;
 
-int bufferAnimCounter = 0;
+int32 bufferAnimCounter = 0;
 
-int animCurrentTime;
-int animKeyframeLength;
-int animMoveX;
-int animMoveY;
-int animMoveZ;
-int animRot1;
-int animRot2;
-int animRot3;
+int32 animCurrentTime;
+int32 animKeyframeLength;
+int32 animMoveX;
+int32 animMoveY;
+int32 animMoveZ;
+int32 animRot1;
+int32 animRot2;
+int32 animRot3;
 char *animVar1;
 char *animVar3;
 char *animVar4;
 
 int16 newFloor;
 
-int paletteVar;
+int32 paletteVar;
 
 char cameraBuffer[256];
 char cameraBuffer2[256];
@@ -242,10 +242,10 @@ char *cameraBufferPtr = cameraBuffer;
 char *cameraBuffer2Ptr = cameraBuffer2;
 char *cameraBuffer3Ptr = cameraBuffer3;
 
-int overlaySize1;
-int overlaySize2;
+int32 overlaySize1;
+int32 overlaySize2;
 
-int bgOverlayVar1;
+int32 bgOverlayVar1;
 
 int16 newRoom;
 
@@ -253,7 +253,7 @@ int16 inventory[INVENTORY_SIZE];
 
 int16 shakeVar1;
 int16 shakingAmplitude;
-unsigned int timerFreeze1;
+uint32 timerFreeze1;
 
 hardColStruct *hardColTable[10];
 
@@ -274,14 +274,14 @@ char *listAnimSelect[] = {
 
 saveEntry saveTable[40];
 
-int hqrVar1 = 0;
-int mainVar3 = 4000;
-int mainVar2 = -2000;
+int32 hqrVar1 = 0;
+int32 mainVar3 = 4000;
+int32 mainVar2 = -2000;
 
-int clipLeft = 0;
-int clipTop = 0;
-int clipRight = 319;
-int clipBottom = 119;
+int32 clipLeft = 0;
+int32 clipTop = 0;
+int32 clipRight = 319;
+int32 clipBottom = 119;
 
 hqrEntryStruct *listMus;
 hqrEntryStruct *listSamp;
