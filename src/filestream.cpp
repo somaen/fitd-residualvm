@@ -17,7 +17,7 @@ ReadFileStream::~ReadFileStream() {
 }
 
 bool ReadFileStream::open(const char *filename) {
-	_fileHandle = fopen(_fileHandle, "rb");
+	_fileHandle = (void*)fopen(filename, "rb");
 	if(_fileHandle)
 		return true;
 	else
@@ -25,28 +25,41 @@ bool ReadFileStream::open(const char *filename) {
 }
 
 uint32 ReadFileStream::read(byte *target, uint32 size) {
-	fread(target, 1, size, _fileHandle);
+	fread(target, 1, size, (FILE*)_fileHandle);
 }
 
 void ReadFileStream::seek(int32 offset, int whence) {
-	fseek(_fileHandle, offset, whence);
+	fseek((FILE*)_fileHandle, offset, whence);
 }
 
 void ReadFileStream::close() {
-	fclose(_fileHandle);
+	fclose((FILE*)_fileHandle);
 }
 
 uint32 ReadFileStream::readUint32LE() {
 	uint32 retval;
 	read((byte *)&retval, 4);
-	return READ_LE_UINT32(retval);
+	return READ_LE_UINT32(&retval);
 }
 
+uint16 ReadFileStream::readUint16LE() {
+	uint16 retval;
+	read((byte *)&retval, 2);
+	return READ_LE_UINT16(&retval);
+		
+}
+	
+byte ReadFileStream::readByte() {
+	byte retval;
+	read(&retval, 1);
+	return retval;
+}
+	
 int32 ReadFileStream::size() {
-	uint32 oldpos = ftell(_fileHandle);
-	fseek(_fileHandle, 0, SEEK_END);
-	uint32 retval = ftell(_fileHandle);
-	fseek(_fileHandle, oldpos, SEEK_SET);
+	uint32 oldpos = ftell((FILE*)_fileHandle);
+	fseek((FILE*)_fileHandle, 0, SEEK_END);
+	uint32 retval = ftell((FILE*)_fileHandle);
+	fseek((FILE*)_fileHandle, oldpos, SEEK_SET);
 	return retval;
 }
 

@@ -36,21 +36,27 @@ typedef struct pakInfoStruct pakInfoStruct;
 
 //#define USE_UNPACKED_DATA
 
-void readPakInfo(pakInfoStruct *pPakInfo, FILE *fileHandle) {
-	fread(&pPakInfo->discSize, 4, 1, fileHandle);
-	fread(&pPakInfo->uncompressedSize, 4, 1, fileHandle);
-	fread(&pPakInfo->compressionFlag, 1, 1, fileHandle);
-	fread(&pPakInfo->info5, 1, 1, fileHandle);
-	fread(&pPakInfo->offset, 2, 1, fileHandle);
+void readPakInfo(pakInfoStruct *pPakInfo, Common::ReadFileStream *file) {
+	pPakInfo->discSize = file->readUint32LE();
+	pPakInfo->uncompressedSize = file->readUint32LE();
+	pPakInfo->compressionFlag = file->readByte();
+	pPakInfo->info5 = file->readByte();
+	pPakInfo->offset = file->readUint16LE();
 
-	pPakInfo->discSize = READ_LE_UINT32(&pPakInfo->discSize);
-	pPakInfo->uncompressedSize = READ_LE_UINT32(&pPakInfo->uncompressedSize);
-	pPakInfo->offset = READ_LE_UINT16(&pPakInfo->offset);
+	//fread(&pPakInfo->discSize, 4, 1, fileHandle);
+	//fread(&pPakInfo->uncompressedSize, 4, 1, fileHandle);
+	//fread(&pPakInfo->compressionFlag, 1, 1, fileHandle);
+	//fread(&pPakInfo->info5, 1, 1, fileHandle);
+	//fread(&pPakInfo->offset, 2, 1, fileHandle);
+
+	//pPakInfo->discSize = READ_LE_UINT32(&pPakInfo->discSize);
+	//pPakInfo->uncompressedSize = READ_LE_UINT32(&pPakInfo->uncompressedSize);
+	//pPakInfo->offset = READ_LE_UINT16(&pPakInfo->offset);
 }
 
 unsigned int PAK_getNumFiles(char *name) {
 	char bufferName[256];
-	FILE *fileHandle;
+	//FILE *fileHandle;
 	long int fileOffset;
 	char *ptr = 0;
 	long int size = 0;
@@ -102,7 +108,7 @@ int loadPakToPtr(char *name, int index, char *ptr) {
 int getPakSize(char *name, int index) {
 #ifdef USE_UNPACKED_DATA
 	char buffer[256];
-	FILE *fHandle;
+	//FILE *fHandle;
 	int size;
 
 	sprintf(buffer, "%s/%04X.OUT", name, index);
@@ -118,7 +124,7 @@ int getPakSize(char *name, int index) {
 	return (size);
 #else
 	char bufferName[256];
-	FILE *fileHandle;
+	//FILE *fileHandle;
 	long int fileOffset;
 	long int additionalDescriptorSize;
 	pakInfoStruct pakInfo;
@@ -138,7 +144,7 @@ int getPakSize(char *name, int index) {
 
 		additionalDescriptorSize = file.readUint32LE();
 
-		readPakInfo(&pakInfo, fileHandle);
+		readPakInfo(&pakInfo, &file);
 
 		file.seek(pakInfo.offset, SEEK_CUR);
 
@@ -181,7 +187,7 @@ char *loadPak(const char *name, int index) {
 	return ptr;
 #else
 	char bufferName[256];
-	FILE *fileHandle;
+	//FILE *fileHandle;
 	long int fileOffset;
 	long int additionalDescriptorSize;
 	pakInfoStruct pakInfo;
@@ -204,12 +210,12 @@ char *loadPak(const char *name, int index) {
 
 		additionalDescriptorSize = file.readUint32LE();
 
-		readPakInfo(&pakInfo, fileHandle);
+		readPakInfo(&pakInfo, &file);
 
 		if(pakInfo.offset) {
 			ASSERT(pakInfo.offset < 256);
 
-			file.read(nameBuffer, pakInfo.offset);
+			file.read((unsigned char*)nameBuffer, pakInfo.offset);
 #ifdef INTERNAL_DEBUGGER
 			printf("Loading %s/%s\n", name, nameBuffer + 2);
 #endif
@@ -220,12 +226,12 @@ char *loadPak(const char *name, int index) {
 		switch(pakInfo.compressionFlag) {
 		case 0: {
 			ptr = (char *)malloc(pakInfo.discSize);
-			file.read(ptr, pakInfo.discSize);
+			file.read((unsigned char*)ptr, pakInfo.discSize);
 			break;
 		}
 		case 1: {
-			char *compressedDataPtr = (char *) malloc(pakInfo.discSize);
-			file.read(compressedDataPtr, pakInfo.discSize);
+			char *compressedDataPtr = new char[pakInfo.discSize];
+			file.read((unsigned char*)compressedDataPtr, pakInfo.discSize);
 			ptr = new char[pakInfo.uncompressedSize];
 
 			PAK_explode((unsigned char *)compressedDataPtr, (unsigned char *)ptr, pakInfo.discSize, pakInfo.uncompressedSize, pakInfo.info5);
@@ -235,7 +241,7 @@ char *loadPak(const char *name, int index) {
 		}
 		case 4: {
 			char *compressedDataPtr = (char *) malloc(pakInfo.discSize);
-			file.read(compressedDataPtr, pakInfo.discSize);
+			file.read((unsigned char*)compressedDataPtr, pakInfo.discSize);
 			ptr = new char[pakInfo.uncompressedSize];
 
 			PAK_deflate((unsigned char *)compressedDataPtr, (unsigned char *)ptr, pakInfo.discSize, pakInfo.uncompressedSize);

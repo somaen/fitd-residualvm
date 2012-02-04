@@ -26,7 +26,10 @@ public:
 	bool isOpen();
 	uint32 read(byte *target, uint32 size);
 	uint32 readUint32LE();
+	uint16 readUint16LE();
+	byte readByte();
 	int32 size();
+
 	void seek(int32 offset, int whence = SEEK_SET);
 	void close();
 };

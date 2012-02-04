@@ -47,7 +47,7 @@ char *ResourceLoader::loadFromItd(const char *name) {
 		theEnd(1, name);
 		return NULL;
 	}
-	file.read(ptr, filesize);
+	file.read((byte*)ptr, filesize);
 	file.close();
 	return ptr;
 }
