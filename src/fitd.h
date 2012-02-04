@@ -42,23 +42,25 @@ void sysInitSub1(char *var0, char *var1);
 class FitdEngine {
 	gameType _gameType;
 	enumCVars *_currentCVarTable;
-	int _numCVars;
+	uint32 _numCVars;
 
 	void sysInit();
 	void detectGame();
 public:
 	FitdEngine();
 	void run();
-	int getGameType() {
+	uint32 getGameType() {
 		return _gameType;
 	}
 	int getNumCVars() {
 		return _numCVars;
 	}
-	int randRange(int min, int max) {
+	uint32 randRange(int min, int max) {
 		return((rand() % (max - min)) + min);
 	}
-	int getCVarsIdx(enumCVars searchedType);
+	int32 getCVarsIdx(enumCVars searchedType);
+	void delay(uint32 ms);
+	int32 getTicks();
 };
 
 extern FitdEngine *g_fitd;

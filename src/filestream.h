@@ -14,9 +14,11 @@
 #include "common/endian.h"
 #endif
 
+#include "common/stream.h"
+
 namespace Common {
 
-class ReadFileStream {
+class ReadFileStream : public SeekableReadStream {
 	void *_fileHandle;
 public:
 	ReadFileStream();

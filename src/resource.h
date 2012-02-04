@@ -21,6 +21,8 @@
 #ifndef FITD_RESOURCE_H
 #define FITD_RESOURCE_H
 
+#include "common/stream.h"
+
 namespace Fitd {
 
 class ResourceLoader {
@@ -29,6 +31,7 @@ public:
 	char *loadFromItd(const char *name);
 	char *loadPakSafe(const char *name, int index);
 	int getFileSize(const char *name);
+	Common::SeekableReadStream *getFile(const char* name);
 };
 
 extern ResourceLoader *g_resourceLoader;

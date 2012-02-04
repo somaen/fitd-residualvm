@@ -32,7 +32,8 @@
 #include "resource.h"
 #include "osystem.h"
 #include "common.h"
-//#include "common/forbidden.h"
+#include "common/forbidden.h"
+
 namespace Fitd {
 
 // TODO: Move
@@ -951,23 +952,21 @@ void initEngine(void) {
 	uint8 *pObjectData;
 	uint8 *pObjectDataBackup;
 	unsigned long int objectDataSize;
-	FILE *fHandle;
 	int i;
 	int choosePersoBackup;
 
-	fHandle = fopen("OBJETS.ITD", "rb");
-	if(!fHandle)
+	Common::SeekableReadStream *stream = g_resourceLoader->getFile("OBJETS.ITD");
+	
+	if(!stream)
 		theEnd(0, "OBJETS.ITD");
 
-	fseek(fHandle, 0, SEEK_END);
-	objectDataSize = ftell(fHandle);
-	fseek(fHandle, 0, SEEK_SET);
+	objectDataSize = stream->size();
 
 	pObjectDataBackup = pObjectData = (uint8 *)malloc(objectDataSize);
 	ASSERT(pObjectData);
 
-	fread(pObjectData, objectDataSize, 1, fHandle);
-	fclose(fHandle);
+	stream->read(pObjectData, objectDataSize);
+	delete stream;
 
 	maxObjects = READ_LE_UINT16(pObjectData);
 	pObjectData += 2;
@@ -1112,15 +1111,17 @@ void initEngine(void) {
 		choosePersoBackup = CVars[getCVarsIdx(CHOOSE_PERSO)]; // backup hero selection
 	}
 
-	fHandle = fopen("DEFINES.ITD", "rb");
-	if(!fHandle) {
+	stream = g_resourceLoader->getFile("DEFINES.ITD");
+	if(!stream) {
 		theEnd(0, "DEFINES.ITD");
 	}
 
 	///////////////////////////////////////////////
 	{
-		fread(CVars, g_fitd->getNumCVars(), 2, fHandle);
-		fclose(fHandle);
+		for (int i = 0; i < g_fitd->getNumCVars(); i++) {
+			CVars[i] = stream->readUint16LE();
+		}
+		delete stream;
 
 		for(i = 0; i < g_fitd->getNumCVars(); i++) {
 			CVars[i] = ((CVars[i] & 0xFF) << 8) | ((CVars[i] & 0xFF00) >> 8);
@@ -4592,7 +4593,7 @@ void cleanupAndExit(void) {
 
 	destroyMusicDriver();
 
-	exit(0);
+	error("Exiting");
 }
 
 } // end of namespace Fitd
@@ -4653,7 +4654,7 @@ int main(int argc, char **argv) {
 
 		switch(startupMenuResult) {
 		case -1: { // timeout
-			CVars[getCVarsIdx(CHOOSE_PERSO)] = rand() & 1;
+			CVars[getCVarsIdx(CHOOSE_PERSO)] = g_fitd->randRange(0,2);
 			/*  startGame(7,1,0);
 
 			 if(!make3dTatou())
@@ -4760,7 +4761,8 @@ int main(int argc, char **argv) {
 		}
 		case 2: { // exit
 			freeAll();
-			exit(-1);
+			error("Exiting");
+			//exit(-1);
 
 			break;
 		}

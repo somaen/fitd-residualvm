@@ -209,4 +209,12 @@ void FitdEngine::sysInit(void) {
 	hqrUnk = HQR_Init(10000, 50);
 }
 
+void delay(uint32 ms) {
+	SDL_Delay(ms);
+}
+
+int32 getTicks() {
+	return SDL_GetTicks();
+}
+
 } // end of namespace Fitd

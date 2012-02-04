@@ -67,4 +67,9 @@ char *ResourceLoader::loadPakSafe(const char *name, int index) {
 	return ptr;
 }
 
+Common::SeekableReadStream *ResourceLoader::getFile(const char* name) {
+	return new Common::ReadFileStream(name);
+}
+
+
 } // end of namespace Fitd
