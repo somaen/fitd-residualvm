@@ -52,7 +52,7 @@ int getCVarsIdx(enumCVars searchedType) { // TODO: optimize by reversing the tab
 
 }
 
-//short int inventory[30];
+//int16 inventory[30];
 
 void updateInHand(int objIdx) {
 	int var_2;
@@ -840,7 +840,7 @@ void initEngine(void) {
 	 fclose(fHandle); */
 	//
 
-	vars = (short int *)g_resourceLoader->loadFromItd("VARS.ITD");
+	vars = (int16 *)g_resourceLoader->loadFromItd("VARS.ITD");
 
 	varSize = g_resourceLoader->getFileSize("VARS.ITD");
 
@@ -1745,7 +1745,7 @@ void setupCamera() {
 	unfreezeTime();
 }
 
-short int computeDistanceToPoint(int x1, int z1, int x2, int z2) {
+int16 computeDistanceToPoint(int x1, int z1, int x2, int z2) {
 	int axBackup = x1;
 	x1 -= x2;
 	if((short int)x1 < 0) {
@@ -1764,14 +1764,14 @@ short int computeDistanceToPoint(int x1, int z1, int x2, int z2) {
 	}
 }
 
-void startActorRotation(short int beta, short int newBeta, short int param, rotateStruct *rotatePtr) {
+void startActorRotation(int16 beta, int16 newBeta, int16 param, rotateStruct *rotatePtr) {
 	rotatePtr->oldAngle = beta;
 	rotatePtr->newAngle = newBeta;
 	rotatePtr->param = param;
 	rotatePtr->timeOfRotate = timer;
 }
 
-short int updateActorRotation(rotateStruct *rotatePtr) {
+int16 updateActorRotation(rotateStruct *rotatePtr) {
 	int timeDif;
 	int angleDif;
 
@@ -1792,7 +1792,7 @@ short int updateActorRotation(rotateStruct *rotatePtr) {
 			int angle = (rotatePtr->newAngle & 0x3FF) - (rotatePtr->oldAngle & 0x3FF);
 			return (rotatePtr->oldAngle & 0x3FF) + (angle * timeDif) / rotatePtr->param;
 		} else {
-			short int angle = ((rotatePtr->newAngle & 0x3FF) + 0x400) - ((rotatePtr->oldAngle & 0x3FF));
+			int16 angle = ((rotatePtr->newAngle & 0x3FF) + 0x400) - ((rotatePtr->oldAngle & 0x3FF));
 			return (((rotatePtr->oldAngle & 0x3FF)) + ((angle * timeDif) / rotatePtr->param));
 		}
 	} else {
@@ -2178,14 +2178,14 @@ void drawZone(char *zoneData, int color) {
 
 	ZVStruct cameraZv = { -100, 100, -100, 100, -100, 100};
 
-	type = *(short int *)(zoneData + 0xE);
+	type = *(int16 *)(zoneData + 0xE);
 
-	x1 = *(short int *)(zoneData + 0x0);
-	x2 = *(short int *)(zoneData + 0x2);
-	y1 = *(short int *)(zoneData + 0x4);
-	y2 = *(short int *)(zoneData + 0x6);
-	z1 = *(short int *)(zoneData + 0x8);
-	z2 = *(short int *)(zoneData + 0xA);
+	x1 = *(int16 *)(zoneData + 0x0);
+	x2 = *(int16 *)(zoneData + 0x2);
+	y1 = *(int16 *)(zoneData + 0x4);
+	y2 = *(int16 *)(zoneData + 0x6);
+	z1 = *(int16 *)(zoneData + 0x8);
+	z2 = *(int16 *)(zoneData + 0xA);
 
 	cameraZv.ZVX1 += translateX;
 	cameraZv.ZVX2 += translateX;
@@ -2239,10 +2239,10 @@ void drawOverlayZone(char *zoneData, int color) {
 	int z1;
 	int z2;
 
-	x1 = *(short int *)(zoneData + 0x0) * 10;
-	z1 = *(short int *)(zoneData + 0x2) * 10;
-	x2 = *(short int *)(zoneData + 0x4) * 10;
-	z2 = *(short int *)(zoneData + 0x6) * 10;
+	x1 = *(int16 *)(zoneData + 0x0) * 10;
+	z1 = *(int16 *)(zoneData + 0x2) * 10;
+	x2 = *(int16 *)(zoneData + 0x4) * 10;
+	z2 = *(int16 *)(zoneData + 0x6) * 10;
 
 	y1 = 0;
 	y2 = 0;
@@ -2326,10 +2326,10 @@ int isBgOverlayRequired(int X1, int X2, int Z1, int Z2, char *data, int param) {
 		//  drawOverlayZone(data, 80);
 		/////////////////////////////////////
 
-		int zoneX1 = *(short int *)(data);
-		int zoneZ1 = *(short int *)(data + 2);
-		int zoneX2 = *(short int *)(data + 4);
-		int zoneZ2 = *(short int *)(data + 6);
+		int zoneX1 = *(int16 *)(data);
+		int zoneZ1 = *(int16 *)(data + 2);
+		int zoneX2 = *(int16 *)(data + 4);
+		int zoneZ2 = *(int16 *)(data + 6);
 
 		if(X1 >= zoneX1 && Z1 >= zoneZ1 && X2 <= zoneX2 && Z2 <= zoneZ2) {
 			return(1);
@@ -2346,7 +2346,7 @@ void drawBgOverlaySub2(int size) {
 	int bp = 32767;
 	int cx = -32768;
 	int dx = -32768;
-	short int *out;
+	int16 *out;
 	int tempBxPtr;
 	int tempCxPtr;
 
@@ -2360,7 +2360,7 @@ void drawBgOverlaySub2(int size) {
 
 	int direction = 1;
 
-	short int *data = (short int *)cameraBuffer;
+	int16 *data = (int16 *)cameraBuffer;
 
 	overlaySize1 = size;
 	overlaySize2 = size;
@@ -2386,7 +2386,7 @@ void drawBgOverlaySub2(int size) {
 	}
 
 	out = data;
-	data = (short int *)cameraBuffer;
+	data = (int16 *)cameraBuffer;
 
 	out[0] = data[0];
 	out[1] = data[1];
@@ -2403,9 +2403,9 @@ void drawBgOverlaySub2(int size) {
 	cameraBuffer3Ptr = cameraBuffer3;
 
 	si = cameraBufferPtr;
-	tempBxPtr = *(short int *)si;
+	tempBxPtr = *(int16 *)si;
 	si += 2;
-	tempCxPtr = *(short int *)si;
+	tempCxPtr = *(int16 *)si;
 	si += 2;
 
 	tempBufferSE = cameraBuffer4;
@@ -2418,9 +2418,9 @@ void drawBgOverlaySub2(int size) {
 		int dx;
 		int ax;
 
-		saveDx = *(short int *)si;
+		saveDx = *(int16 *)si;
 		si += 2;
-		saveAx = *(short int *)si;
+		saveAx = *(int16 *)si;
 		si += 2;
 
 #ifdef INTERNAL_DEBUGGER
@@ -2474,7 +2474,7 @@ void drawBgOverlaySub2(int size) {
 
 			tempCxPtr -= ax;
 
-			*(short int *)ptr1 = tempBxPtr;
+			*(int16 *)ptr1 = tempBxPtr;
 			ptr1 += 2 * direction;
 
 			ax = tempBxPtr;
@@ -2495,7 +2495,7 @@ void drawBgOverlaySub2(int size) {
 					ax ++;
 				} while(1);
 
-				*(short int *)ptr1 = ax;
+				*(int16 *)ptr1 = ax;
 				ptr1 += 2 * direction;
 			} while(--tempCxPtr);
 
@@ -2524,11 +2524,11 @@ void drawBgOverlay(actorStruct *actorPtr) {
 	setClipSize(BBox3D1, BBox3D2, BBox3D3, BBox3D4);
 
 	data = roomVar5[currentCamera] + 0x12;
-	numEntry = *(short int *)(data);
+	numEntry = *(int16 *)(data);
 	data += 2;
 
 	while(numEntry > 0) {
-		if(actorPtr->room == *(short int *)(data)) {
+		if(actorPtr->room == *(int16 *)(data)) {
 			break;
 		}
 		data += 12;
@@ -2540,26 +2540,26 @@ void drawBgOverlay(actorStruct *actorPtr) {
 
 	data += 2;
 
-	data2 = roomVar5[currentCamera] + *(unsigned short int *)(data);
+	data2 = roomVar5[currentCamera] + *(uint16 *)(data);
 	data = data2;
 	data += 2;
 
-	numOverlayZone = *(short int *)(data2);
+	numOverlayZone = *(int16 *)(data2);
 
 	for(i = 0; i < numOverlayZone; i++) {
 		int numOverlay;
-		char *src = data2 + *(unsigned short int *)(data + 2);
+		char *src = data2 + *(uint16 *)(data + 2);
 
 		if(isBgOverlayRequired(actorPtr->zv.ZVX1 / 10, actorPtr->zv.ZVX2 / 10,
 		                       actorPtr->zv.ZVZ1 / 10, actorPtr->zv.ZVZ2 / 10,
 		                       data + 4,
-		                       *(short int *)(data))) {
+		                       *(int16 *)(data))) {
 			int j;
-			numOverlay = *(short int *)src;
+			numOverlay = *(int16 *)src;
 			src += 2;
 
 			for(j = 0; j < numOverlay; j++) {
-				int param = *(short int *)(src);
+				int param = *(int16 *)(src);
 				src += 2;
 
 				memcpy(cameraBuffer, src, param * 4);
@@ -2572,7 +2572,7 @@ void drawBgOverlay(actorStruct *actorPtr) {
 			//      blitOverlay(src);
 		}
 
-		numOverlay = *(short int *)(data);
+		numOverlay = *(int16 *)(data);
 		data += 2;
 		data += ((numOverlay * 4) + 1) * 2;
 	}
@@ -2589,24 +2589,24 @@ void mainDrawSub2(int actorIdx) { // draw flow
 }
 
 void getHotPoint(int hotPointIdx, char *bodyPtr, point3dStruct *hotPoint) {
-	short int flag;
+	int16 flag;
 
-	flag = *(short int *)bodyPtr;
+	flag = *(int16 *)bodyPtr;
 	bodyPtr += 2;
 
 	if(flag & 2) {
-		short int offset;
+		int16 offset;
 		bodyPtr += 12;
 
-		offset = *(short int *)bodyPtr;
+		offset = *(int16 *)bodyPtr;
 		bodyPtr += 2;
 		bodyPtr += offset;
 
-		offset = *(short int *)bodyPtr; // num points
+		offset = *(int16 *)bodyPtr; // num points
 		bodyPtr += 2;
 		bodyPtr += offset * 6; // skip point buffer
 
-		offset = *(short int *)bodyPtr; // num bones
+		offset = *(int16 *)bodyPtr; // num bones
 		bodyPtr += 2;
 		bodyPtr += offset * 2; // skip bone buffer
 
@@ -2614,7 +2614,7 @@ void getHotPoint(int hotPointIdx, char *bodyPtr, point3dStruct *hotPoint) {
 
 		if(hotPointIdx < offset) {
 			int pointIdx;
-			short int *source;
+			int16 *source;
 
 			if(flag & 8) {
 				bodyPtr += hotPointIdx * 0x18;
@@ -2622,11 +2622,11 @@ void getHotPoint(int hotPointIdx, char *bodyPtr, point3dStruct *hotPoint) {
 				bodyPtr += hotPointIdx * 16;
 			}
 
-			pointIdx = *(short int *)(bodyPtr + 4); // first point
+			pointIdx = *(int16 *)(bodyPtr + 4); // first point
 
 			//ASSERT(pointIdx > 0 && pointIdx < 1200);
 
-			source = (short int *)(((char *)pointBuffer) + pointIdx);
+			source = (int16 *)(((char *)pointBuffer) + pointIdx);
 
 			hotPoint->x = source[0];
 			hotPoint->y = source[1];
@@ -3277,7 +3277,7 @@ void processActor1(void) {
 	int var_50 = 0;
 	int var_52 = 0;
 	int var_56;
-	short int localTable[3];
+	int16 localTable[3];
 	ZVStruct zvLocal;
 	ZVStruct *zvPtr;
 	int j;

@@ -206,9 +206,9 @@ void playSequence(int sequenceIdx, int fadeStart, int fadeOutVar) {
 					copyPalette((char*)localPalette,(char*) g_driver->_palette);
 				}
 			} else { // not first frame
-				unsigned long int frameSize;
+				uint32 frameSize;
 
-				frameSize = *(unsigned long int *)screen;
+				frameSize = *(uint32 *)screen;
 
 				if(frameSize < 64000) { // key frame
 					unapckSequenceFrame((unsigned char *)screen + 4, (unsigned char *)aux);

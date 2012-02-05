@@ -26,7 +26,7 @@
 
 namespace Fitd {
 
-int copyObjectToActor(int flag2, int var1, int foundName, short int flag, int x, int y, int z, int stage, int room, int alpha, int beta, int gamma, int var2, int var3, int var4, int var5) {
+int copyObjectToActor(int flag2, int var1, int foundName, int16 flag, int x, int y, int z, int stage, int room, int alpha, int beta, int gamma, int var2, int var3, int var4, int var5) {
 	int i;
 	int j;
 	actorStruct *actorPtr = actorTable;
@@ -196,14 +196,14 @@ int copyObjectToActor(int flag2, int var1, int foundName, short int flag, int x,
 			int numElements;
 			int j;
 
-			roomDataPtr += *(short int *)roomDataPtr;
+			roomDataPtr += *(int16 *)roomDataPtr;
 
-			numElements = *(short int *)roomDataPtr;
+			numElements = *(int16 *)roomDataPtr;
 			roomDataPtr += 2;
 
 			for(j = 0; j < numElements; j++) {
-				if(*(short int *)(roomDataPtr + 0xE) == 9) {
-					if(*(short int *)(roomDataPtr + 0xC) == foundName) {
+				if(*(int16 *)(roomDataPtr + 0xE) == 9) {
+					if(*(int16 *)(roomDataPtr + 0xC) == foundName) {
 						int tempX;
 						int tempY;
 						int tempZ;
@@ -219,15 +219,15 @@ int copyObjectToActor(int flag2, int var1, int foundName, short int flag, int x,
 						y = 0;
 						z = 0;
 
-						tempX = ((*(short int *)roomDataPtr) + (*(short int *)(roomDataPtr + 2))) / 2;
+						tempX = ((*(int16 *)roomDataPtr) + (*(int16 *)(roomDataPtr + 2))) / 2;
 						actorPtr->worldX = tempX;
 						actorPtr->roomX = tempX;
 
-						tempY = ((*(short int *)(roomDataPtr + 4)) + (*(short int *)(roomDataPtr + 6))) / 2;
+						tempY = ((*(int16 *)(roomDataPtr + 4)) + (*(int16 *)(roomDataPtr + 6))) / 2;
 						actorPtr->worldY = tempY;
 						actorPtr->roomY = tempY;
 
-						tempZ = ((*(short int *)(roomDataPtr + 8)) + (*(short int *)(roomDataPtr + 0xA))) / 2;
+						tempZ = ((*(int16 *)(roomDataPtr + 8)) + (*(int16 *)(roomDataPtr + 0xA))) / 2;
 						actorPtr->worldZ = tempZ;
 						actorPtr->roomZ = tempZ;
 

@@ -28,11 +28,11 @@
 namespace Fitd {
 
 int groundLevel;
-short int specialTable[4] = {144, 192, 48, 112};
+int16 specialTable[4] = {144, 192, 48, 112};
 
-short int numObjInInventoryTable[2];
-short int inHandTable[2];
-short int currentInHand = 0;
+int16 numObjInInventoryTable[2];
+int16 inHandTable[2];
+int16 currentInHand = 0;
 
 int numSequenceParam = 0;
 
@@ -99,7 +99,7 @@ void fire(int fireAnim, int X, int Y, int Z, int hitForce, int nextAnim) {
 }
 
 int createFlow(int mode, int X, int Y, int Z, int stage, int room, int alpha, int beta, int gamma, ZVStruct *zvPtr) {
-	short int localSpecialTable[4];
+	int16 localSpecialTable[4];
 	actorStruct *currentActorPtr;
 	int i;
 	ZVStruct *actorZvPtr;
@@ -168,25 +168,25 @@ int createFlow(int mode, int X, int Y, int Z, int stage, int room, int alpha, in
 
 		currentActorPtr->ANIM = mode;
 
-		*(short int *)flowPtr = localSpecialTable[rand()%3]; // type ? color ?
+		*(int16 *)flowPtr = localSpecialTable[rand()%3]; // type ? color ?
 		flowPtr += 2;
-		*(short int *)flowPtr = 30; // num of points
+		*(int16 *)flowPtr = 30; // num of points
 		flowPtr += 2;
 
 
 		for(j = 0; j < 30; j++) {
-			*(short int *)flowPtr = g_fitd->randRange(actorZvPtr->ZVX1, actorZvPtr->ZVX2); //X
+			*(int16 *)flowPtr = g_fitd->randRange(actorZvPtr->ZVX1, actorZvPtr->ZVX2); //X
 			flowPtr += 2;
-			*(short int *)flowPtr = g_fitd->randRange(actorZvPtr->ZVY1, actorZvPtr->ZVY2); //Y
+			*(int16 *)flowPtr = g_fitd->randRange(actorZvPtr->ZVY1, actorZvPtr->ZVY2); //Y
 			flowPtr += 2;
-			*(short int *)flowPtr = g_fitd->randRange(actorZvPtr->ZVZ1, actorZvPtr->ZVZ2); //Z
+			*(int16 *)flowPtr = g_fitd->randRange(actorZvPtr->ZVZ1, actorZvPtr->ZVZ2); //Z
 			flowPtr += 2;
 		}
 
 		for(j = 0; j < 30; j++) {
-			*(short int *)flowPtr = g_fitd->randRange(150, 300); // ?
+			*(int16 *)flowPtr = g_fitd->randRange(150, 300); // ?
 			flowPtr += 2;
-			*(short int *)flowPtr = g_fitd->randRange(30, 80); // ?
+			*(int16 *)flowPtr = g_fitd->randRange(30, 80); // ?
 			flowPtr += 2;
 		}
 
@@ -211,12 +211,12 @@ int createFlow(int mode, int X, int Y, int Z, int stage, int room, int alpha, in
 void getHardClip() {
 	ZVStruct *zvPtr = &currentProcessedActorPtr->zv;
 	char *etageData = (char *)getRoomData(currentProcessedActorPtr->room);
-	short int numEntry;
+	int16 numEntry;
 	int i;
 
-	etageData += *(short int *)etageData;
+	etageData += *(int16 *)etageData;
 
-	numEntry = *(short int *)etageData;
+	numEntry = *(int16 *)etageData;
 	etageData += 2;
 
 	for(i = 0; i < numEntry; i++) {
@@ -335,7 +335,7 @@ void setStage(int newStage, int newRoomLocal, int X, int Y, int Z) {
 
 void setupRealZv(ZVStruct *zvPtr) {
 	int i;
-	short int *ptr = pointBuffer;
+	int16 *ptr = pointBuffer;
 
 	zvPtr->ZVX1 = 32000;
 	zvPtr->ZVY1 = 32000;
@@ -412,17 +412,17 @@ void processLife(int lifeNum) {
 		int lifeTempVar5;
 		int lifeTempVar6;
 		int lifeTempVar7;
-		short int currentOpcode;
+		int16 currentOpcode;
 
 		var_6 = -1;
 
-		currentOpcode = *(short int *)(currentLifePtr);
+		currentOpcode = *(int16 *)(currentLifePtr);
 		currentLifePtr += 2;
 
 		warning("%d:opcode: %04X\n", lifeNum, currentOpcode);
 
 		if(currentOpcode & 0x8000) {
-			var_6 = *(short int *)(currentLifePtr);
+			var_6 = *(int16 *)(currentLifePtr);
 			currentLifePtr += 2;
 
 			if(var_6 == -1) {
@@ -455,7 +455,7 @@ void processLife(int lifeNum) {
 						break;
 					}
 					case LM_TYPE: {
-						lifeTempVar1 = (*(short int *)(currentLifePtr)) & TYPE_MASK;
+						lifeTempVar1 = (*(int16 *)(currentLifePtr)) & TYPE_MASK;
 						currentLifePtr += 2;
 
 						lifeTempVar2 = objectTable[var_6].flags;
@@ -465,9 +465,9 @@ void processLife(int lifeNum) {
 					}
 					////////////////////////////////////////////////////////////////////////
 					case LM_ANIM_ONCE: {
-						objectTable[var_6].anim = *(short int *)(currentLifePtr);
+						objectTable[var_6].anim = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
-						objectTable[var_6].animInfo = *(short int *)(currentLifePtr);
+						objectTable[var_6].animInfo = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 						objectTable[var_6].animType = ANIM_ONCE;
 						if(g_fitd->getGameType() >= GType_JACK)
@@ -475,7 +475,7 @@ void processLife(int lifeNum) {
 						break;
 					}
 					case LM_ANIM_REPEAT: {
-						objectTable[var_6].anim = *(short int *)(currentLifePtr);
+						objectTable[var_6].anim = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 						objectTable[var_6].animInfo = -1;
 						objectTable[var_6].animType = ANIM_REPEAT;
@@ -484,9 +484,9 @@ void processLife(int lifeNum) {
 						break;
 					}
 					case LM_ANIM_ALL_ONCE: {
-						objectTable[var_6].anim = *(short int *)(currentLifePtr);
+						objectTable[var_6].anim = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
-						objectTable[var_6].animInfo = *(short int *)(currentLifePtr);
+						objectTable[var_6].animInfo = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 						objectTable[var_6].animType = ANIM_ONCE | ANIM_UNINTERRUPTABLE;
 						if(g_fitd->getGameType() >= GType_JACK)
@@ -495,9 +495,9 @@ void processLife(int lifeNum) {
 					}
 					case    LM_ANIM_RESET: {
 						ASSERT(g_fitd->getGameType() >= GType_JACK);
-						objectTable[var_6].anim = *(short int *)(currentLifePtr);
+						objectTable[var_6].anim = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
-						objectTable[var_6].animInfo = *(short int *)(currentLifePtr);
+						objectTable[var_6].animInfo = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 						objectTable[var_6].animType = ANIM_ONCE | ANIM_RESET ;
 						objectTable[var_6].frame = 0 ;
@@ -505,41 +505,41 @@ void processLife(int lifeNum) {
 					}
 					////////////////////////////////////////////////////////////////////////
 					case LM_MOVE: { // MOVE
-						objectTable[var_6].stage = *(short int *)(currentLifePtr);
+						objectTable[var_6].stage = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 
-						objectTable[var_6].room = *(short int *)(currentLifePtr);
+						objectTable[var_6].room = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 
 						objectTable[var_6].lifeMode = 0;
 						break;
 					}
 					case LM_ANGLE: {
-						objectTable[var_6].alpha = *(short int *)(currentLifePtr);
+						objectTable[var_6].alpha = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 
-						objectTable[var_6].beta = *(short int *)(currentLifePtr);
+						objectTable[var_6].beta = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 
-						objectTable[var_6].gamma = *(short int *)(currentLifePtr);
+						objectTable[var_6].gamma = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 
 						break;
 					}
 					case LM_STAGE: { // stage
-						objectTable[var_6].stage = *(short int *)(currentLifePtr);
+						objectTable[var_6].stage = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 
-						objectTable[var_6].room = *(short int *)(currentLifePtr);
+						objectTable[var_6].room = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 
-						objectTable[var_6].x = *(short int *)(currentLifePtr);
+						objectTable[var_6].x = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 
-						objectTable[var_6].y = *(short int *)(currentLifePtr);
+						objectTable[var_6].y = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 
-						objectTable[var_6].z = *(short int *)(currentLifePtr);
+						objectTable[var_6].z = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 
 						//objModifFlag1 = 1;
@@ -547,7 +547,7 @@ void processLife(int lifeNum) {
 						break;
 					}
 					case LM_TEST_COL: {
-						if(*(short int *)(currentLifePtr)) {
+						if(*(int16 *)(currentLifePtr)) {
 							objectTable[var_6].flags |= 0x20;
 						} else {
 							objectTable[var_6].flags &= 0xFFDF;
@@ -559,12 +559,12 @@ void processLife(int lifeNum) {
 					}
 					////////////////////////////////////////////////////////////////////////
 					case LM_LIFE: {
-						objectTable[var_6].life = *(short int *)(currentLifePtr);
+						objectTable[var_6].life = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 						break;
 					}
 					case LM_LIFE_MODE: { // LIFE_MODE
-						lifeTempVar1 = *(short int *)(currentLifePtr);
+						lifeTempVar1 = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 
 
@@ -575,26 +575,26 @@ void processLife(int lifeNum) {
 						break;
 					}
 					case LM_FOUND_NAME: { // FOUND_NAME
-						objectTable[var_6].foundName = *(short int *)(currentLifePtr);
+						objectTable[var_6].foundName = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 
 						break;
 					}
 					case LM_FOUND_BODY: { // FOUND_BODY
-						objectTable[var_6].foundBody = *(short int *)(currentLifePtr);
+						objectTable[var_6].foundBody = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 
 						break;
 					}
 					case LM_FOUND_FLAG: { // FOUND_FLAG
 						objectTable[var_6].flags2 &= 0xE000;
-						objectTable[var_6].flags2 |= *(short int *)(currentLifePtr);
+						objectTable[var_6].flags2 |= *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 
 						break;
 					}
 					case LM_FOUND_WEIGHT: {
-						objectTable[var_6].positionInTrack = *(short int *)(currentLifePtr);
+						objectTable[var_6].positionInTrack = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 
 						break;
@@ -691,37 +691,37 @@ processOpcode:
 				break;
 			}
 			case LM_DEF_ZV: { // DEF_ZV
-				currentProcessedActorPtr->zv.ZVX1 = currentProcessedActorPtr->roomX + *(short int *)currentLifePtr + currentProcessedActorPtr->modX;
+				currentProcessedActorPtr->zv.ZVX1 = currentProcessedActorPtr->roomX + *(int16 *)currentLifePtr + currentProcessedActorPtr->modX;
 				currentLifePtr += 2;
-				currentProcessedActorPtr->zv.ZVX2 = currentProcessedActorPtr->roomX + *(short int *)currentLifePtr + currentProcessedActorPtr->modX;
-				currentLifePtr += 2;
-
-				currentProcessedActorPtr->zv.ZVY1 = currentProcessedActorPtr->roomY + *(short int *)currentLifePtr + currentProcessedActorPtr->modY;
-				currentLifePtr += 2;
-				currentProcessedActorPtr->zv.ZVY2 = currentProcessedActorPtr->roomY + *(short int *)currentLifePtr + currentProcessedActorPtr->modY;
+				currentProcessedActorPtr->zv.ZVX2 = currentProcessedActorPtr->roomX + *(int16 *)currentLifePtr + currentProcessedActorPtr->modX;
 				currentLifePtr += 2;
 
-				currentProcessedActorPtr->zv.ZVZ1 = currentProcessedActorPtr->roomZ + *(short int *)currentLifePtr + currentProcessedActorPtr->modZ;
+				currentProcessedActorPtr->zv.ZVY1 = currentProcessedActorPtr->roomY + *(int16 *)currentLifePtr + currentProcessedActorPtr->modY;
 				currentLifePtr += 2;
-				currentProcessedActorPtr->zv.ZVZ2 = currentProcessedActorPtr->roomZ + *(short int *)currentLifePtr + currentProcessedActorPtr->modZ;
+				currentProcessedActorPtr->zv.ZVY2 = currentProcessedActorPtr->roomY + *(int16 *)currentLifePtr + currentProcessedActorPtr->modY;
+				currentLifePtr += 2;
+
+				currentProcessedActorPtr->zv.ZVZ1 = currentProcessedActorPtr->roomZ + *(int16 *)currentLifePtr + currentProcessedActorPtr->modZ;
+				currentLifePtr += 2;
+				currentProcessedActorPtr->zv.ZVZ2 = currentProcessedActorPtr->roomZ + *(int16 *)currentLifePtr + currentProcessedActorPtr->modZ;
 				currentLifePtr += 2;
 
 				break;
 			}
 			case LM_DEF_ABS_ZV: {
-				currentProcessedActorPtr->zv.ZVX1 = *(short int *)currentLifePtr;
+				currentProcessedActorPtr->zv.ZVX1 = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
-				currentProcessedActorPtr->zv.ZVX2 = *(short int *)currentLifePtr;
-				currentLifePtr += 2;
-
-				currentProcessedActorPtr->zv.ZVY1 = *(short int *)currentLifePtr;
-				currentLifePtr += 2;
-				currentProcessedActorPtr->zv.ZVY2 = *(short int *)currentLifePtr;
+				currentProcessedActorPtr->zv.ZVX2 = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
 
-				currentProcessedActorPtr->zv.ZVZ1 = *(short int *)currentLifePtr;
+				currentProcessedActorPtr->zv.ZVY1 = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
-				currentProcessedActorPtr->zv.ZVZ2 = *(short int *)currentLifePtr;
+				currentProcessedActorPtr->zv.ZVY2 = *(int16 *)currentLifePtr;
+				currentLifePtr += 2;
+
+				currentProcessedActorPtr->zv.ZVZ1 = *(int16 *)currentLifePtr;
+				currentLifePtr += 2;
+				currentProcessedActorPtr->zv.ZVZ2 = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
 
 				break;
@@ -754,7 +754,7 @@ processOpcode:
 				break;
 			}
 			case LM_TYPE: { // TYPE
-				lifeTempVar1 = *(short int *)(currentLifePtr) & 0x1D1;
+				lifeTempVar1 = *(int16 *)(currentLifePtr) & 0x1D1;
 				currentLifePtr += 2;
 
 				lifeTempVar2 = currentProcessedActorPtr->flags;
@@ -781,9 +781,9 @@ processOpcode:
 			}
 			////////////////////////////////////////////////////////////////////////
 			case LM_ANIM_ONCE: {
-				lifeTempVar1 = *(short int *)currentLifePtr;
+				lifeTempVar1 = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
-				lifeTempVar2 = *(short int *)currentLifePtr;
+				lifeTempVar2 = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
 
 				if(lifeTempVar1 == -1) {
@@ -796,7 +796,7 @@ processOpcode:
 				break;
 			}
 			case LM_ANIM_REPEAT: {
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				anim(lifeTempVar1, 1, -1);
@@ -804,9 +804,9 @@ processOpcode:
 				break;
 			}
 			case LM_ANIM_ALL_ONCE: {
-				lifeTempVar1 = *(short int *)currentLifePtr;
+				lifeTempVar1 = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
-				lifeTempVar2 = *(short int *)currentLifePtr;
+				lifeTempVar2 = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
 
 				anim(lifeTempVar1, 2, lifeTempVar2);
@@ -817,10 +817,10 @@ processOpcode:
 				int param1;
 				int param2;
 
-				param1 = *(short int *)(currentLifePtr);
+				param1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
-				param2 = *(short int *)(currentLifePtr);
+				param2 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				if(param1 == -1) {
@@ -844,16 +844,16 @@ processOpcode:
 			}
 			////////////////////////////////////////////////////////////////////////
 			case LM_HIT: {
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar2 = *(short int *)(currentLifePtr);
+				lifeTempVar2 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar3 = *(short int *)(currentLifePtr);
+				lifeTempVar3 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar4 = *(short int *)(currentLifePtr);
+				lifeTempVar4 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 				lifeTempVar5 = evalVar();
-				lifeTempVar6 = *(short int *)(currentLifePtr);
+				lifeTempVar6 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				hit(lifeTempVar1, lifeTempVar2, lifeTempVar3, lifeTempVar4, lifeTempVar5, lifeTempVar6);
@@ -869,17 +869,17 @@ processOpcode:
 					int hitForce;
 					int nextAnim;
 
-					fireAnim = *(short int *)(currentLifePtr);
+					fireAnim = *(int16 *)(currentLifePtr);
 					currentLifePtr += 2;
-					shootFrame = *(short int *)(currentLifePtr);
+					shootFrame = *(int16 *)(currentLifePtr);
 					currentLifePtr += 2;
-					emitPoint = *(short int *)(currentLifePtr);
+					emitPoint = *(int16 *)(currentLifePtr);
 					currentLifePtr += 2;
-					zvSize = *(short int *)(currentLifePtr);
+					zvSize = *(int16 *)(currentLifePtr);
 					currentLifePtr += 2;
-					hitForce = *(short int *)(currentLifePtr);
+					hitForce = *(int16 *)(currentLifePtr);
 					currentLifePtr += 2;
-					nextAnim = *(short int *)(currentLifePtr);
+					nextAnim = *(int16 *)(currentLifePtr);
 					currentLifePtr += 2;
 
 					fire(fireAnim, shootFrame, emitPoint, zvSize, hitForce, nextAnim);
@@ -893,15 +893,15 @@ processOpcode:
 					int nextAnim;
 
 					fireAnim = evalVar();
-					shootFrame = *(short int *)(currentLifePtr);
+					shootFrame = *(int16 *)(currentLifePtr);
 					currentLifePtr += 2;
-					emitPoint = *(short int *)(currentLifePtr);
+					emitPoint = *(int16 *)(currentLifePtr);
 					currentLifePtr += 2;
-					emitModel = *(short int *)(currentLifePtr);
+					emitModel = *(int16 *)(currentLifePtr);
 					currentLifePtr += 2;
-					zvSize = *(short int *)(currentLifePtr);
+					zvSize = *(int16 *)(currentLifePtr);
 					currentLifePtr += 2;
-					hitForce = *(short int *)(currentLifePtr);
+					hitForce = *(int16 *)(currentLifePtr);
 					currentLifePtr += 2;
 					nextAnim = evalVar();
 
@@ -917,9 +917,9 @@ processOpcode:
 				break;
 			}
 			case LM_HIT_OBJECT: { // HIT_OBJECT
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar2 = *(short int *)(currentLifePtr);
+				lifeTempVar2 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				currentProcessedActorPtr->animActionType = 8;
@@ -939,19 +939,19 @@ processOpcode:
 				break;
 			}
 			case LM_THROW: { // throw
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar2 = *(short int *)(currentLifePtr);
+				lifeTempVar2 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar3 = *(short int *)(currentLifePtr);
+				lifeTempVar3 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar4 = *(short int *)(currentLifePtr);
+				lifeTempVar4 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar5 = *(short int *)(currentLifePtr);
+				lifeTempVar5 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar6 = *(short int *)(currentLifePtr);
+				lifeTempVar6 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar7 = *(short int *)(currentLifePtr);
+				lifeTempVar7 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				throwObj(lifeTempVar1, lifeTempVar2, lifeTempVar3, lifeTempVar4, lifeTempVar5, lifeTempVar6, lifeTempVar7);
@@ -960,10 +960,10 @@ processOpcode:
 			}
 			////////////////////////////////////////////////////////////////////////
 			case LM_MOVE: {
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
-				lifeTempVar2 = *(short int *)(currentLifePtr);
+				lifeTempVar2 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				setMoveMode(lifeTempVar1, lifeTempVar2);
@@ -981,7 +981,7 @@ processOpcode:
 
 				ptr += currentProcessedActorPtr->positionInTrack * 2;
 
-				if(*(short int *)ptr == 5) {
+				if(*(int16 *)ptr == 5) {
 					currentProcessedActorPtr->positionInTrack++;
 				}
 				break;
@@ -995,19 +995,19 @@ processOpcode:
 				break;
 			}
 			case LM_ANIM_MOVE: {
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar2 = *(short int *)(currentLifePtr);
+				lifeTempVar2 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar3 = *(short int *)(currentLifePtr);
+				lifeTempVar3 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar4 = *(short int *)(currentLifePtr);
+				lifeTempVar4 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar5 = *(short int *)(currentLifePtr);
+				lifeTempVar5 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar6 = *(short int *)(currentLifePtr);
+				lifeTempVar6 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar7 = *(short int *)(currentLifePtr);
+				lifeTempVar7 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				animMove(lifeTempVar1, lifeTempVar2, lifeTempVar3, lifeTempVar4, lifeTempVar5, lifeTempVar6, lifeTempVar7);
@@ -1023,9 +1023,9 @@ processOpcode:
 				break;
 			}
 			case LM_SET_BETA: { // SET_BETA
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar2 = *(short int *)(currentLifePtr);
+				lifeTempVar2 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				if(currentProcessedActorPtr->beta != lifeTempVar1) {
@@ -1039,9 +1039,9 @@ processOpcode:
 				break;
 			}
 			case LM_SET_ALPHA: { // SET_ALPHA
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar2 = *(short int *)(currentLifePtr);
+				lifeTempVar2 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				if(currentProcessedActorPtr->alpha != lifeTempVar1) {
@@ -1055,11 +1055,11 @@ processOpcode:
 				break;
 			}
 			case LM_ANGLE: { // ANGLE
-				currentProcessedActorPtr->alpha = *(short int *)currentLifePtr;
+				currentProcessedActorPtr->alpha = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
-				currentProcessedActorPtr->beta = *(short int *)currentLifePtr;
+				currentProcessedActorPtr->beta = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
-				currentProcessedActorPtr->gamma = *(short int *)currentLifePtr;
+				currentProcessedActorPtr->gamma = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
 
 				break;
@@ -1070,15 +1070,15 @@ processOpcode:
 				break;
 			}
 			case LM_STAGE: { // STAGE
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar2 = *(short int *)(currentLifePtr);
+				lifeTempVar2 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar3 = *(short int *)(currentLifePtr);
+				lifeTempVar3 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar4 = *(short int *)(currentLifePtr);
+				lifeTempVar4 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar5 = *(short int *)(currentLifePtr);
+				lifeTempVar5 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				setStage(lifeTempVar1, lifeTempVar2, lifeTempVar3, lifeTempVar4, lifeTempVar5);
@@ -1086,7 +1086,7 @@ processOpcode:
 				break;
 			}
 			case LM_TEST_COL: { // TEST_COL
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				if(lifeTempVar1) {
@@ -1103,17 +1103,17 @@ processOpcode:
 			}
 			////////////////////////////////////////////////////////////////////////
 			case LM_LIFE: { // LIFE
-				currentProcessedActorPtr->life = *(short int *)(currentLifePtr);
+				currentProcessedActorPtr->life = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 				break;
 			}
 			case LM_STAGE_LIFE: {
-				objectTable[currentProcessedActorPtr->field_0].field_24 = *(short int *)(currentLifePtr);
+				objectTable[currentProcessedActorPtr->field_0].field_24 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 				break;
 			}
 			case LM_LIFE_MODE: { // LIFE_MODE
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				if(g_fitd->getGameType() == GType_AITD1) {
@@ -1130,7 +1130,7 @@ processOpcode:
 			}
 			case LM_DELETE: { // DELETE
 				if(g_fitd->getGameType() == GType_AITD1) {
-					lifeTempVar1 = *(short int *)(currentLifePtr);
+					lifeTempVar1 = *(int16 *)(currentLifePtr);
 					currentLifePtr += 2;
 				} else {
 					lifeTempVar1 = evalVar();
@@ -1148,7 +1148,7 @@ processOpcode:
 				break;
 			}
 			case LM_SPECIAL: { // SPECIAL
-				lifeTempVar1 = *(short int *)(currentLifePtr) & 0x1D1;
+				lifeTempVar1 = *(int16 *)(currentLifePtr) & 0x1D1;
 				currentLifePtr += 2;
 
 				switch(lifeTempVar1) {
@@ -1207,7 +1207,7 @@ processOpcode:
 			}
 			////////////////////////////////////////////////////////////////////////
 			case LM_FOUND: { // FOUND
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				foundObject(lifeTempVar1, 1);
@@ -1215,7 +1215,7 @@ processOpcode:
 				break;
 			}
 			case LM_TAKE: { // TAKE
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				take(lifeTempVar1);
@@ -1224,11 +1224,11 @@ processOpcode:
 			}
 			case LM_IN_HAND: { // IN_HAND
 				if(g_fitd->getGameType() == GType_AITD1) {
-					inHand = *(short int *)(currentLifePtr);
+					inHand = *(int16 *)(currentLifePtr);
 					currentLifePtr += 2;
 				} else {
 					if(g_fitd->getGameType() == GType_JACK) {
-						inHandTable[currentInHand] = *(short int *)(currentLifePtr);
+						inHandTable[currentInHand] = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 					} else {
 						inHandTable[currentInHand] = evalVar();
@@ -1238,7 +1238,7 @@ processOpcode:
 			}
 			case LM_DROP: { // DROP
 				lifeTempVar1 = evalVar();
-				lifeTempVar2 = *(short int *)(currentLifePtr);
+				lifeTempVar2 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				warning("Drop\n");
@@ -1257,31 +1257,31 @@ processOpcode:
 				int gamma;
 				int idx;
 
-				idx = *(short int *)(currentLifePtr);
+				idx = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
-				x = *(short int *)(currentLifePtr);
+				x = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
-				y = *(short int *)(currentLifePtr);
+				y = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
-				z = *(short int *)(currentLifePtr);
+				z = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
-				room = *(short int *)(currentLifePtr);
+				room = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
-				stage = *(short int *)(currentLifePtr);
+				stage = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
-				alpha = *(short int *)(currentLifePtr);
+				alpha = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
-				beta = *(short int *)(currentLifePtr);
+				beta = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
-				gamma = *(short int *)(currentLifePtr);
+				gamma = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				put(x, y, z, room, stage, alpha, beta, gamma, idx);
@@ -1292,49 +1292,49 @@ processOpcode:
 				int objIdx1;
 				int objIdx2;
 
-				objIdx1 = *(short int *)currentLifePtr;
+				objIdx1 = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
 
-				objIdx2 = *(short int *)currentLifePtr;
+				objIdx2 = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
 
 				putAt(objIdx1, objIdx2);
 				break;
 			}
 			case LM_FOUND_NAME: { // FOUND_NAME
-				objectTable[currentProcessedActorPtr->field_0].foundName = *(short int *)(currentLifePtr);
+				objectTable[currentProcessedActorPtr->field_0].foundName = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				break;
 			}
 			case LM_FOUND_BODY: { // FOUND_BODY
-				objectTable[currentProcessedActorPtr->field_0].foundBody = *(short int *)(currentLifePtr);
+				objectTable[currentProcessedActorPtr->field_0].foundBody = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				break;
 			}
 			case LM_FOUND_FLAG: { // FOUND_FLAG
 				objectTable[currentProcessedActorPtr->field_0].flags2 &= 0xE000;
-				objectTable[currentProcessedActorPtr->field_0].flags2 |= *(short int *)(currentLifePtr);
+				objectTable[currentProcessedActorPtr->field_0].flags2 |= *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 				break;
 			}
 			case LM_FOUND_WEIGHT: { // FOUND_WEIGHT
-				objectTable[currentProcessedActorPtr->field_0].positionInTrack = *(short int *)(currentLifePtr);
+				objectTable[currentProcessedActorPtr->field_0].positionInTrack = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				break;
 			}
 			case LM_FOUND_LIFE: { // FOUND_LIFE
-				objectTable[currentProcessedActorPtr->field_0].foundLife = *(short int *)(currentLifePtr);
+				objectTable[currentProcessedActorPtr->field_0].foundLife = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				break;
 			}
 			case LM_READ: { // READ
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar2 = *(short int *)(currentLifePtr);
+				lifeTempVar2 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				fadeOut(0x20, 0);
@@ -1358,9 +1358,9 @@ processOpcode:
 			case LM_ANIM_SAMPLE: { // ANIM_SAMPLE
 				lifeTempVar1 = evalVar();
 
-				lifeTempVar2 = *(short int *)(currentLifePtr);
+				lifeTempVar2 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar3 = *(short int *)(currentLifePtr);
+				lifeTempVar3 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				if(currentProcessedActorPtr->END_FRAME != 0) {
@@ -1379,9 +1379,9 @@ processOpcode:
 				int frameNumber;
 
 				sampleNumber = evalVar();
-				animNumber = *(short int *)(currentLifePtr);
+				animNumber = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				frameNumber = *(short int *)(currentLifePtr);
+				frameNumber = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				break; // TODO: implement
@@ -1395,7 +1395,7 @@ processOpcode:
 					if(g_fitd->getGameType() == GType_JACK) {
 						sampleNumber = evalVar();
 					} else {
-						sampleNumber = *(short int *)(currentLifePtr);
+						sampleNumber = *(int16 *)(currentLifePtr);
 						currentLifePtr += 2;
 					}
 				}
@@ -1427,10 +1427,10 @@ processOpcode:
 						newSample = evalVar();
 						genVar7 = evalVar();
 					} else {
-						newSample = *(short int *)currentLifePtr;
+						newSample = *(int16 *)currentLifePtr;
 						currentLifePtr += 2;
 
-						genVar7 = *(short int *)currentLifePtr;
+						genVar7 = *(int16 *)currentLifePtr;
 						currentLifePtr += 2;
 					}
 
@@ -1447,14 +1447,14 @@ processOpcode:
 			}
 			////////////////////////////////////////////////////////////////////////
 			case LM_MUSIC: { // MUSIC
-				int newMusicIdx = *(short int *)(currentLifePtr);
+				int newMusicIdx = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				playMusic(newMusicIdx);
 				break;
 			}
 			case LM_NEXT_MUSIC: { // TODO
-				int musicIdx = *(short int *)(currentLifePtr);
+				int musicIdx = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				if(currentMusic == -1) {
@@ -1466,7 +1466,7 @@ processOpcode:
 				break;
 			}
 			case LM_FADE_MUSIC: { // ? fade out music and play another music ?
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				if(currentMusic != -1) {
@@ -1486,7 +1486,7 @@ processOpcode:
 			}
 			////////////////////////////////////////////////////////////////////////
 			case LM_LIGHT: { // LIGHT
-				lifeTempVar1 = 2 - ((*(short int *)(currentLifePtr)) << 1);
+				lifeTempVar1 = 2 - ((*(int16 *)(currentLifePtr)) << 1);
 				currentLifePtr += 2;
 
 				if(g_fitd->getGameType() >= GType_JACK || (!CVars[getCVarsIdx(KILLED_SORCERER)])) {
@@ -1531,7 +1531,7 @@ processOpcode:
 				break;
 			}
 			case LM_CAMERA_TARGET: { // CAMERA_TARGET
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				if(lifeTempVar1 != currentCameraTarget) { // same stage
@@ -1587,17 +1587,17 @@ processOpcode:
 				if(g_fitd->getGameType() == GType_AITD1) {
 					unsigned int chrono;
 
-					loadPakToPtr("ITD_RESS", *(short int *)currentLifePtr, aux);
+					loadPakToPtr("ITD_RESS", *(int16 *)currentLifePtr, aux);
 					currentLifePtr += 2;
 
 					copyToScreen(aux, unkScreenVar);
 					flip();
 
 					startChrono(&chrono);
-					lifeTempVar1 = *(short int *)currentLifePtr;
+					lifeTempVar1 = *(int16 *)currentLifePtr;
 					currentLifePtr += 2;
 
-					playSound(*(short int *)currentLifePtr);
+					playSound(*(int16 *)currentLifePtr);
 					currentLifePtr += 2;
 
 					//soundFunc(0);
@@ -1624,9 +1624,9 @@ processOpcode:
 				} else {
 					unsigned int chrono;
 					unsigned char lpalette[0x300];
-					short int ressourceIdx;
+					int16 ressourceIdx;
 
-					ressourceIdx = *(short int *)(currentLifePtr);
+					ressourceIdx = *(int16 *)(currentLifePtr);
 					currentLifePtr += 2;
 
 					loadPakToPtr("ITD_RESS", ressourceIdx, aux);
@@ -1672,19 +1672,19 @@ processOpcode:
 				}
 			}
 			case LM_PLAY_SEQUENCE: { // sequence
-				unsigned short int sequenceIdx;
-				unsigned short int fadeEntry;
-				unsigned short int fadeOut;
+				uint16 sequenceIdx;
+				uint16 fadeEntry;
+				uint16 fadeOut;
 
 				freezeTime();
 
-				sequenceIdx = *(unsigned short int *)(currentLifePtr);
+				sequenceIdx = *(uint16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
-				fadeEntry = *(unsigned short int *)(currentLifePtr);
+				fadeEntry = *(uint16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
-				fadeOut = *(unsigned short int *)(currentLifePtr);
+				fadeOut = *(uint16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				playSequence(sequenceIdx, fadeEntry, fadeOut);
@@ -1694,10 +1694,10 @@ processOpcode:
 				break;
 			}
 			case LM_DEF_SEQUENCE_SAMPLE: {
-				unsigned short int numParams;
+				uint16 numParams;
 				int i;
 
-				numParams = *(short int *)(currentLifePtr);
+				numParams = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				ASSERT(numParams <= NUM_MAX_SEQUENCE_PARAM);
@@ -1719,12 +1719,12 @@ processOpcode:
 			}
 			////////////////////////////////////////////////////////////////////////
 			case LM_INVENTORY: { // INVENTORY
-				statusScreenAllowed = *(short int *)currentLifePtr;
+				statusScreenAllowed = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
 				break;
 			}
 			case LM_SET_INVENTORY: {
-				int inventoryIndex = *(short int *)(currentLifePtr);
+				int inventoryIndex = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				/*          if(indeventoyIndex != currentInHand)
@@ -1744,12 +1744,12 @@ processOpcode:
 				break;
 			}
 			case LM_SET_GROUND: {
-				groundLevel = *(short int *)currentLifePtr;
+				groundLevel = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
 				break;
 			}
 			case LM_MESSAGE: {
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				makeMessage(lifeTempVar1);
@@ -1757,9 +1757,9 @@ processOpcode:
 				break;
 			}
 			case LM_MESSAGE_VALUE: {
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
-				lifeTempVar2 = *(short int *)(currentLifePtr); // unused param ?
+				lifeTempVar2 = *(int16 *)(currentLifePtr); // unused param ?
 				currentLifePtr += 2;
 
 				makeMessage(lifeTempVar1);
@@ -1772,35 +1772,35 @@ processOpcode:
 			}
 			////////////////////////////////////////////////////////////////////////
 			case LM_VAR: {
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				vars[lifeTempVar1] = evalVar();
 				break;
 			}
 			case LM_INC: { // INC_VAR
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				vars[lifeTempVar1]++;
 				break;
 			}
 			case LM_DEC: { // DEC_VAR
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				vars[lifeTempVar1]--;
 				break;
 			}
 			case LM_ADD: { // ADD_VAR
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				vars[lifeTempVar1] += evalVar();
 				break;
 			}
 			case LM_SUB: { // SUB_VAR
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				vars[lifeTempVar1] -= evalVar();
@@ -1808,7 +1808,7 @@ processOpcode:
 			}
 			case LM_MODIF_C_VAR:
 			case LM_C_VAR: {
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				CVars[lifeTempVar1] = evalVar();
@@ -1822,7 +1822,7 @@ processOpcode:
 				if(lifeTempVar1 == lifeTempVar2) {
 					currentLifePtr += 2;
 				} else {
-					lifeTempVar2 = *(short int *)(currentLifePtr);
+					lifeTempVar2 = *(int16 *)(currentLifePtr);
 					currentLifePtr += lifeTempVar2 * 2;
 					currentLifePtr += 2;
 				}
@@ -1836,7 +1836,7 @@ processOpcode:
 				if(lifeTempVar1 != lifeTempVar2) {
 					currentLifePtr += 2;
 				} else {
-					lifeTempVar2 = *(short int *)(currentLifePtr);
+					lifeTempVar2 = *(int16 *)(currentLifePtr);
 					currentLifePtr += lifeTempVar2 * 2;
 					currentLifePtr += 2;
 				}
@@ -1850,7 +1850,7 @@ processOpcode:
 				if(lifeTempVar1 >= lifeTempVar2) {
 					currentLifePtr += 2;
 				} else {
-					lifeTempVar2 = *(short int *)(currentLifePtr);
+					lifeTempVar2 = *(int16 *)(currentLifePtr);
 					currentLifePtr += lifeTempVar2 * 2;
 					currentLifePtr += 2;
 				}
@@ -1864,7 +1864,7 @@ processOpcode:
 				if(lifeTempVar1 > lifeTempVar2) {
 					currentLifePtr += 2;
 				} else {
-					lifeTempVar2 = *(short int *)(currentLifePtr);
+					lifeTempVar2 = *(int16 *)(currentLifePtr);
 					currentLifePtr += lifeTempVar2 * 2;
 					currentLifePtr += 2;
 				}
@@ -1878,7 +1878,7 @@ processOpcode:
 				if(lifeTempVar1 <= lifeTempVar2) {
 					currentLifePtr += 2;
 				} else {
-					lifeTempVar2 = *(short int *)(currentLifePtr);
+					lifeTempVar2 = *(int16 *)(currentLifePtr);
 					currentLifePtr += lifeTempVar2 * 2;
 					currentLifePtr += 2;
 				}
@@ -1892,7 +1892,7 @@ processOpcode:
 				if(lifeTempVar1 < lifeTempVar2) {
 					currentLifePtr += 2;
 				} else {
-					lifeTempVar2 = *(short int *)(currentLifePtr);
+					lifeTempVar2 = *(int16 *)(currentLifePtr);
 					currentLifePtr += lifeTempVar2 * 2;
 					currentLifePtr += 2;
 				}
@@ -1900,7 +1900,7 @@ processOpcode:
 				break;
 			}
 			case LM_GOTO: {
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += lifeTempVar1 * 2;
 				currentLifePtr += 2;
 				break;
@@ -1911,13 +1911,13 @@ processOpcode:
 				break;
 			}
 			case LM_CASE: { // CASE
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				if(lifeTempVar1 == switchVal) {
 					currentLifePtr += 2;
 				} else {
-					lifeTempVar2 = *(short int *)(currentLifePtr);
+					lifeTempVar2 = *(int16 *)(currentLifePtr);
 					currentLifePtr += lifeTempVar2 * 2;
 					currentLifePtr += 2;
 				}
@@ -1926,20 +1926,20 @@ processOpcode:
 			}
 			case LM_MULTI_CASE: { // MULTI_CASE
 				int i;
-				lifeTempVar1 = *(short int *)(currentLifePtr);
+				lifeTempVar1 = *(int16 *)(currentLifePtr);
 				currentLifePtr += 2;
 
 				lifeTempVar2 = 0;
 
 				for(i = 0; i < lifeTempVar1; i++) {
-					if(*(short int *)(currentLifePtr) == switchVal) {
+					if(*(int16 *)(currentLifePtr) == switchVal) {
 						lifeTempVar2 = 1;
 					}
 					currentLifePtr += 2;
 				}
 
 				if(!lifeTempVar2) {
-					lifeTempVar2 = *(short int *)(currentLifePtr);
+					lifeTempVar2 = *(int16 *)(currentLifePtr);
 					currentLifePtr += lifeTempVar2 * 2;
 					currentLifePtr += 2;
 				} else {
