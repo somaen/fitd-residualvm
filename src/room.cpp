@@ -143,17 +143,17 @@ void loadRoom(int roomNumber) {
 
 		cameraDataTable[i] = &(globalCameraDataTable[currentCameraIdx]);
 
-		currentCameraIdx = cameraDataTable[i]->numCameraZoneDef;
+		currentCameraIdx = cameraDataTable[i]->_numCameraZoneDef;
 
 		// scan for the zone data related to the current room
 		for(j = 0; j < currentCameraIdx; j++) {
-			if(cameraDataTable[i]->cameraZoneDefTable[j].dummy1 == currentDisplayedRoom)
+			if(cameraDataTable[i]->_cameraZoneDefTable[j].dummy1 == currentDisplayedRoom)
 				break;
 		}
 
-		ASSERT(cameraDataTable[i]->cameraZoneDefTable[j].dummy1 == currentDisplayedRoom);
+		ASSERT(cameraDataTable[i]->_cameraZoneDefTable[j].dummy1 == currentDisplayedRoom);
 
-		currentCameraZoneList[i] = &cameraDataTable[i]->cameraZoneDefTable[j];
+		currentCameraZoneList[i] = &cameraDataTable[i]->_cameraZoneDefTable[j];
 	}
 
 	if(oldCameraIdx != -1) { // if a camera was selected before loading room

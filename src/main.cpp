@@ -1064,9 +1064,9 @@ void setupCameraSub1() {
 	}
 
 	// visibility list: add room seen by the current camera
-	for(j = 0; j < cameraDataTable[currentCamera]->numCameraZoneDef; j++) {
-		if(!setupCameraSub1Sub1(cameraDataTable[currentCamera]->cameraZoneDefTable[j].dummy1)) {
-			*(dataTabPos++) = (char)cameraDataTable[currentCamera]->cameraZoneDefTable[j].dummy1;
+	for(j = 0; j < cameraDataTable[currentCamera]->_numCameraZoneDef; j++) {
+		if(!setupCameraSub1Sub1(cameraDataTable[currentCamera]->_cameraZoneDefTable[j].dummy1)) {
+			*(dataTabPos++) = (char)cameraDataTable[currentCamera]->_cameraZoneDefTable[j].dummy1;
 			*(dataTabPos) = -1;
 		}
 	}
@@ -1305,10 +1305,10 @@ int16 cameraVisibilityVar = 0;
 int checkRoomAitd2Only(int roomNumber) {
 	int i;
 	int found = 0;
-	int numZone = cameraDataTable[currentCamera]->numCameraZoneDef;
+	int numZone = cameraDataTable[currentCamera]->_numCameraZoneDef;
 
 	for(i = 0; i < numZone; i++) {
-		if(cameraDataTable[currentCamera]->cameraZoneDefTable[i].dummy1 == roomNumber) {
+		if(cameraDataTable[currentCamera]->_cameraZoneDefTable[i].dummy1 == roomNumber) {
 			cameraVisibilityVar = i;
 			return(1);
 		}
@@ -1639,8 +1639,8 @@ addObject:
 int checkActorInRoom(int room) {
 	int i;
 
-	for(i = 0; i < cameraDataTable[currentCamera]->numCameraZoneDef; i++) {
-		if(cameraDataTable[currentCamera]->cameraZoneDefTable[i].dummy1 == room) {
+	for(i = 0; i < cameraDataTable[currentCamera]->_numCameraZoneDef; i++) {
+		if(cameraDataTable[currentCamera]->_cameraZoneDefTable[i].dummy1 == room) {
 			return(1);
 		}
 	}
@@ -1686,16 +1686,16 @@ void setupCamera() {
 
 	pCamera = cameraDataTable[currentCamera];
 
-	setupPointTransformSM(pCamera->alpha, pCamera->beta, pCamera->gamma);
+	setupPointTransformSM(pCamera->_alpha, pCamera->_beta, pCamera->_gamma);
 
 #if INTERNAL_DEBUGGER
 	if(debuggerVar_topCamera)
 		setupPointTransformSM(0x100, 0, 0);
 #endif
 
-	x = (pCamera->x - roomDataTable[currentDisplayedRoom].worldX) * 10;
-	y = (roomDataTable[currentDisplayedRoom].worldY - pCamera->y) * 10;
-	z = (roomDataTable[currentDisplayedRoom].worldZ - pCamera->z) * 10;
+	x = (pCamera->_x - roomDataTable[currentDisplayedRoom].worldX) * 10;
+	y = (roomDataTable[currentDisplayedRoom].worldY - pCamera->_y) * 10;
+	z = (roomDataTable[currentDisplayedRoom].worldZ - pCamera->_z) * 10;
 
 #if INTERNAL_DEBUGGER
 	if(debuggerVar_topCamera) {
@@ -1706,7 +1706,7 @@ void setupCamera() {
 #endif
 	setupSelfModifyingCode(x, y, z); // setup camera position
 
-	setupSMCode(160, 100, pCamera->focal1, pCamera->focal2, pCamera->focal3); // setup focale
+	setupSMCode(160, 100, pCamera->_focal1, pCamera->_focal2, pCamera->_focal3); // setup focale
 
 #if INTERNAL_DEBUGGER
 	if(debuggerVar_topCamera)
@@ -3753,7 +3753,7 @@ int changeCameraSub2(void) {
 	for(int i = 0; i < numCameraInRoom; i++) {
 		ASSERT(i < NUM_MAX_CAMERA_IN_ROOM);
 		if(changeCameraSub1(x1, x2, z1, z2, currentCameraZoneList[i])) { // if in camera zone ?
-			int newAngle = actorPtr->beta + (((cameraDataTable[i]->beta) + 0x200) & 0x3FF);
+			int newAngle = actorPtr->beta + (((cameraDataTable[i]->_beta) + 0x200) & 0x3FF);
 
 			if(newAngle) {
 				newAngle = -newAngle;

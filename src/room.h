@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef _ROOM_H_
-#define _ROOM_H_
+#ifndef FITD_ROOM_H
+#define FITD_ROOM_H
 
 namespace Fitd {
 struct hardColStruct;
@@ -42,14 +42,10 @@ struct sceZoneStruct {
 	uint32 parameter;
 };
 
-typedef struct sceZoneStruct sceZoneStruct;
-
 struct cameraZonePointStruct {
 	int16 x;
 	int16 y;
 };
-
-typedef struct cameraZonePointStruct cameraZonePointStruct;
 
 struct cameraZoneEntryStruct {
 	uint16 numPoints;
@@ -58,8 +54,6 @@ struct cameraZoneEntryStruct {
 	
 	void load(const char *data);
 };
-
-typedef struct cameraZoneEntryStruct cameraZoneEntryStruct;
 
 struct cameraZoneDefStruct {
 	int16 dummy1;
@@ -76,28 +70,25 @@ struct cameraZoneDefStruct {
 	void load(const char *data, const char *basedata);
 };
 
-typedef struct cameraZoneDefStruct cameraZoneDefStruct;
-
 struct cameraDataStruct {
-	int16 alpha;
-	int16 beta;
-	int16 gamma;
+	int16 _alpha;
+	int16 _beta;
+	int16 _gamma;
 
-	int16 x;
-	int16 y;
-	int16 z;
+	int16 _x;
+	int16 _y;
+	int16 _z;
 
-	int16 focal1;
-	int16 focal2;
-	int16 focal3;
+	int16 _focal1;
+	int16 _focal2;
+	int16 _focal3;
 
-	uint16 numCameraZoneDef;
+	uint16 _numCameraZoneDef;
 
-	cameraZoneDefStruct *cameraZoneDefTable;
+	cameraZoneDefStruct *_cameraZoneDefTable;
 	
 	void load(const char *data);
 };
-typedef struct cameraDataStruct cameraDataStruct;
 
 struct roomDataStruct {
 	uint32 numCameraInRoom;
