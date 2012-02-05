@@ -19,6 +19,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
+
+#define FORBIDDEN_SYMBOL_EXCEPTION_srand
+#define FORBIDDEN_SYMBOL_EXCEPTION_rand
+#define FORBIDDEN_SYMBOL_EXCEPTION_time
+
 #include "common/textconsole.h"
 #include "fitd.h"
 #include "resource.h"
@@ -90,7 +95,7 @@ void FitdEngine::detectGame(void) {
 		_numCVars = 45;
 		_currentCVarTable = AITD1KnownCVars;
 
-		printf("Detected Alone in the Dark 1\n");
+		warning("Detected Alone in the Dark 1\n");
 		return;
 	}
 	if(g_resourceLoader->getFileExists("PERE.PAK")) {
@@ -98,7 +103,7 @@ void FitdEngine::detectGame(void) {
 		_numCVars = 70;
 		_currentCVarTable = AITD2KnownCVars;
 
-		printf("Detected Jack in the Dark\n");
+		warning("Detected Jack in the Dark\n");
 		return;
 	}
 	if(g_resourceLoader->getFileExists("MER.PAK")) {
@@ -106,7 +111,7 @@ void FitdEngine::detectGame(void) {
 		_numCVars = 70;
 		_currentCVarTable = AITD2KnownCVars;
 
-		printf("Detected Alone in the Dark 2\n");
+		warning("Detected Alone in the Dark 2\n");
 		return;
 	}
 	if(g_resourceLoader->getFileExists("AN1.PAK")) {
@@ -114,7 +119,7 @@ void FitdEngine::detectGame(void) {
 		_numCVars = 70;
 		_currentCVarTable = AITD2KnownCVars;
 
-		printf("Detected Alone in the Dark 3\n");
+		warning("Detected Alone in the Dark 3\n");
 		return;
 	}
 	if(g_resourceLoader->getFileExists("PURSUIT.PAK")) {
@@ -122,12 +127,11 @@ void FitdEngine::detectGame(void) {
 		_numCVars = 70; // TODO: figure this
 		_currentCVarTable = AITD2KnownCVars; // TODO: figure this
 
-		printf("Detected Time Gate\n");
+		warning("Detected Time Gate\n");
 		return;
 	}
 
-	printf("FATAL: Game detection failed...\n");
-	exit(1);
+	error("FATAL: Game detection failed...\n");
 }
 
 int FitdEngine::getCVarsIdx(enumCVars searchedType) { // TODO: optimize by reversing the table....
@@ -308,7 +312,6 @@ void FitdEngine::sysInit(void) {
 #else
 	//  time_t ltime;
 #endif
-	FILE *fHandle;
 
 	setupScreen();
 	//setupInterrupt();
@@ -387,15 +390,19 @@ void FitdEngine::sysInit(void) {
 
 	priority = g_resourceLoader->loadFromItd("PRIORITY.ITD");
 
-	fHandle = fopen("DEFINES.ITD", "rb");
-	if(!fHandle) {
+	Common::SeekableReadStream *stream = g_resourceLoader->getFile("DEFINES.ITD");
+	if(!stream) {
 		theEnd(0, "DEFINES.ITD");
 	}
 
 	///////////////////////////////////////////////
 	{
-		fread(CVars, getNumCVars(), 2, fHandle);
-		fclose(fHandle);
+		for (int i = 0; i < getNumCVars(); i++) {
+			CVars[i] = stream->readUint16LE();
+		}
+		//		fread(CVars, getNumCVars(), 2, fHandle);
+		//fclose(fHandle); 
+		delete stream;
 
 		for(int i = 0; i < getNumCVars(); i++) {
 			CVars[i] = ((CVars[i] & 0xFF) << 8) | ((CVars[i] & 0xFF00) >> 8);

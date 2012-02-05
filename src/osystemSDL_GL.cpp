@@ -21,6 +21,7 @@
  */
 
 #include "common/textconsole.h"
+#include "fitd.h"
 #include "common.h"
 
 namespace Fitd {
@@ -329,7 +330,7 @@ void GFXSystem::init()  // that's the constructor of the system dependent
 
 		for(i = 0; i < 256; i++) {
 			for(j = 0; j < 256; j++) {
-				unsigned char ditherValue = rand() % 0x50;
+				unsigned char ditherValue = g_fitd->randRange(0, 0x50);
 
 				*(tempPtr++) = ditherValue;
 				*(tempPtr++) = ditherValue;

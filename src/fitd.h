@@ -23,6 +23,8 @@
 #ifndef FITD_FITD_H
 #define FITD_FITD_H
 
+#define FORBIDDEN_SYMBOL_EXCEPTION_rand
+
 #include <cstdio>
 #include <cstdlib>
 #include "cvars.h"

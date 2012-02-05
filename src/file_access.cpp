@@ -20,6 +20,7 @@
  *
  */
 
+#include "common/textconsole.h"
 #include "common.h"
 
 namespace Fitd {
@@ -28,8 +29,7 @@ namespace Fitd {
 void theEnd(int type, const char *name) {
 	//  freeScene();
 	freeAll();
-	printf("Error: %s\n", name);
-	exit(1);
+	error("Error: %s\n", name);
 }
 
 } // end of namespace Fitd

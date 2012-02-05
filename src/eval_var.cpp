@@ -20,6 +20,7 @@
  *
  */
 
+#include "common/textconsole.h"
 #include "fitd.h"
 #include "common.h"
 
@@ -200,8 +201,7 @@ int evalVar(void) {
 					break;
 				}
 				default: {
-					printf("Unsupported evalVar %X when actor not in room !\n", var1 & 0x7FFF);
-					exit(1);
+					error("Unsupported evalVar %X when actor not in room !\n", var1 & 0x7FFF);
 				}
 				}
 			}
@@ -465,8 +465,7 @@ int evalVar(void) {
 				break;
 			}
 			default: {
-				printf("Unhandled test type %X in evalVar\n", var1);
-				exit(1);
+				error("Unhandled test type %X in evalVar\n", var1);
 				break;
 			}
 			}
@@ -515,8 +514,7 @@ int evalVar2(void) {
 					break;
 				}
 				default: {
-					printf("Unsupported evalVar %X when actor not in room !\n", var1 & 0x7FFF);
-					exit(1);
+					error("Unsupported evalVar %X when actor not in room !\n", var1 & 0x7FFF);
 				}
 				}
 			}
@@ -784,8 +782,7 @@ int evalVar2(void) {
 				break;
 			}
 			default: {
-				printf("Unhandled test type %X in evalVar\n", var1);
-				exit(1);
+				error("Unhandled test type %X in evalVar\n", var1);
 				break;
 			}
 			}

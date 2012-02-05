@@ -20,6 +20,7 @@
  *
  */
 
+#include "common/textconsole.h"
 #include "fitd.h"
 #include "osystem.h"
 #include "common.h"
@@ -199,7 +200,7 @@ int createFlow(int mode, int X, int Y, int Z, int stage, int room, int alpha, in
 		break;
 	}
 	default: {
-		printf("Unsupported case %d in createFlow\n", mode);
+		warning("Unsupported case %d in createFlow\n", mode);
 	}
 	}
 
@@ -418,15 +419,14 @@ void processLife(int lifeNum) {
 		currentOpcode = *(short int *)(currentLifePtr);
 		currentLifePtr += 2;
 
-		printf("%d:opcode: %04X\n", lifeNum, currentOpcode);
+		warning("%d:opcode: %04X\n", lifeNum, currentOpcode);
 
 		if(currentOpcode & 0x8000) {
 			var_6 = *(short int *)(currentLifePtr);
 			currentLifePtr += 2;
 
 			if(var_6 == -1) {
-				printf("Unsupported newVar = -1\n");
-				exit(1);
+				error("Unsupported newVar = -1\n");
 			} else {
 				currentProcessedActorIdx = objectTable[var_6].ownerIdx;
 
@@ -604,8 +604,7 @@ void processLife(int lifeNum) {
 					}
 					////////////////////////////////////////////////////////////////////////
 					default: {
-						printf("Unsupported opcode %X when actor isn't in floor\n", currentOpcode & 0x7FFF);
-						exit(1);
+						error("Unsupported opcode %X when actor isn't in floor\n", currentOpcode & 0x7FFF);
 						break;
 					}
 					}
@@ -1242,7 +1241,7 @@ processOpcode:
 				lifeTempVar2 = *(short int *)(currentLifePtr);
 				currentLifePtr += 2;
 
-				printf("Drop\n");
+				warning("Drop\n");
 				// drop(lifeTempVar1, lifeTempVar2);
 
 				break;
@@ -1340,7 +1339,7 @@ processOpcode:
 
 				fadeOut(0x20, 0);
 
-				printf("ReadBook\n");
+				warning("ReadBook\n");
 				//          readBook(lifeTempVar2+1, lifeTempVar1);
 
 				if(g_fitd->getGameType() == GType_AITD1) {
@@ -1500,7 +1499,7 @@ processOpcode:
 				break;
 			}
 			case LM_SHAKING: { // SHAKING
-				printf("Shaking\n");
+				warning("Shaking\n");
 				//shakingState = shakingAmplitude = *(short int*)(currentLifePtr);
 				currentLifePtr += 2;
 
@@ -1516,7 +1515,7 @@ processOpcode:
 			}
 			case LM_WATER: { // ? shaking related
 				// TODO: Warning, AITD1/AITD2 diff
-				printf("Shaking related\n");
+				warning("Shaking related\n");
 				//          mainLoopVar1 = shakeVar1 = *(short int*)(currentLifePtr);
 				currentLifePtr += 2;
 
@@ -1958,8 +1957,7 @@ processOpcode:
 				break;
 			}
 			default: {
-				printf("Unknown opcode %X in processLife\n", currentOpcode & 0x7FFF);
-				exit(1);
+				error("Unknown opcode %X in processLife\n", currentOpcode & 0x7FFF);
 			}
 			}
 		}

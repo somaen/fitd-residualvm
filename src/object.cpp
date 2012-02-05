@@ -20,6 +20,7 @@
  *
  */
 
+#include "common/textconsole.h"
 #include "fitd.h"
 #include "common.h"
 
@@ -251,10 +252,9 @@ int copyObjectToActor(int flag2, int var1, int foundName, short int flag, int x,
 		break;
 	}
 	default: {
-		printf("Unsupported ZV type in copyObjectToActor\n");
-		printf("var1: %d\n", var1);
+		warning("Unsupported ZV type in copyObjectToActor\n");
+		error("var1: %d\n", var1);
 		ASSERT(0);
-		exit(1);
 		break;
 	}
 	}

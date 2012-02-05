@@ -20,6 +20,7 @@
  *
  */
 
+#include "common/textconsole.h"
 #include "common.h"
 #include "math.h"
 
@@ -691,8 +692,7 @@ void processTrack(void) {
 			break;
 		}
 		default: {
-			printf("Unknown track macro %X\n", trackMacro);
-			exit(1);
+			error("Unknown track macro %X\n", trackMacro);
 			break;
 		}
 		}
@@ -1119,8 +1119,7 @@ void processTrack2(void) {
                 break;
                 } */
 		default: {
-			printf("Unknown track macro %X\n", trackMacro);
-			exit(1);
+			error("Unknown track macro %X\n", trackMacro);
 			break;
 		}
 		}

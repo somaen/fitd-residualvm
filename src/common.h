@@ -177,5 +177,5 @@ FORCEINLINE uint32 READ_BE_U32(void *ptr) {
 	return (((uint8 *)ptr)[3] << 24) | (((uint8 *)ptr)[2] << 16) | (((uint8 *)ptr)[1] << 8) | ((uint8 *)ptr)[0];
 #endif
 }
-
+#include "common/forbidden.h"
 #endif
