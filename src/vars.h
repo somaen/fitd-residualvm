@@ -286,7 +286,7 @@ extern char input4;
 extern char button;
 
 extern char languageNameString[];
-extern char *languageNameTable[];
+extern const char *languageNameTable[];
 
 extern regularTextEntryStruct textTable[40];
 
@@ -449,8 +449,8 @@ extern int32 bgOverlayVar1;
 
 extern int16 newRoom;
 
-extern char *listBodySelect[];
-extern char *listAnimSelect[];
+extern const char *listBodySelect[];
+extern const char *listAnimSelect[];
 
 extern int16 inventory[30];
 

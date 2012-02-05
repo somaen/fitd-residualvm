@@ -47,7 +47,7 @@ void readPakInfo(pakInfoStruct *pPakInfo, Common::ReadFileStream *file) {
 	pPakInfo->offset = file->readUint16LE();
 }
 
-unsigned int PAK_getNumFiles(char *name) {
+unsigned int PAK_getNumFiles(const char *name) {
 	char bufferName[256];
 	//FILE *fileHandle;
 	long int fileOffset;
@@ -66,7 +66,7 @@ unsigned int PAK_getNumFiles(char *name) {
 	return((fileOffset / 4) - 2);
 }
 
-int loadPakToPtr(char *name, int index, char *ptr) {
+int loadPakToPtr(const char *name, int index, char *ptr) {
 #ifdef USE_UNPACKED_DATA
 	char buffer[256];
 	FILE *fHandle;
@@ -98,7 +98,7 @@ int loadPakToPtr(char *name, int index, char *ptr) {
 #endif
 }
 
-int getPakSize(char *name, int index) {
+int getPakSize(const char *name, int index) {
 #ifdef USE_UNPACKED_DATA
 	char buffer[256];
 	//FILE *fHandle;

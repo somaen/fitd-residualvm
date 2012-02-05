@@ -76,7 +76,7 @@ char input3;
 char input4;
 char button;
 
-char *languageNameTable[] = {
+const char *languageNameTable[] = {
 	"ENGLISH",
 	"FRANCAIS",
 	"ITALIANO",	
@@ -262,12 +262,12 @@ int16 hardColVar2;
 
 ZVStruct hardClip;
 
-char *listBodySelect[] = {
+const char *listBodySelect[] = {
 	"LISTBODY",
 	"LISTBOD2",
 };
 
-char *listAnimSelect[] = {
+const char *listAnimSelect[] = {
 	"LISTANIM",
 	"LISTANI2",
 };

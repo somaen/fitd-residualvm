@@ -49,7 +49,7 @@ void throwStoppedAt(int x, int z);
 sceZoneStruct *processActor2Sub(int x, int y, int z, roomDataStruct *pRoomData);
 void initEngine(void);
 void initVars();
-void configureHqrHero(hqrEntryStruct *hqrPtr, char *name);
+void configureHqrHero(hqrEntryStruct *hqrPtr, const char *name);
 void flushScreen(void);
 int parseAllSaves(int arg);
 textEntryStruct *getTextFromIdx(int index);

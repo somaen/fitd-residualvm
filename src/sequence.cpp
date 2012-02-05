@@ -41,7 +41,7 @@ void convertPaletteIfRequired(unsigned char *lpalette) {
 	}
 }
 
-char *sequenceListAITD2[] = {
+const char *sequenceListAITD2[] = {
 	"BATL",
 	"GRAP",
 	"CLE1",

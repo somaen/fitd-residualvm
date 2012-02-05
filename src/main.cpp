@@ -775,7 +775,7 @@ void initEngine(void) {
 	uint8 *pObjectData;
 	uint8 *pObjectDataBackup;
 	unsigned long int objectDataSize;
-	int i;
+
 	int choosePersoBackup;
 
 	Common::SeekableReadStream *stream = g_resourceLoader->getFile("OBJETS.ITD");
@@ -796,7 +796,7 @@ void initEngine(void) {
 		objectTable = (objectStruct *)malloc(maxObjects * sizeof(objectStruct));
 	}
 
-	for(i = 0; i < maxObjects; i++) {
+	for(int i = 0; i < maxObjects; i++) {
 		objectTable[i].readFromStream(stream);
 	}
 	delete stream;
@@ -860,7 +860,7 @@ void initEngine(void) {
 		}
 		delete stream;
 
-		for(i = 0; i < g_fitd->getNumCVars(); i++) {
+		for(int i = 0; i < g_fitd->getNumCVars(); i++) {
 			CVars[i] = ((CVars[i] & 0xFF) << 8) | ((CVars[i] & 0xFF00) >> 8);
 		}
 	}
@@ -886,7 +886,7 @@ void initEngine(void) {
 	}
 
 
-	for(i = 0; i < NUM_MAX_ACTOR; i++) {
+	for(int i = 0; i < NUM_MAX_ACTOR; i++) {
 		actorTable[i].field_0 = -1;
 	}
 
@@ -4205,7 +4205,7 @@ int parseAllSaves(int arg) {
 	// TODO : make real implementation
 }
 
-void configureHqrHero(hqrEntryStruct *hqrPtr, char *name) {
+void configureHqrHero(hqrEntryStruct *hqrPtr, const char *name) {
 	strcpy(hqrPtr->string, "        ");
 	strncpy(hqrPtr->string, name, 8);
 }

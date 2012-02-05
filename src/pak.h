@@ -25,9 +25,9 @@
 namespace Fitd {
 
 char *loadPak(const char *name, int index);
-int loadPakToPtr(char *name, int index, char *ptr);
-int getPakSize(char *name, int index);
-unsigned int PAK_getNumFiles(char *name);
+int loadPakToPtr(const char *name, int index, char *ptr);
+int getPakSize(const char *name, int index);
+unsigned int PAK_getNumFiles(const char *name);
 
 } // end of namespace Fitd
 
