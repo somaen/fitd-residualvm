@@ -67,6 +67,7 @@ struct ZVStruct {
 	int32 ZVY2;
 	int32 ZVZ1;
 	int32 ZVZ2;
+	void load(const char* data);
 };
 
 struct rotateStruct {

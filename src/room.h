@@ -113,8 +113,9 @@ struct roomDataStruct {
 	int32 worldZ;
 
 	uint16 *cameraIdxTable;
+	
+	void load(const char* data);
 };
-typedef struct roomDataStruct roomDataStruct;
 
 extern cameraDataStruct *cameraDataTable[NUM_MAX_CAMERA_IN_ROOM];
 extern cameraZoneDefStruct *currentCameraZoneList[NUM_MAX_CAMERA_IN_ROOM];

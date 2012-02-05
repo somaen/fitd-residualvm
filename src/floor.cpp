@@ -122,6 +122,81 @@ void cameraZoneEntryStruct::load(const char *data) {
 	pointTable[numOfPoints].y = pointTable[0].y;
 }
 
+void ZVStruct::load(const char *data) {
+	ZVX1 = (int16)READ_LE_UINT16(data + 0x00);
+	ZVX2 = (int16)READ_LE_UINT16(data + 0x02);
+	ZVY1 = (int16)READ_LE_UINT16(data + 0x04);
+	ZVY2 = (int16)READ_LE_UINT16(data + 0x06);
+	ZVZ1 = (int16)READ_LE_UINT16(data + 0x08);
+	ZVZ2 = (int16)READ_LE_UINT16(data + 0x0A);
+}
+
+void roomDataStruct::load(const char *data) {
+	const char *hardColData;
+	const char *sceZoneData;
+	worldX = (int16)READ_LE_UINT16(data + 4);
+	worldY = (int16)READ_LE_UINT16(data + 6);
+	worldZ = (int16)READ_LE_UINT16(data + 8);
+	
+	numCameraInRoom = READ_LE_UINT16(data + 0xA);
+	
+	cameraIdxTable = (uint16 *)malloc(numCameraInRoom * sizeof(int16));
+	
+	for(int j = 0; j < numCameraInRoom; j++) {
+		cameraIdxTable[j] = READ_LE_UINT16(data + 0xC + 2 * j);
+	}
+	
+	// hard col read
+	
+	hardColData = data + READ_LE_UINT16(data);
+	numHardCol = READ_LE_UINT16(hardColData);
+	hardColData += 2;
+	
+	if(numHardCol) {
+		hardColTable = (hardColStruct *)malloc(sizeof(hardColStruct) * numHardCol);
+		
+		for(int j = 0; j < numHardCol; j++) {
+			ZVStruct *zvData;
+			
+			zvData = &hardColTable[j].zv;
+			
+			zvData->load(hardColData);
+			
+			hardColTable[j].parameter = READ_LE_UINT16(hardColData + 0x0C);
+			hardColTable[j].type = READ_LE_UINT16(hardColData + 0x0E);
+			
+			hardColData += 0x10;
+		}
+	} else {
+		hardColTable = NULL;
+	}
+	
+	// sce zone read
+	
+	sceZoneData = data + READ_LE_UINT16(data + 2);
+	numSceZone = READ_LE_UINT16(sceZoneData);
+	sceZoneData += 2;
+	
+	if(numSceZone) {
+		sceZoneTable = (sceZoneStruct *)malloc(sizeof(sceZoneStruct) * numSceZone);
+		
+		for(int j = 0; j < numSceZone; j++) {
+			ZVStruct *zvData;
+			
+			zvData = &sceZoneTable[j].zv;
+			
+			zvData->load(sceZoneData);
+			
+			sceZoneTable[j].parameter = READ_LE_UINT16(sceZoneData + 0x0C);
+			sceZoneTable[j].type = READ_LE_UINT16(sceZoneData + 0x0E);
+			
+			sceZoneData += 0x10;
+		}
+	} else {
+		sceZoneTable = NULL;
+	}
+}
+
 void loadFloor(int32 floorNumber) {
 	int32 i;
 	int32 expectedNumberOfRoom;
@@ -168,8 +243,7 @@ void loadFloor(int32 floorNumber) {
 	for(i = 0; i < expectedNumberOfRoom; i++) {
 		uint32 j;
 		char *roomData;
-		char *hardColData;
-		char *sceZoneData;
+
 		roomDataStruct *currentRoomDataPtr;
 
 		if(roomDataTable) {
@@ -192,78 +266,8 @@ void loadFloor(int32 floorNumber) {
 			roomData = (etageVar0 + READ_LE_UINT32(etageVar0 + i * 4));
 		}
 		currentRoomDataPtr = &roomDataTable[i];
-
-		currentRoomDataPtr->worldX = (int16)READ_LE_UINT16(roomData + 4);
-		currentRoomDataPtr->worldY = (int16)READ_LE_UINT16(roomData + 6);
-		currentRoomDataPtr->worldZ = (int16)READ_LE_UINT16(roomData + 8);
-
-		currentRoomDataPtr->numCameraInRoom = READ_LE_UINT16(roomData + 0xA);
-
-		currentRoomDataPtr->cameraIdxTable = (uint16 *)malloc(currentRoomDataPtr->numCameraInRoom * sizeof(int16));
-
-		for(j = 0; j < currentRoomDataPtr->numCameraInRoom; j++) {
-			currentRoomDataPtr->cameraIdxTable[j] = READ_LE_UINT16(roomData + 0xC + 2 * j);
-		}
-
-		// hard col read
-
-		hardColData = roomData + READ_LE_UINT16(roomData);
-		currentRoomDataPtr->numHardCol = READ_LE_UINT16(hardColData);
-		hardColData += 2;
-
-		if(currentRoomDataPtr->numHardCol) {
-			currentRoomDataPtr->hardColTable = (hardColStruct *)malloc(sizeof(hardColStruct) * currentRoomDataPtr->numHardCol);
-
-			for(j = 0; j < currentRoomDataPtr->numHardCol; j++) {
-				ZVStruct *zvData;
-
-				zvData = &currentRoomDataPtr->hardColTable[j].zv;
-
-				zvData->ZVX1 = (int16)READ_LE_UINT16(hardColData + 0x00);
-				zvData->ZVX2 = (int16)READ_LE_UINT16(hardColData + 0x02);
-				zvData->ZVY1 = (int16)READ_LE_UINT16(hardColData + 0x04);
-				zvData->ZVY2 = (int16)READ_LE_UINT16(hardColData + 0x06);
-				zvData->ZVZ1 = (int16)READ_LE_UINT16(hardColData + 0x08);
-				zvData->ZVZ2 = (int16)READ_LE_UINT16(hardColData + 0x0A);
-
-				currentRoomDataPtr->hardColTable[j].parameter = READ_LE_UINT16(hardColData + 0x0C);
-				currentRoomDataPtr->hardColTable[j].type = READ_LE_UINT16(hardColData + 0x0E);
-
-				hardColData += 0x10;
-			}
-		} else {
-			currentRoomDataPtr->hardColTable = NULL;
-		}
-
-		// sce zone read
-
-		sceZoneData = roomData + READ_LE_UINT16(roomData + 2);
-		currentRoomDataPtr->numSceZone = READ_LE_UINT16(sceZoneData);
-		sceZoneData += 2;
-
-		if(currentRoomDataPtr->numSceZone) {
-			currentRoomDataPtr->sceZoneTable = (sceZoneStruct *)malloc(sizeof(sceZoneStruct) * currentRoomDataPtr->numSceZone);
-
-			for(j = 0; j < currentRoomDataPtr->numSceZone; j++) {
-				ZVStruct *zvData;
-
-				zvData = &currentRoomDataPtr->sceZoneTable[j].zv;
-
-				zvData->ZVX1 = (int16)READ_LE_UINT16(sceZoneData + 0x00);
-				zvData->ZVX2 = (int16)READ_LE_UINT16(sceZoneData + 0x02);
-				zvData->ZVY1 = (int16)READ_LE_UINT16(sceZoneData + 0x04);
-				zvData->ZVY2 = (int16)READ_LE_UINT16(sceZoneData + 0x06);
-				zvData->ZVZ1 = (int16)READ_LE_UINT16(sceZoneData + 0x08);
-				zvData->ZVZ2 = (int16)READ_LE_UINT16(sceZoneData + 0x0A);
-
-				currentRoomDataPtr->sceZoneTable[j].parameter = READ_LE_UINT16(sceZoneData + 0x0C);
-				currentRoomDataPtr->sceZoneTable[j].type = READ_LE_UINT16(sceZoneData + 0x0E);
-
-				sceZoneData += 0x10;
-			}
-		} else {
-			currentRoomDataPtr->sceZoneTable = NULL;
-		}
+		
+		currentRoomDataPtr->load(roomData);
 	}
 	///////////////////////////////////
 
@@ -287,7 +291,7 @@ void loadFloor(int32 floorNumber) {
 	//globalCameraDataTable = (cameraDataStruct *)malloc(sizeof(cameraDataStruct) * expectedNumberOfCamera);
 	globalCameraDataTable = new cameraDataStruct[expectedNumberOfCamera];
 	
-	for(i = 0; i < expectedNumberOfCamera; i++) {
+	for(int i = 0; i < expectedNumberOfCamera; i++) {
 		int32 k;
 		uint32 offset;
 		char *currentCameraData;
@@ -321,9 +325,11 @@ void loadFloor(int32 floorNumber) {
 		} else {
 			break;
 		}
+		
+		numGlobalCamera++;
 	}
 
-	numGlobalCamera = i - 1;
+	numGlobalCamera--;
 
 	// globalCameraDataTable = (cameraDataStruct*)realloc(globalCameraDataTable,sizeof(cameraDataStruct)*numGlobalCamera);
 
