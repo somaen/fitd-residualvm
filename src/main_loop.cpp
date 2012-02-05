@@ -66,7 +66,7 @@ void mainLoop(int allowSystemMenu) {
 
 	while(1) {
 		frames++;
-		t_start = SDL_GetTicks();
+		t_start = g_fitd->getTicks();
 
 		timeGlobal++;
 
@@ -275,12 +275,12 @@ void mainLoop(int allowSystemMenu) {
 		updatePendingEvents();
 
 		t_end = t_start + SPEED;
-		t_left = t_start - SDL_GetTicks() + SPEED;
+		t_left = t_start - g_fitd->getTicks() + SPEED;
 
 		if(t_left > 0) {
 			if(t_left > SLEEP_MIN)
-				SDL_Delay(t_left - SLEEP_GRAN);
-			while(SDL_GetTicks() < t_end) {
+				g_fitd->delay(t_left - SLEEP_GRAN);
+			while(g_fitd->getTicks() < t_end) {
 				q++;
 			};
 		} else {

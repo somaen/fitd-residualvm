@@ -23,6 +23,7 @@
 #include "common/textconsole.h"
 #include "fitd.h"
 #include "common.h"
+#include "fmopl.h"
 
 namespace Fitd {
 

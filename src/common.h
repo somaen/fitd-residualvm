@@ -47,10 +47,6 @@
 #include "common/endian.h"
 #endif
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <time.h>
-#include <string.h>
 #ifdef WIN32
 #include <search.h>
 #endif
@@ -70,12 +66,6 @@
 #define ASSERT_PTR(exp) assert(exp)
 #else
 #define ASSERT_PTR(exp)
-#endif
-
-#ifdef USE_GL
-#include <GL/gl.h>      // Header File For The OpenGL32 Library
-#include <GL/glu.h>     // Header File For The GLu32 Library
-//#include <gl\glaux.h>   // Header File For The Glaux Library
 #endif
 
 #include "SDL.h"
@@ -120,7 +110,6 @@ int triangulate_polygon(int ncontours, int cntr[], double(*vertices)[2], int (*t
 #include "thread_code.h"
 #include "renderer.h"
 #include "input.h"
-#include "version.h"
 #include "cos_table.h"
 #include "hqr.h"
 #include "ourtime.h"
@@ -130,7 +119,6 @@ int triangulate_polygon(int ncontours, int cntr[], double(*vertices)[2], int (*t
 #include "anim.h"
 #include "anim_action.h"
 #include "actor_list.h"
-#include "main_loop.h"
 #include "inventory.h"
 #include "startup_menu.h"
 #include "system_menu.h"
@@ -138,7 +126,6 @@ int triangulate_polygon(int ncontours, int cntr[], double(*vertices)[2], int (*t
 #include "object.h"
 #include "zv.h"
 #include "music.h"
-#include "fmopl.h"
 
 // debugger
 #ifdef INTERNAL_DEBUGGER

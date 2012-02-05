@@ -34,6 +34,8 @@
 #include "resource.h"
 #include "osystem.h"
 #include "common.h"
+#include "version.h"
+#include "main_loop.h"
 #include "common/forbidden.h"
 
 namespace Fitd {

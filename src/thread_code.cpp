@@ -20,10 +20,10 @@
  *
  */
 
-#include "common.h"
-
 #include "SDL.h"
 #include "SDL_thread.h"
+
+#include "common.h"
 
 namespace Fitd {
 

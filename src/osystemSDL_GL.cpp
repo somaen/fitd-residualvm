@@ -20,12 +20,7 @@
  *
  */
 
-#include "common/textconsole.h"
-#include "fitd.h"
-#include "common.h"
-
-namespace Fitd {
-
+#define USE_GL
 #ifdef USE_GL
 
 /***************************************************************************
@@ -52,6 +47,12 @@ namespace Fitd {
 
 #include <GL/gl.h>      // Header File For The OpenGL32 Library
 #include <GL/glu.h>     // Header File For The GLu32 Library
+
+#include "common/textconsole.h"
+#include "fitd.h"
+#include "common.h"
+
+namespace Fitd {
 
 unsigned int ditherTexture;
 unsigned int gouraudTexture = 0;
@@ -1150,7 +1151,5 @@ void GFXSystem::drawDebugText(const u32 X, const u32 Y, const u8 *string) {
 #endif
 }
 #endif
-
-#endif
-
 } // end of namespace Fitd
+#endif

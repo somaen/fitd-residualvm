@@ -22,13 +22,16 @@
 
 #define FORBIDDEN_SYMBOL_EXCEPTION_srand
 #define FORBIDDEN_SYMBOL_EXCEPTION_rand
-#define FORBIDDEN_SYMBOL_EXCEPTION_time
+#define FORBIDDEN_SYMBOL_ALLOW_ALL
 
+#include <ctime>
+#include "SDL.h"
 #include "common/textconsole.h"
 #include "fitd.h"
 #include "resource.h"
 #include "osystem.h"
 #include "common.h"
+#include "main_loop.h"
 
 namespace Fitd {
 	
