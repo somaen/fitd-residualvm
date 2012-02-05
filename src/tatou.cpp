@@ -21,7 +21,7 @@
  */
 
 // seg 4
-
+#include "fitd.h"
 #include "osystem.h"
 #include "resource.h"
 #include "common.h"
@@ -285,11 +285,11 @@ void process_events(void) {
 #endif
 
 void startChrono(unsigned int *chrono) {
-	*chrono = timer;
+	*chrono = g_fitd->getTimer();
 }
 
 int evalChrono(unsigned int *chrono) {
-	return(timer - *chrono);
+	return(g_fitd->getTimer() - *chrono);
 }
 
 // bp = x, bx = y, cx = z

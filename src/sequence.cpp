@@ -169,7 +169,7 @@ void playSequence(int sequenceIdx, int fadeStart, int fadeOutVar) {
 
 			timeGlobal++;
 
-			timer = timeGlobal;
+			g_fitd->setTimer(timeGlobal);
 
 			if(g_fitd->getGameType() == GType_AITD2) {
 				strcpy(buffer, sequenceListAITD2[sequenceIdx]);

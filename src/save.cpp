@@ -248,8 +248,10 @@ int loadSave(int saveNumber) {
 	ASSERT(sizeof(shakeVar1) == 2);
 	fread(&shakeVar1, 2, 1, fHandle);
 
-	ASSERT(sizeof(timer) == 4);
-	fread(&timer, 4, 1, fHandle);
+	uint32 tempTimer;
+	ASSERT(sizeof(g_fitd->getTimer()) == 4);
+	fread(&tempTimer, 4, 1, fHandle);
+	g_fitd->setTimer(tempTimer);
 
 	ASSERT(sizeof(timerFreeze1) == 4);
 	fread(&timerFreeze1, 4, 1, fHandle);
@@ -731,8 +733,9 @@ int makeSaveFile(int entry) {
 	ASSERT(sizeof(shakeVar1) == 2);
 	fwrite(&shakeVar1, 2, 1, fHandle);
 
-	ASSERT(sizeof(timer) == 4);
-	fwrite(&timer, 4, 1, fHandle);
+	uint32 tempTimer = g_fitd->getTimer();
+	ASSERT(sizeof(g_fitd->getTimer()) == 4);
+	fwrite(&tempTimer, 4, 1, fHandle);
 
 	ASSERT(sizeof(timerFreeze1) == 4);
 	fwrite(&timerFreeze1, 4, 1, fHandle);

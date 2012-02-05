@@ -27,8 +27,15 @@
 
 #include <cstdio>
 #include <cstdlib>
+#ifdef HAVE_CONFIG_H
+#undef HAVE_CONFIG_H
+#define UNIX
+#include "common/endian.h"
+#define HAVE_CONFIG_H
+#else
+#include "common/endian.h"
+#endif
 #include "cvars.h"
-#include "common.h"
 
 namespace Fitd {
 
@@ -50,6 +57,8 @@ class FitdEngine {
 
 	void sysInit();
 	void detectGame();
+	
+	uint32 _timer;
 public:
 	FitdEngine();
 	void run();
@@ -67,6 +76,8 @@ public:
 	int32 getCVarsIdx(enumCVars searchedType);
 	void delay(uint32 ms);
 	int32 getTicks();
+	uint32 getTimer() { return _timer; }
+	void setTimer(uint32 value) { _timer = value; }
 };
 
 extern FitdEngine *g_fitd;

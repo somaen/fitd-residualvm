@@ -21,6 +21,7 @@
  */
 
 #include "common/textconsole.h"
+#include "fitd.h"
 #include "common.h"
 #include "math.h"
 
@@ -288,7 +289,7 @@ void processTrack(void) {
 	case 1: { // manual
 		manualRot(60);
 		if(input4 & 1) { // forward
-			if(timer - lastTimeForward < 10 && currentProcessedActorPtr->speed != 4)
+			if(g_fitd->getTimer() - lastTimeForward < 10 && currentProcessedActorPtr->speed != 4)
 				currentProcessedActorPtr->speed = 5;
 			else if(currentProcessedActorPtr->speed == 0 || currentProcessedActorPtr->speed == -1)
 				currentProcessedActorPtr->speed = 4;
@@ -297,7 +298,7 @@ void processTrack(void) {
 			 currentProcessedActorPtr->speed = 5; */
 
 
-			lastTimeForward = timer;
+			lastTimeForward = g_fitd->getTimer();
 		} else {
 			if(currentProcessedActorPtr->speed > 0 && currentProcessedActorPtr->speed <= 4) {
 				currentProcessedActorPtr->speed--;
@@ -709,7 +710,7 @@ void processTrack2(void) {
 	case 1: { // manual
 		manualRot(60);
 		if(input4 & 1) { // forward
-			if(timer - lastTimeForward < 10 && currentProcessedActorPtr->speed != 4)
+			if(g_fitd->getTimer() - lastTimeForward < 10 && currentProcessedActorPtr->speed != 4)
 				currentProcessedActorPtr->speed = 5;
 			else if(currentProcessedActorPtr->speed == 0 || currentProcessedActorPtr->speed == -1)
 				currentProcessedActorPtr->speed = 4;
@@ -718,7 +719,7 @@ void processTrack2(void) {
 			 currentProcessedActorPtr->speed = 5; */
 
 
-			lastTimeForward = timer;
+			lastTimeForward = g_fitd->getTimer();
 		} else {
 			if(currentProcessedActorPtr->speed > 0 && currentProcessedActorPtr->speed <= 4) {
 				currentProcessedActorPtr->speed--;

@@ -70,7 +70,7 @@ void mainLoop(int allowSystemMenu) {
 
 		timeGlobal++;
 
-		timer = timeGlobal;
+		g_fitd->setTimer(timeGlobal);
 
 		process_events();
 		readKeyboard();

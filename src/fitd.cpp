@@ -28,6 +28,7 @@
 #include "fitd.h"
 #include "resource.h"
 #include "osystem.h"
+#include "common.h"
 
 namespace Fitd {
 	

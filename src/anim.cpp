@@ -20,6 +20,7 @@
  *
  */
 
+#include "fitd.h"
 #include "common.h"
 
 namespace Fitd {
@@ -65,7 +66,7 @@ int initAnimInBody(int frame, char *anim, char *body) {
 	body += 14;
 
 	*(char **)(body + 2) = anim;
-	*(uint16 *)(body + 6) = timer;
+	*(uint16 *)(body + 6) = g_fitd->getTimer();
 
 	body += *(int16 *)body;
 	body += 2;
@@ -193,7 +194,7 @@ void initBufferAnim(char *buffer, char *bodyPtr) {
 		int cx;
 		int i;
 
-		*(uint16 *)(source + 4) = (unsigned short int)timer;
+		*(uint16 *)(source + 4) = (uint16)g_fitd->getTimer();
 		*(char **)(source) = buffer;
 
 		source += *(int16 *)(source - 2);
@@ -366,7 +367,7 @@ int16 setInterAnimObjet(int frame, char *animPtr, char *bodyPtr) {
 
 	bodyPtr += 10; // skip bone 0
 
-	time = (unsigned short int)timer - timeOfKeyframeStart;
+	time = (uint16)g_fitd->getTimer() - timeOfKeyframeStart;
 
 	bx = keyframeLength;
 	bp = time;
@@ -471,7 +472,7 @@ int16 setInterAnimObjet(int frame, char *animPtr, char *bodyPtr) {
 
 		*(char **)animVar3 = animVar1;
 
-		*(uint16 *)(animVar3 + 4) = (unsigned short int)timer;
+		*(uint16 *)(animVar3 + 4) = (uint16)g_fitd->getTimer();
 
 		tempBx += 2;
 

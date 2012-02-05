@@ -1755,7 +1755,7 @@ void startActorRotation(int16 beta, int16 newBeta, int16 param, rotateStruct *ro
 	rotatePtr->oldAngle = beta;
 	rotatePtr->newAngle = newBeta;
 	rotatePtr->param = param;
-	rotatePtr->timeOfRotate = timer;
+	rotatePtr->timeOfRotate = g_fitd->getTimer();
 }
 
 int16 updateActorRotation(rotateStruct *rotatePtr) {
@@ -1765,7 +1765,7 @@ int16 updateActorRotation(rotateStruct *rotatePtr) {
 	if(!rotatePtr->param)
 		return(rotatePtr->newAngle);
 
-	timeDif = timer - rotatePtr->timeOfRotate;
+	timeDif = g_fitd->getTimer() - rotatePtr->timeOfRotate;
 
 	if(timeDif > rotatePtr->param) {
 		rotatePtr->param = 0;
@@ -2687,7 +2687,7 @@ void mainDraw(int mode) {
 			} else {
 				char *bodyPtr = listBody->get(actorPtr->bodyNum);
 
-				if(hqrVar1) {
+				if(listBody->getVar1()) {
 					//          initAnimInBody(actorPtr->FRAME, HQR_Get(listAnim, actorPtr->ANIM), bodyPtr);
 				}
 
@@ -2948,7 +2948,7 @@ void foundObject(int objIdx, int param) {
 	}
 
 	if(objPtr->trackNumber) {
-		if(timer - objPtr->trackNumber < 300) // prevent from reopening the window every frame
+		if(g_fitd->getTimer() - objPtr->trackNumber < 300) // prevent from reopening the window every frame
 			return;
 	}
 
@@ -3045,7 +3045,7 @@ void foundObject(int objIdx, int param) {
 	if(var_6 == 1) {
 		take(objIdx);
 	} else {
-		objPtr->trackNumber = timer;
+		objPtr->trackNumber = g_fitd->getTimer();
 	}
 
 	while(input2 && input1) {
@@ -3245,12 +3245,12 @@ int processActor1Sub2(rotateStruct *data) {
 	if(!data->param)
 		return data->newAngle;
 
-	if(timer - data->timeOfRotate > (unsigned int)data->param) {
+	if(g_fitd->getTimer() - data->timeOfRotate > (unsigned int)data->param) {
 		data->param = 0;
 		return data->newAngle;
 	}
 
-	return ((((data->newAngle - data->oldAngle) * (timer - data->timeOfRotate)) / data->param) + data->oldAngle);
+	return ((((data->newAngle - data->oldAngle) * (g_fitd->getTimer() - data->timeOfRotate)) / data->param) + data->oldAngle);
 }
 
 void processActor1(void) {

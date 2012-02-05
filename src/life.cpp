@@ -1608,7 +1608,7 @@ processOpcode:
 						readKeyboard();
 
 						timeGlobal++;
-						timer = timeGlobal;
+						g_fitd->setTimer(timeGlobal);
 
 						time = evalChrono(&chrono);
 
@@ -1656,7 +1656,7 @@ processOpcode:
 						flipScreen();
 
 						timeGlobal++;
-						timer = timeGlobal;
+						g_fitd->setTimer(timeGlobal);
 
 						time = evalChrono(&chrono);
 

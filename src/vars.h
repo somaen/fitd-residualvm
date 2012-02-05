@@ -253,7 +253,7 @@ extern char unkScreenVar[320*200];
 
 extern char rgbaBuffer[320*200*4];
 
-extern uint32 timer;
+	//extern uint32 timer;
 extern volatile uint32 timeGlobal;
 
 extern int32 currentMenuLeft;
@@ -277,8 +277,6 @@ extern const char *languageNameTable[];
 extern regularTextEntryStruct textTable[40];
 
 extern int32 readVar;
-
-extern int32 hqrKeyGen;
 
 extern char *screenSm1;
 extern char *screenSm2;
@@ -453,7 +451,6 @@ extern ZVStruct hardClip;
 
 extern saveEntry saveTable[];
 
-extern int32 hqrVar1;
 extern int32 mainVar3;
 extern int32 mainVar2;
 

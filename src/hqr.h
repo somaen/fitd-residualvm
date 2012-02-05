@@ -35,11 +35,13 @@ private:
 	uint16 _numMaxEntry;
 	uint16 _numUsedEntry;
 	hqrSubEntryStruct *_entries;
+	int32 _hqrVar1;
 public:
 	hqrEntryStruct(const char *name, int size, int numEntries);
 	hqrEntryStruct(int size, int numEntries);
 	~hqrEntryStruct();
 	char *get(int index);
+	int32 getVar1() { return _hqrVar1; }
 	void reset();
 	int printTextSub1(int size);
 	char *printTextSub2(int index);

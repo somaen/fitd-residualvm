@@ -20,10 +20,21 @@
  *
  */
 
-#include "common.h"
+//#include "common.h"
+#undef HAVE_CONFIG_H
+#define UNIX
+#include "common/endian.h"
+#include "hqr.h"
+#include "pak.h"
+#include "debugger.h"
+#include "ourtime.h"
+#include "fitd.h"
+#include "file_access.h"
 
 namespace Fitd {
 
+int32 hqrKeyGen = 0;
+	
 struct hqrSubEntryStruct {
 	int16 key;
 	int16 size;
@@ -123,8 +134,8 @@ char *hqrEntryStruct::get(int index) {
 	foundEntry = quickFindEntry(index, _numUsedEntry, _entries);
 
 	if(foundEntry) {
-		foundEntry->lastTimeUsed = timer;
-		hqrVar1 = 0;
+		foundEntry->lastTimeUsed = g_fitd->getTimer();
+		_hqrVar1 = 0;
 
 		return(foundEntry->ptr);
 	} else {
@@ -181,10 +192,9 @@ char *hqrEntryStruct::get(int index) {
 
 		 unfreezeTime();*/
 
-		int size;
-		unsigned int time;
+		int32 size;
+		uint32 time;
 		char *ptr;
-		int i;
 
 		freezeTime();
 		size = getPakSize(_string, index);
@@ -193,9 +203,9 @@ char *hqrEntryStruct::get(int index) {
 			theEnd(1, _string);
 		}
 
-		time = timer;
+		time = g_fitd->getTimer();
 
-		for(i = 0; i < _numMaxEntry; i++) {
+		for(int i = 0; i < _numMaxEntry; i++) {
 			if(_entries[i].ptr == NULL) {
 				foundEntry = &_entries[i];
 				break;
@@ -206,10 +216,10 @@ char *hqrEntryStruct::get(int index) {
 
 		//    foundEntry = hqrSubPtr;
 
-		hqrVar1 = 1;
+		_hqrVar1 = 1;
 
 		foundEntry->key = index;
-		foundEntry->lastTimeUsed = timer;
+		foundEntry->lastTimeUsed = g_fitd->getTimer();
 		//foundEntry[hqrPtr->numUsedEntry].offset = hqrPtr->maxFreeData - hqrPtr->sizeFreeData;
 		foundEntry->size = size;
 		foundEntry->ptr = (char *)malloc(size);
@@ -228,6 +238,7 @@ char *hqrEntryStruct::get(int index) {
 }
 
 hqrEntryStruct::hqrEntryStruct(const char *name, int size, int numEntries) {
+	_hqrVar1 = 0;
 	numEntries = 2000;
 	
 	char temp[10];
@@ -247,6 +258,7 @@ hqrEntryStruct::hqrEntryStruct(const char *name, int size, int numEntries) {
 }
 	
 hqrEntryStruct::hqrEntryStruct(int32 size, int32 numEntry) {
+	_hqrVar1 = 0;
 	ASSERT(size > 0);
 	ASSERT(numEntry > 0);
 	

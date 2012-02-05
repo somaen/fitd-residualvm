@@ -91,8 +91,6 @@ regularTextEntryStruct textTable[NUM_MAX_TEXT];
 
 int32 readVar;
 
-int32 hqrKeyGen = 0;
-
 char *screenSm1;
 char *screenSm2;
 char *screenSm3;
@@ -274,7 +272,6 @@ const char *listAnimSelect[] = {
 
 saveEntry saveTable[40];
 
-int32 hqrVar1 = 0;
 int32 mainVar3 = 4000;
 int32 mainVar2 = -2000;
 

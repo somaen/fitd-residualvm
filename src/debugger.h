@@ -20,8 +20,20 @@
  *
  */
 
-#ifndef _DEBUGGER_H_
-#define _DEBUGGER_H_
+#ifndef FITD_DEBUGGER_H
+#define FITD_DEBUGGER_H
+
+#ifdef _DEBUG
+#define ASSERT(exp) assert(exp)
+#else
+#define ASSERT(exp)
+#endif
+
+#ifdef _DEBUG
+#define ASSERT_PTR(exp) assert(exp)
+#else
+#define ASSERT_PTR(exp)
+#endif
 
 #ifdef INTERNAL_DEBUGGER
 namespace Fitd {
