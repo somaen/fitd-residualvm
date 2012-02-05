@@ -225,7 +225,7 @@ int32 animRot2;
 int32 animRot3;
 char *animVar1;
 char *animVar3;
-char *animVar4;
+
 
 int16 newFloor;
 

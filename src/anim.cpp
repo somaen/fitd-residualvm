@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- 
+
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- 
+
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -240,7 +240,7 @@ void initBufferAnim(char *buffer, char *bodyPtr) {
 int16 getAnimParam(char *animPtr) {
 	return(*(int16 *)animPtr);
 }
-
+int16 *animVar4;
 int16 getAnimType(char **bodyPtr) { // local
 	int16 temp = *(int16 *)animVar1;
 
@@ -255,6 +255,7 @@ int16 getAnimType(char **bodyPtr) { // local
 }
 
 void processAnimRotation(char **bodyPtr, int bp, int bx) { // local
+	int16 *test = (int16 *)animVar4;
 	int16 oldRotation = *(int16 *)animVar4;
 	int16 newRotation;
 	int16 diff;
@@ -310,7 +311,7 @@ int16 setInterAnimObjet(int frame, char *animPtr, char *bodyPtr) {
 	int numOfBonesInAnim = *(int16 *)(animPtr + 2);
 	uint16 keyframeLength;
 	uint16 timeOfKeyframeStart;
-	char *animBufferPtr;
+	int16 *animBufferPtr;
 	int ax;
 	uint16 bx;
 	uint16 time;
@@ -342,10 +343,10 @@ int16 setInterAnimObjet(int frame, char *animPtr, char *bodyPtr) {
 
 	timeOfKeyframeStart = *(uint16 *)(bodyPtr + 4); // time of start of keyframe
 
-	animBufferPtr = *(char **)(bodyPtr);
+	animBufferPtr = (int16*)(bodyPtr);
 
-	if(!animBufferPtr) {
-		animBufferPtr = animVar1;
+	if (!animBufferPtr) {
+		animBufferPtr = (int16*)animVar1;
 	}
 
 	// animVar4 = ptr to previous key frame

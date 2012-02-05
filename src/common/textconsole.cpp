@@ -4,10 +4,8 @@
 #include "textconsole.h"
 
 void warning(const char *s, ...) {
-	va_list va;
-	printf(s, va);
-}
 
+}
 void error(const char *s, ...) {
 	va_list va;
 	printf(s, va);
