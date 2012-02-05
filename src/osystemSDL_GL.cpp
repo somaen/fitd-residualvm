@@ -182,6 +182,9 @@ void Sound_Quit(void) {
 	Mix_CloseAudio();
 }
 
+GFXSystem::GFXSystem() {
+	_palette = new char[0x300];
+}
 
 void GFXSystem::init()  // that's the constructor of the system dependent
 // object used for the SDL port
@@ -507,7 +510,10 @@ void GFXSystem::flip(unsigned char *videoBuffer) {
 			}
 		}
 
-		glColor4ub(palette[quadTable[bestIdx].color * 3], palette[quadTable[bestIdx].color * 3 + 1], palette[quadTable[bestIdx].color * 3 + 2], quadTable[bestIdx].transparency);
+		glColor4ub(g_driver->_palette[quadTable[bestIdx].color * 3], 
+				   g_driver->_palette[quadTable[bestIdx].color * 3 + 1], 
+				   g_driver->_palette[quadTable[bestIdx].color * 3 + 2], 
+				   quadTable[bestIdx].transparency);
 
 		glEnable(GL_POLYGON_OFFSET_FILL);
 		glBegin(GL_QUADS);
@@ -608,9 +614,9 @@ void GFXSystem::CopyBlockPhys(unsigned char *videoBuffer, int left, int top, int
 		for(j = left; j < right; j++) {
 			unsigned char color = *(in++);
 
-			*(out++) = palette[color*3];
-			*(out++) = palette[color*3+1];
-			*(out++) = palette[color*3+2];
+			*(out++) = g_driver->_palette[color*3];
+			*(out++) = g_driver->_palette[color*3+1];
+			*(out++) = g_driver->_palette[color*3+2];
 		}
 	}
 
@@ -738,7 +744,10 @@ void GFXSystem::fillPoly(float *buffer, int numPoint, unsigned char color, uint8
 
 	switch(polyType) {
 	case 0: { // flat:
-		glColor4ub(palette[color*3], palette[color*3+1], palette[color*3+2], 255);
+		glColor4ub(g_driver->_palette[color*3], 
+				   g_driver->_palette[color*3+1], 
+				   g_driver->_palette[color*3+2], 
+				   255);
 		glBegin(GL_POLYGON);
 
 		for(i = 0; i < numPoint; i++) {
@@ -761,7 +770,10 @@ void GFXSystem::fillPoly(float *buffer, int numPoint, unsigned char color, uint8
 
 		glBindTexture(GL_TEXTURE_2D, ditherTexture);
 		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_BLEND);
-		glColor4ub(palette[color*3], palette[color*3+1], palette[color*3+2], 255);
+		glColor4ub(g_driver->_palette[color*3], 
+				   g_driver->_palette[color*3+1], 
+				   g_driver->_palette[color*3+2], 
+				   255);
 		readList = (float *)buffer;
 
 		glGetDoublev(GL_MODELVIEW_MATRIX, modelMatrix);
@@ -788,7 +800,10 @@ void GFXSystem::fillPoly(float *buffer, int numPoint, unsigned char color, uint8
 		break;
 	}
 	case 2: { // trans
-		glColor4ub(palette[color*3], palette[color*3+1], palette[color*3+2], 128);
+		glColor4ub(g_driver->_palette[color*3], 
+				   g_driver->_palette[color*3+1], 
+				   g_driver->_palette[color*3+2], 
+				   128);
 		glBegin(GL_POLYGON);
 
 		for(i = 0; i < numPoint; i++) {
@@ -957,7 +972,9 @@ void GFXSystem::fillPoly(float *buffer, int numPoint, unsigned char color, uint8
 }
 
 void GFXSystem::draw3dLine(float x1, float y1, float z1, float x2, float y2, float z2, unsigned char color) {
-	glColor4ub(palette[color*3], palette[color*3+1], palette[color*3+2], 255);
+	glColor4ub(g_driver->_palette[color*3], 
+			   g_driver->_palette[color*3+1], 
+			   g_driver->_palette[color*3+2], 255);
 
 	glBegin(GL_LINES);
 
@@ -996,7 +1013,9 @@ void GFXSystem::cleanScreenKeepZBuffer() {
 }
 
 void GFXSystem::draw3dQuad(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4, unsigned char color, int transparency) {
-	glColor4ub(palette[(color+3)*3], palette[(color+3)*3+1], palette[(color+3)*3+2], 255);
+	glColor4ub(g_driver->_palette[(color+3)*3], 
+			   g_driver->_palette[(color+3)*3+1], 
+			   g_driver->_palette[(color+3)*3+2], 255);
 	glBegin(GL_LINE_LOOP);
 	glVertex3f(x1, y1, z1);
 	glVertex3f(x2, y2, z2);
@@ -1041,7 +1060,10 @@ void GFXSystem::draw3dQuad(float x1, float y1, float z1, float x2, float y2, flo
 
 		positionInQuadTable++;
 	} else {
-		glColor4ub(palette[color*3], palette[color*3+1], palette[color*3+2], 255);
+		glColor4ub(g_driver->_palette[color*3], 
+				   g_driver->_palette[color*3+1], 
+				   g_driver->_palette[color*3+2], 
+				   255);
 
 		glEnable(GL_POLYGON_OFFSET_FILL);
 		glBegin(GL_QUADS);
@@ -1057,7 +1079,9 @@ void GFXSystem::draw3dQuad(float x1, float y1, float z1, float x2, float y2, flo
 void GFXSystem::drawSphere(float X, float Y, float Z, uint8 color, float size) {
 	glMatrixMode(GL_MODELVIEW);
 
-	glColor3ub(palette[color*3], palette[color*3+1], palette[color*3+2]);
+	glColor3ub(g_driver->_palette[color*3], 
+			   g_driver->_palette[color*3+1], 
+			   g_driver->_palette[color*3+2]);
 	glPushMatrix();
 
 	glTranslatef(X, Y, Z);

@@ -1639,7 +1639,7 @@ processOpcode:
 					fadeIn(lpalette);
 
 					g_driver->setPalette(lpalette);
-					copyPalette((char *)lpalette, palette);
+					copyPalette((char *)lpalette, g_driver->_palette);
 
 					copyToScreen(aux, screen);
 

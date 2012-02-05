@@ -200,7 +200,7 @@ void playSequence(int sequenceIdx, int fadeStart, int fadeOutVar) {
 					 } */
 
 					g_driver->setPalette(localPalette);
-					copyPalette((char*)localPalette,(char*) palette);
+					copyPalette((char*)localPalette,(char*) g_driver->_palette);
 				}
 			} else { // not first frame
 				unsigned long int frameSize;

@@ -179,7 +179,7 @@ void make3dTatouUnk1(int var1, int var2) {
 	if(paletteVar == 2) { // only used for the ending ?
 	} else {
 		for(i = 0; i < 256; i += var1) {
-			computeProportionalPalette((unsigned char *)palette, (unsigned char *)localPalette, i);
+			computeProportionalPalette((unsigned char *)g_driver->_palette, (unsigned char *)localPalette, i);
 			fadeInSub1(localPalette);
 			flipOtherPalette(localPalette);
 		}
@@ -199,7 +199,7 @@ void fadeOut(int var1, int var2) {
 	freezeTime();
 
 	for(i = 256; i >= 0; i -= var1) {
-		computeProportionalPalette((unsigned char *)palette, (unsigned char *)localPalette, i);
+		computeProportionalPalette((unsigned char *)g_driver->_palette, (unsigned char *)localPalette, i);
 		fadeInSub1(localPalette);
 		flipOtherPalette(localPalette);
 	}
@@ -229,9 +229,9 @@ void flip() {
 #endif
 
 	for(i = 0; i < 256; i++) {
-		paletteRGBA[i*4] = palette[i*3];
-		paletteRGBA[i*4+1] = palette[i*3+1];
-		paletteRGBA[i*4+2] = palette[i*3+2];
+		paletteRGBA[i*4] = g_driver->_palette[i*3];
+		paletteRGBA[i*4+1] = g_driver->_palette[i*3+1];
+		paletteRGBA[i*4+2] = g_driver->_palette[i*3+2];
 		paletteRGBA[i*4+3] = -1;
 	}
 
@@ -352,13 +352,13 @@ int make3dTatou(void) {
 
 	setupSMCode(160, 100, 128, 500, 490);
 
-	copyPalette(palette, paletteBackup);
+	copyPalette(g_driver->_palette, paletteBackup);
 
-	paletteFill(palette, 0, 0, 0);
+	paletteFill(g_driver->_palette, 0, 0, 0);
 
-	fadeIn(palette);
+	fadeIn(g_driver->_palette);
 
-	copyPalette(tatouPal, palette);
+	copyPalette(tatouPal, g_driver->_palette);
 	copyToScreen(tatou2d + 770, unkScreenVar);
 	copyToScreen(unkScreenVar, aux2);
 
@@ -397,8 +397,8 @@ int make3dTatou(void) {
 			/*     soundVar2 = -1;
 			 soundVar1 = -1;*/
 
-			paletteFill(palette, 63, 63, 63);
-			fadeIn(palette);
+			paletteFill(g_driver->_palette, 63, 63, 63);
+			fadeIn(g_driver->_palette);
 			/*  setClipSize(0,0,319,199);*/
 
 			clearScreenTatou();
@@ -412,8 +412,8 @@ int make3dTatou(void) {
 			g_driver->CopyBlockPhys((unsigned char *)unkScreenVar, 0, 0, 320, 200);
 #endif
 
-			copyPalette(tatouPal, palette);
-			fadeIn(palette);
+			copyPalette(tatouPal, g_driver->_palette);
+			fadeIn(g_driver->_palette);
 
 			while(input2 == 0 && input1 == 0 && inputKey == 0) { // boucle de rotation du tatou
 				process_events();
@@ -458,11 +458,11 @@ int make3dTatou(void) {
 		}
 
 		fadeOut(32, 0);
-		copyPalette(paletteBackup, palette);
+		copyPalette(paletteBackup, g_driver->_palette);
 		return(1);
 	} else {
 		fadeOut(16, 0);
-		copyPalette(paletteBackup, palette);
+		copyPalette(paletteBackup, g_driver->_palette);
 		return(0);
 	}
 

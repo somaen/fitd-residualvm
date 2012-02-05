@@ -1085,16 +1085,16 @@ void loadCamera(int cameraIdx) {
 	}
 
 	if(g_fitd->getGameType() >= GType_JACK) {
-		copyPalette(aux + 64000, palette);
+		copyPalette(aux + 64000, g_driver->_palette);
 
 		if(g_fitd->getGameType() == GType_AITD3) {
 			//memcpy(palette,defaultPaletteAITD3,0x30);
 		} else {
-			memcpy(palette, defaultPalette, 0x30);
-			convertPaletteIfRequired((unsigned char *)palette);
+			memcpy(g_driver->_palette, defaultPalette, 0x30);
+			convertPaletteIfRequired((unsigned char *)g_driver->_palette);
 		}
 
-		g_driver->setPalette((byte*)palette);
+		g_driver->setPalette((byte*)g_driver->_palette);
 	}
 }
 

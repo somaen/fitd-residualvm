@@ -49,9 +49,9 @@ void flipScreen() {
 	memcpy(unkScreenVar, screen, 320 * 200);
 
 	for(i = 0; i < 256; i++) {
-		paletteRGBA[i*4] = palette[i*3];
-		paletteRGBA[i*4+1] = palette[i*3+1];
-		paletteRGBA[i*4+2] = palette[i*3+2];
+		paletteRGBA[i*4] = g_driver->_palette[i*3];
+		paletteRGBA[i*4+1] = g_driver->_palette[i*3+1];
+		paletteRGBA[i*4+2] = g_driver->_palette[i*3+2];
 		paletteRGBA[i*4+3] = -1;
 	}
 

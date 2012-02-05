@@ -239,8 +239,6 @@ extern char *fontData;
 
 extern char *aitdBoxGfx;
 
-extern char palette[0x300];
-
 //extern OSystem osystem;
 
 extern char unkScreenVar[320*200];

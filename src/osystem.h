@@ -34,10 +34,13 @@ namespace Fitd {
 
 class GFXSystem {
 public:
+	GFXSystem();
 	void init();
 
 	int _mouseRight;
 	int _mouseLeft;
+	
+	char *_palette;
 
 	void delay(int time);
 	void crossFade(char *buffer, char *palette);

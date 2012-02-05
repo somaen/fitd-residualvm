@@ -145,13 +145,13 @@ int FitdEngine::getCVarsIdx(enumCVars searchedType) { // TODO: optimize by rever
 
 void FitdEngine::startup() {
 	int startupMenuResult;
-	paletteFill(palette, 0, 0, 0);
+	paletteFill(g_driver->_palette, 0, 0, 0);
 	
 	preloadResource();
 	
 	switch(g_fitd->getGameType()) {
 		case GType_AITD1: {
-			fadeIn(palette);
+			fadeIn(g_driver->_palette);
 			
 			if(!make3dTatou()) {
 				makeIntroScreens();
@@ -422,9 +422,9 @@ void FitdEngine::preloadResource() {
 	} else {
 		loadPakToPtr("ITD_RESS", 3, aux);
 	}
-	copyPalette(aux, palette);
+	copyPalette(aux, g_driver->_palette);
 	
-	copyPalette(palette, localPalette);
+	copyPalette(g_driver->_palette, localPalette);
 	//  fadeInSub1(localPalette);
 	
 	// to finish
