@@ -34,58 +34,31 @@ namespace Fitd {
 
 //////////// stuff to move
 void clearScreenTatou(void) {
-	int i;
-
-	for(i = 0; i < 45120; i++) {
+	for(int i = 0; i < 45120; i++) {
 		screen[i] = 0;
 	}
 }
 
 void blitScreenTatou(void) {
-	int i;
-
-	for(i = 0; i < 45120; i++) {
+	for(int i = 0; i < 45120; i++) {
 		unkScreenVar[i] = screen[i];
 	}
 }
 
 void copyPalette(char *source, char *dest) {
-	int i;
-
-	for(i = 0; i < 768; i++) {
+	for(int i = 0; i < 768; i++) {
 		dest[i] = source[i];
 	}
 }
 
 void copyToScreen(char *source, char *dest) {
-	int i;
-
-	for(i = 0; i < 64000; i++) {
+	for(int i = 0; i < 64000; i++) {
 		dest[i] = source[i];
 	}
 }
 
-void paletteFill(void *palette, unsigned char r, unsigned char g, unsigned b) {
-	unsigned char *paletteLocal = (unsigned char *) palette;
-	int offset = 0;
-	int i;
-
-	r <<= 1;
-	g <<= 1;
-	b <<= 1;
-
-	for(i = 0; i < 256; i++) {
-		paletteLocal[offset] = r;
-		paletteLocal[offset+1] = g;
-		paletteLocal[offset+2] = b;
-		offset += 3;
-	}
-}
-
 void fadeInSub1(char *palette) {
-	int i;
-
-	for(i = 0; i < 256; i++) {
+	for(int i = 0; i < 256; i++) {
 		/*  palette[i*3] >>=2;
 		 palette[i*3+1] >>=2;
 		 palette[i*3+2] >>=2; */
@@ -356,7 +329,7 @@ int make3dTatou(void) {
 
 	copyPalette(g_driver->_palette, paletteBackup);
 
-	paletteFill(g_driver->_palette, 0, 0, 0);
+	g_driver->_paletteObj->fill(0, 0, 0);
 
 	fadeIn(g_driver->_palette);
 
@@ -399,7 +372,7 @@ int make3dTatou(void) {
 			/*     soundVar2 = -1;
 			 soundVar1 = -1;*/
 
-			paletteFill(g_driver->_palette, 63, 63, 63);
+			g_driver->_paletteObj->fill(63, 63, 63);
 			fadeIn(g_driver->_palette);
 			/*  setClipSize(0,0,319,199);*/
 

@@ -26,7 +26,7 @@ namespace Fitd {
 
 int make3dTatou(void);
 //////////////// to mode
-void paletteFill(void *palette, unsigned char r, unsigned char g, unsigned b);
+	//void paletteFill(void *palette, unsigned char r, unsigned char g, unsigned b);
 void fadeIn(void *palette);
 void flip();
 void startChrono(unsigned int *chrono);

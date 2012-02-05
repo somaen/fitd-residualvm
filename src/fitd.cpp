@@ -100,51 +100,43 @@ void FitdEngine::detectGame(void) {
 
 		warning("Detected Alone in the Dark 1\n");
 		return;
-	}
-	if(g_resourceLoader->getFileExists("PERE.PAK")) {
-		_gameType = GType_JACK;
+	} else {
 		_numCVars = 70;
 		_currentCVarTable = AITD2KnownCVars;
-
-		warning("Detected Jack in the Dark\n");
-		return;
+		
+		if(g_resourceLoader->getFileExists("PERE.PAK")) {
+			_gameType = GType_JACK;
+			warning("Detected Jack in the Dark\n");
+			return;
+		}
+		if(g_resourceLoader->getFileExists("MER.PAK")) {
+			_gameType = GType_AITD2;
+			warning("Detected Alone in the Dark 2\n");
+			return;
+		}
+		if(g_resourceLoader->getFileExists("AN1.PAK")) {
+			_gameType = GType_AITD3;
+			warning("Detected Alone in the Dark 3\n");
+			return;
+		}
+		if(g_resourceLoader->getFileExists("PURSUIT.PAK")) {
+			_gameType = GType_TIMEGATE;
+			_numCVars = 70; // TODO: figure this
+			_currentCVarTable = AITD2KnownCVars; // TODO: figure this
+			
+			warning("Detected Time Gate\n");
+			return;
+		}
+		
+		error("FATAL: Game detection failed...\n");
 	}
-	if(g_resourceLoader->getFileExists("MER.PAK")) {
-		_gameType = GType_AITD2;
-		_numCVars = 70;
-		_currentCVarTable = AITD2KnownCVars;
-
-		warning("Detected Alone in the Dark 2\n");
-		return;
-	}
-	if(g_resourceLoader->getFileExists("AN1.PAK")) {
-		_gameType = GType_AITD3;
-		_numCVars = 70;
-		_currentCVarTable = AITD2KnownCVars;
-
-		warning("Detected Alone in the Dark 3\n");
-		return;
-	}
-	if(g_resourceLoader->getFileExists("PURSUIT.PAK")) {
-		_gameType = GType_TIMEGATE;
-		_numCVars = 70; // TODO: figure this
-		_currentCVarTable = AITD2KnownCVars; // TODO: figure this
-
-		warning("Detected Time Gate\n");
-		return;
-	}
-
-	error("FATAL: Game detection failed...\n");
 }
 
 int FitdEngine::getCVarsIdx(enumCVars searchedType) { // TODO: optimize by reversing the table....
-	int i;
-	
-	for(i = 0; i < g_fitd->getNumCVars(); i++) {
+	for(int i = 0; i < g_fitd->getNumCVars(); i++) {
 		if(_currentCVarTable[i] == -1) {
 			ASSERT(0);
 		}
-		
 		
 		if(_currentCVarTable[i] == searchedType)
 			return i;
@@ -153,7 +145,7 @@ int FitdEngine::getCVarsIdx(enumCVars searchedType) { // TODO: optimize by rever
 
 void FitdEngine::startup() {
 	int startupMenuResult;
-	paletteFill(g_driver->_palette, 0, 0, 0);
+	g_driver->_paletteObj->fill(0, 0, 0);
 	
 	preloadResource();
 	

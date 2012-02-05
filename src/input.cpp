@@ -33,7 +33,6 @@ extern float fov;
 void readKeyboard(void) {
 	SDL_Event event;
 	int size;
-	int j;
 	unsigned char *keyboard;
 
 	inputKey = 0;
@@ -52,7 +51,7 @@ void readKeyboard(void) {
 
 	keyboard = SDL_GetKeyState(&size);
 
-	for(j = 0; j < size; j++) {
+	for(int j = 0; j < size; j++) {
 		if(keyboard[j]) {
 			switch(j) {
 				/*        case SDLK_z:
