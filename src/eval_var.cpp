@@ -391,7 +391,7 @@ int evalVar(void) {
 			case 0x1C: {
 				int temp = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
-				return(rand() % temp);
+				return(g_fitd->randRange(0, temp));
 				break;
 			}
 			case 0x1D: {
@@ -704,7 +704,7 @@ int evalVar2(void) {
 			case 0x1C: {
 				int temp = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
-				return(rand() % temp);
+				return(g_fitd->randRange(0, temp));
 				break;
 			}
 			case 0x1D: {

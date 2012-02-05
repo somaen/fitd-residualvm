@@ -75,6 +75,8 @@ enumCVars AITD2KnownCVars[] = {
 
 // TODO: Move this around to a usefull place:
 void makeIntroScreens();
+void allocTextes(void);
+void sysInitSub1(char *var0, char *var1);
 
 FitdEngine::FitdEngine() {
 	g_resourceLoader = new ResourceLoader();
@@ -439,12 +441,22 @@ void FitdEngine::preloadResource() {
 	// to finish
 }
 
-void delay(uint32 ms) {
+void FitdEngine::delay(uint32 ms) {
 	SDL_Delay(ms);
 }
 
-int32 getTicks() {
+int32 FitdEngine::getTicks() {
 	return SDL_GetTicks();
 }
 
+uint32 FitdEngine::getGameType() {
+	return _gameType;
+}
+int FitdEngine::getNumCVars() {
+	return _numCVars;
+}
+uint32 FitdEngine::randRange(int min, int max) {
+	return((rand() % (max - min)) + min);
+}
+	
 } // end of namespace Fitd

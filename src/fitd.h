@@ -23,10 +23,6 @@
 #ifndef FITD_FITD_H
 #define FITD_FITD_H
 
-#define FORBIDDEN_SYMBOL_EXCEPTION_rand
-
-#include <cstdio>
-#include <cstdlib>
 #ifdef HAVE_CONFIG_H
 #undef HAVE_CONFIG_H
 #define UNIX
@@ -47,9 +43,6 @@ enum gameType {
 	GType_TIMEGATE = 5,
 };
 
-void allocTextes(void);
-void sysInitSub1(char *var0, char *var1);
-
 class FitdEngine {
 	gameType _gameType;
 	enumCVars *_currentCVarTable;
@@ -64,15 +57,9 @@ public:
 	void run();
 	void startup();
 	void preloadResource();
-	uint32 getGameType() {
-		return _gameType;
-	}
-	int getNumCVars() {
-		return _numCVars;
-	}
-	uint32 randRange(int min, int max) {
-		return((rand() % (max - min)) + min);
-	}
+	uint32 getGameType();
+	int getNumCVars();
+	uint32 randRange(int min, int max);
 	int32 getCVarsIdx(enumCVars searchedType);
 	void delay(uint32 ms);
 	int32 getTicks();

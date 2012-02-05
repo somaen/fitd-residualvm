@@ -168,7 +168,7 @@ int createFlow(int mode, int X, int Y, int Z, int stage, int room, int alpha, in
 
 		currentActorPtr->ANIM = mode;
 
-		*(int16 *)flowPtr = localSpecialTable[rand()%3]; // type ? color ?
+		*(int16 *)flowPtr = localSpecialTable[g_fitd->randRange(0, 3)]; // type ? color ?
 		flowPtr += 2;
 		*(int16 *)flowPtr = 30; // num of points
 		flowPtr += 2;
