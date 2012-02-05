@@ -231,7 +231,7 @@ void makeStatusScreen(void) {
 
 				currentFoundBodyIdx = objectTable[var_16].foundBody;
 
-				currentFoundBody = HQR_Get(listBody, currentFoundBodyIdx);
+				currentFoundBody = listBody->get(currentFoundBodyIdx);
 
 				var_C = objectTable[var_16].flags2;
 

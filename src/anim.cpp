@@ -144,7 +144,7 @@ int anim(int animNum, int arg_2, int arg_4) {
 
 			currentProcessedActorPtr->flags |= 1;
 
-			initAnimInBody(currentProcessedActorPtr->FRAME, HQR_Get(listAnim, animNum), HQR_Get(listBody, currentProcessedActorPtr->bodyNum));
+			initAnimInBody(currentProcessedActorPtr->FRAME, listAnim->get(animNum), listBody->get(currentProcessedActorPtr->bodyNum));
 
 			currentProcessedActorPtr->field_40 = arg_2;
 			currentProcessedActorPtr->field_42 = arg_4;
@@ -167,7 +167,7 @@ int anim(int animNum, int arg_2, int arg_4) {
 
 			currentProcessedActorPtr->flags |= 1;
 
-			initAnimInBody(currentProcessedActorPtr->FRAME, HQR_Get(listAnim, animNum), HQR_Get(listBody, currentProcessedActorPtr->bodyNum));
+			initAnimInBody(currentProcessedActorPtr->FRAME, listAnim->get(animNum), listBody->get(currentProcessedActorPtr->bodyNum));
 
 			currentProcessedActorPtr->field_40 = arg_2;
 			currentProcessedActorPtr->field_42 = arg_4;

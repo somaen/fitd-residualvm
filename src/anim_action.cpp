@@ -153,7 +153,7 @@ void processAnimAction(void) {
 
 			ZVStruct rangeZv;
 
-			getZvNormal(HQR_Get(listBody, objPtr->body), &rangeZv);
+			getZvNormal(listBody->get(objPtr->body), &rangeZv);
 
 			rangeZv.ZVX1 += x;
 			rangeZv.ZVX2 += x;
@@ -225,7 +225,7 @@ void processAnimAction(void) {
 		actorPtr->roomY = y;
 		actorPtr->roomZ = z;
 
-		getZvNormal(HQR_Get(listBody, actorPtr->bodyNum), &actorPtr->zv);
+		getZvNormal(listBody->get(actorPtr->bodyNum), &actorPtr->zv);
 
 		actorPtr->zv.ZVX1 += x;
 		actorPtr->zv.ZVX2 += x;

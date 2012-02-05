@@ -506,10 +506,10 @@ int loadSave(int saveNumber) {
 
 	for(i = 0; i < NUM_MAX_ACTOR; i++) {
 		if(actorTable[i].field_0 != -1 && actorTable[i].bodyNum != -1) {
-			char *bodyPtr = HQR_Get(listBody, actorTable[i].bodyNum);
+			char *bodyPtr = listBody->get(actorTable[i].bodyNum);
 
 			if(actorTable[i].ANIM != -1) {
-				char *animPtr = HQR_Get(listAnim, actorTable[i].ANIM);
+				char *animPtr = listAnim->get(actorTable[i].ANIM);
 				initAnimInBody(actorTable[i].FRAME, animPtr, bodyPtr);
 			}
 		}

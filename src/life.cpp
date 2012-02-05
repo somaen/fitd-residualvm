@@ -157,9 +157,9 @@ int createFlow(int mode, int X, int Y, int Z, int stage, int room, int alpha, in
 		actorZvPtr->ZVZ1 -= Z;
 		actorZvPtr->ZVZ2 -= Z;
 
-		currentActorPtr->FRAME = printTextSub1(hqrUnk, 304);
+		currentActorPtr->FRAME = hqrUnk->printTextSub1(304);
 
-		flowPtr = printTextSub2(hqrUnk, currentActorPtr->FRAME);
+		flowPtr = hqrUnk->printTextSub2(currentActorPtr->FRAME);
 
 		if(!flowPtr) {
 			currentActorPtr->field_0 = -1;
@@ -378,7 +378,7 @@ void setupRealZv(ZVStruct *zvPtr) {
 void doRealZv(actorStruct *actorPtr) {
 	ZVStruct *zvPtr;
 
-	computeScreenBox(0, 0, 0, actorPtr->alpha, actorPtr->beta, actorPtr->gamma, HQR_Get(listBody, actorPtr->bodyNum));
+	computeScreenBox(0, 0, 0, actorPtr->alpha, actorPtr->beta, actorPtr->gamma, listBody->get(actorPtr->bodyNum));
 
 	zvPtr = &actorPtr->zv;
 
@@ -402,7 +402,7 @@ void processLife(int lifeNum) {
 	currentLifeActorPtr = currentProcessedActorPtr;
 	currentLifeNum = lifeNum;
 
-	currentLifePtr = HQR_Get(listLife, lifeNum);
+	currentLifePtr = listLife->get(lifeNum);
 
 	while(!exitLife) {
 		int lifeTempVar1;
@@ -631,7 +631,7 @@ processOpcode:
 
 					if(currentProcessedActorPtr->flags & 1) {
 						if((currentProcessedActorPtr->ANIM != -1) && (currentProcessedActorPtr->bodyNum != -1)) {
-							char *pAnim = HQR_Get(listAnim, currentProcessedActorPtr->ANIM);
+							char *pAnim = listAnim->get(currentProcessedActorPtr->ANIM);
 							char *pBody;
 
 							if(g_fitd->getGameType() >= GType_JACK) {
@@ -639,7 +639,7 @@ processOpcode:
 								 gereDecal(); */
 							}
 
-							pBody = HQR_Get(listBody, currentProcessedActorPtr->bodyNum);
+							pBody = listBody->get(currentProcessedActorPtr->bodyNum);
 
 							/*    if(g_fitd->getGameType() >= GType_JACK)
 							 {
@@ -669,7 +669,7 @@ processOpcode:
 				currentProcessedActorPtr->bodyNum = param1;
 
 				if(currentProcessedActorPtr->flags & 1) {
-					char *pAnim = HQR_Get(listAnim, currentProcessedActorPtr->ANIM);
+					char *pAnim = listAnim->get(currentProcessedActorPtr->ANIM);
 					char *pBody;
 
 					if(g_fitd->getGameType() >= GType_JACK) {
@@ -677,7 +677,7 @@ processOpcode:
 						 gereDecal(); */
 					}
 
-					pBody = HQR_Get(listBody, currentProcessedActorPtr->bodyNum);
+					pBody = listBody->get(currentProcessedActorPtr->bodyNum);
 
 					initAnimInBody(0, pAnim, pBody);
 					anim(param2, 4, -1);
@@ -727,7 +727,7 @@ processOpcode:
 				break;
 			}
 			case LM_DO_ROT_ZV: { // DO_ROT_ZV
-				getZvRot(HQR_Get(listBody, currentProcessedActorPtr->bodyNum), &currentProcessedActorPtr->zv,
+				getZvRot(listBody->get(currentProcessedActorPtr->bodyNum), &currentProcessedActorPtr->zv,
 				         currentProcessedActorPtr->alpha,
 				         currentProcessedActorPtr->beta,
 				         currentProcessedActorPtr->gamma);
@@ -742,7 +742,7 @@ processOpcode:
 				break;
 			}
 			case LM_DO_CARRE_ZV: { // DO_CARRE_ZV
-				getZvCube(HQR_Get(listBody, currentProcessedActorPtr->bodyNum), &currentProcessedActorPtr->zv);
+				getZvCube(listBody->get(currentProcessedActorPtr->bodyNum), &currentProcessedActorPtr->zv);
 
 				currentProcessedActorPtr->zv.ZVX1 += currentProcessedActorPtr->roomX;
 				currentProcessedActorPtr->zv.ZVX2 += currentProcessedActorPtr->roomX;
@@ -977,7 +977,7 @@ processOpcode:
 			case LM_CONTINUE_TRACK: {
 				char *ptr;
 
-				ptr = HQR_Get(listTrack, currentProcessedActorPtr->trackNumber);
+				ptr = listTrack->get(currentProcessedActorPtr->trackNumber);
 
 				ptr += currentProcessedActorPtr->positionInTrack * 2;
 

@@ -45,8 +45,8 @@ void loadFloor(int32 floorNumber) {
 
 	//stopSounds();
 
-	HQR_Reset(listBody);
-	HQR_Reset(listAnim);
+	listBody->reset();
+	listAnim->reset();
 
 	currentEtage = floorNumber;
 

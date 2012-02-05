@@ -60,22 +60,6 @@ struct regularTextEntryStruct {
 	int16 width;
 };
 
-struct hqrSubEntryStruct {
-	int16 key;
-	int16 size;
-	uint32 lastTimeUsed;
-	char *ptr;
-};
-
-struct hqrEntryStruct {
-	char string[10];
-	uint16 maxFreeData;
-	uint16 sizeFreeData;
-	uint16 numMaxEntry;
-	uint16 numUsedEntry;
-	hqrSubEntryStruct *entries;
-};
-
 struct ZVStruct {
 	int32 ZVX1;
 	int32 ZVX2;
@@ -234,6 +218,8 @@ struct roomDefStruct {
 	int16 worldZ;//8
 	int16 numCameraInRoom;//0xA
 };
+
+struct hqrEntryStruct;
 
 extern hqrEntryStruct *hqrUnk;
 

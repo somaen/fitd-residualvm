@@ -116,10 +116,10 @@ int copyObjectToActor(int flag2, int var1, int foundName, int16 flag, int x, int
 	actorPtr->HIT_BY = -1;
 
 	if(flag2 != -1) {
-		bodyPtr = HQR_Get(listBody, actorPtr->bodyNum);
+		bodyPtr = listBody->get(actorPtr->bodyNum);
 
 		if(var2 != -1) {
-			char *animPtr = HQR_Get(listAnim, var2);
+			char *animPtr = listAnim->get(var2);
 
 			initAnimInBody(var3, animPtr, bodyPtr);
 

@@ -47,34 +47,34 @@ hqrEntryStruct *HQR_InitRessource(const char *name, int size, int numEntries) {
 
 	numEntries = 2000;
 
-	strcpy(dest->string, "        ");
-	strncpy(dest->string, name, 8);
+	strcpy(dest->_string, "        ");
+	strncpy(dest->_string, name, 8);
 
-	dest->sizeFreeData = size;
-	dest->maxFreeData = size;
-	dest->numMaxEntry = numEntries;
-	dest->numUsedEntry = 0;
-	dest->entries = (hqrSubEntryStruct *)malloc(numEntries * sizeof(hqrSubEntryStruct));
+	dest->_sizeFreeData = size;
+	dest->_maxFreeData = size;
+	dest->_numMaxEntry = numEntries;
+	dest->_numUsedEntry = 0;
+	dest->_entries = (hqrSubEntryStruct *)malloc(numEntries * sizeof(hqrSubEntryStruct));
 
 	for(i = 0; i < numEntries; i++) {
-		dest->entries[i].ptr = NULL;
+		dest->_entries[i].ptr = NULL;
 	}
 
 	return(dest);
 }
 
-int printTextSub1(hqrEntryStruct *hqrPtr, int size) {
+int hqrEntryStruct::printTextSub1(int size) {
 	hqrSubEntryStruct *dataPtr1;
 	hqrSubEntryStruct *dataPtr2;
 	int key;
 	int entryNum;
 
-	if(hqrPtr->sizeFreeData < size)
+	if(_sizeFreeData < size)
 		return(-1);
 
-	entryNum = hqrPtr->numUsedEntry;
+	entryNum = _numUsedEntry;
 
-	dataPtr1 = dataPtr2 = hqrPtr->entries;
+	dataPtr1 = dataPtr2 = _entries;
 
 	key = hqrKeyGen;
 
@@ -83,24 +83,24 @@ int printTextSub1(hqrEntryStruct *hqrPtr, int size) {
 	//  dataPtr1[entryNum].offset = hqrPtr->maxFreeData - hqrPtr->sizeFreeData;
 	dataPtr1[entryNum].size = size;
 
-	hqrPtr->numUsedEntry++;
-	hqrPtr->sizeFreeData -= size;
+	_numUsedEntry++;
+	_sizeFreeData -= size;
 
 	hqrKeyGen++;
 
 	return(key);
 }
 
-char *printTextSub2(hqrEntryStruct *hqrPtr, int index) {
+char *hqrEntryStruct::printTextSub2(int index) {
 	hqrSubEntryStruct *ptr;
 	hqrSubEntryStruct *dataPtr;
 
 	if(index < 0)
 		return NULL;
 
-	dataPtr = hqrPtr->entries;
+	dataPtr = _entries;
 
-	ptr = quickFindEntry(index, hqrPtr->numUsedEntry, dataPtr);
+	ptr = quickFindEntry(index, _numUsedEntry, dataPtr);
 
 	if(!ptr)
 		return NULL;
@@ -126,21 +126,21 @@ void moveHqrEntry(hqrEntryStruct *hqrPtr, int index) {
 	 memcpy(dest,src,hqrPtr->numMaxEntry-(index+1) * sizeof(hqrSubEntryStruct));
 	 }*/
 
-	int size = hqrPtr->entries[index].size;
+	int size = hqrPtr->_entries[index].size;
 
-	free(hqrPtr->entries[index].ptr);
+	free(hqrPtr->_entries[index].ptr);
 
-	hqrPtr->numUsedEntry --;
-	hqrPtr->sizeFreeData += size;
+	hqrPtr->_numUsedEntry --;
+	hqrPtr->_sizeFreeData += size;
 }
 
-char *HQR_Get(hqrEntryStruct *hqrPtr, int index) {
+char *hqrEntryStruct::get(int index) {
 	hqrSubEntryStruct *foundEntry;
 
 	if(index < 0)
 		return NULL;
 
-	foundEntry = quickFindEntry(index, hqrPtr->numUsedEntry, hqrPtr->entries);
+	foundEntry = quickFindEntry(index, _numUsedEntry, _entries);
 
 	if(foundEntry) {
 		foundEntry->lastTimeUsed = timer;
@@ -207,17 +207,17 @@ char *HQR_Get(hqrEntryStruct *hqrPtr, int index) {
 		int i;
 
 		freezeTime();
-		size = getPakSize(hqrPtr->string, index);
+		size = getPakSize(_string, index);
 
-		if(size >= hqrPtr->maxFreeData) {
-			theEnd(1, hqrPtr->string);
+		if(size >= _maxFreeData) {
+			theEnd(1, _string);
 		}
 
 		time = timer;
 
-		for(i = 0; i < hqrPtr->numMaxEntry; i++) {
-			if(hqrPtr->entries[i].ptr == NULL) {
-				foundEntry = &hqrPtr->entries[i];
+		for(i = 0; i < _numMaxEntry; i++) {
+			if(_entries[i].ptr == NULL) {
+				foundEntry = &_entries[i];
 				break;
 			}
 		}
@@ -236,10 +236,10 @@ char *HQR_Get(hqrEntryStruct *hqrPtr, int index) {
 
 		ptr = foundEntry->ptr;
 
-		loadPakToPtr(hqrPtr->string, index, foundEntry->ptr);
+		loadPakToPtr(_string, index, foundEntry->ptr);
 
-		hqrPtr->numUsedEntry++;
-		hqrPtr->sizeFreeData -= size;
+		_numUsedEntry++;
+		_sizeFreeData -= size;
 
 		unfreezeTime();
 
@@ -271,47 +271,44 @@ hqrEntryStruct *HQR_Init(int size, int numEntry) {
 	if(!dest2)
 		return NULL;
 
-	strcpy(dest->string, "_MEMORY_");
+	strcpy(dest->_string, "_MEMORY_");
 
-	dest->sizeFreeData = size;
-	dest->maxFreeData = size;
-	dest->numMaxEntry = numEntry;
-	dest->numUsedEntry = 0;
-	dest->entries = (hqrSubEntryStruct *)malloc(numEntry * sizeof(hqrSubEntryStruct));
+	dest->_sizeFreeData = size;
+	dest->_maxFreeData = size;
+	dest->_numMaxEntry = numEntry;
+	dest->_numUsedEntry = 0;
+	dest->_entries = (hqrSubEntryStruct *)malloc(numEntry * sizeof(hqrSubEntryStruct));
 
 	for(i = 0; i < numEntry; i++) {
-		dest->entries[i].ptr = NULL;
+		dest->_entries[i].ptr = NULL;
 	}
 
 	return(dest);
 }
 
-void HQR_Reset(hqrEntryStruct *hqrPtr) {
-	int i;
-	hqrPtr->sizeFreeData = hqrPtr->maxFreeData;
-	hqrPtr->numUsedEntry = 0;
+void hqrEntryStruct::reset() {
+	_sizeFreeData = _maxFreeData;
+	_numUsedEntry = 0;
 
-	for(i = 0; i < hqrPtr->numMaxEntry; i++) {
-		if(hqrPtr->entries[i].ptr)
-			free(hqrPtr->entries[i].ptr);
+	for(int i = 0; i < _numMaxEntry; i++) {
+		if(_entries[i].ptr)
+			free(_entries[i].ptr);
 
-		hqrPtr->entries[i].ptr = NULL;
+		_entries[i].ptr = NULL;
 	}
 
 }
 
-void HQR_Free(hqrEntryStruct *hqrPtr) {
-	int i;
-
-	if(!hqrPtr)
-		return;
-
-	for(i = 0; i < hqrPtr->numMaxEntry; i++) {
-		if(hqrPtr->entries[i].ptr)
-			free(hqrPtr->entries[i].ptr);
+hqrEntryStruct::~hqrEntryStruct() {
+	for(int i = 0; i < _numMaxEntry; i++) {
+		if(_entries[i].ptr)
+			free(_entries[i].ptr);
 	}
+}
 
-	free(hqrPtr);
+void hqrEntryStruct::setString(const char* str) {
+	assert(strlen(str) <= 10);
+	strcpy(_string, str);
 }
 
 } // end of namespace Fitd

@@ -80,7 +80,7 @@ void updateInHand(int objIdx) {
 	currentActorLifeNum = currentLifeNum;
 
 	if(currentLifeNum != -1) {
-		lifeOffset = (currentLifePtr - HQR_Get(listLife, currentActorLifeNum)) / 2;
+		lifeOffset = (currentLifePtr - listLife->get(currentActorLifeNum)) / 2;
 	}
 
 	var_2 = 0;
@@ -135,7 +135,7 @@ void updateInHand(int objIdx) {
 
 	if(currentActorLifeNum != -1) {
 		currentLifeNum = currentActorLifeNum;
-		currentLifePtr = HQR_Get(listLife, currentLifeNum) + lifeOffset * 2;
+		currentLifePtr = listLife->get(currentLifeNum) + lifeOffset * 2;
 	}
 }
 
@@ -441,9 +441,9 @@ int printText(int index, int left, int top, int right, int bottom, int mode, int
 
 	maxStringWidth = right - left + 4;
 
-	var_8 = printTextSub1(hqrUnk, getPakSize(languageNameString, index) + 300);
+	var_8 = hqrUnk->printTextSub1(getPakSize(languageNameString, index) + 300);
 
-	textPtr = printTextSub2(hqrUnk, var_8);
+	textPtr = hqrUnk->printTextSub2(var_8);
 
 	if(!loadPakToPtr(languageNameString, index, textPtr)) {
 		theEnd(1, languageNameString);
@@ -771,37 +771,26 @@ void makeIntroScreens(void) {
 	printText(CVars[getCVarsIdx(TEXTE_CREDITS)] + 1, 48, 2, 260, 197, 1, 26);
 }
 
-void initEngine(void) {
-	uint8 *pObjectData;
-	uint8 *pObjectDataBackup;
-	unsigned long int objectDataSize;
-
-	int choosePersoBackup;
+void initEngine() {
+	int32 choosePersoBackup;
 
 	Common::SeekableReadStream *stream = g_resourceLoader->getFile("OBJETS.ITD");
 	
 	if(!stream)
 		theEnd(0, "OBJETS.ITD");
 
-	objectDataSize = stream->size();
-
-	pObjectDataBackup = pObjectData = (uint8 *)malloc(objectDataSize);
-	ASSERT(pObjectData);
-
 	maxObjects = stream->readUint16LE();
 
 	if(g_fitd->getGameType() == GType_AITD1) {
-		objectTable = (objectStruct *)malloc(300 * sizeof(objectStruct));
+		objectTable = new objectStruct[300];
 	} else {
-		objectTable = (objectStruct *)malloc(maxObjects * sizeof(objectStruct));
+		objectTable = new objectStruct[maxObjects];
 	}
 
 	for(int i = 0; i < maxObjects; i++) {
 		objectTable[i].readFromStream(stream);
 	}
 	delete stream;
-	free(pObjectDataBackup);
-
 
 	/* fHandle = fopen("objDump.txt","w+");
 	 for(i=0;i<maxObjects;i++)
@@ -896,9 +885,7 @@ void initEngine(void) {
 }
 
 void initVarsSub1(void) {
-	int i;
-
-	for(i = 0; i < 5; i++) {
+	for(int i = 0; i < 5; i++) {
 		messageTable[i].string = NULL;
 	}
 }
@@ -2583,7 +2570,7 @@ void drawBgOverlay(actorStruct *actorPtr) {
 void mainDrawSub2(int actorIdx) { // draw flow
 	actorStruct *actorPtr = &actorTable[actorIdx];
 
-	char *data = printTextSub2(hqrUnk, actorPtr->FRAME);
+	char *data = hqrUnk->printTextSub2(actorPtr->FRAME);
 
 	// TODO: finish
 }
@@ -2698,7 +2685,7 @@ void mainDraw(int mode) {
 			if(actorPtr->flags & 0x20) {
 				mainDrawSub2(currentDrawActor);
 			} else {
-				char *bodyPtr = HQR_Get(listBody, actorPtr->bodyNum);
+				char *bodyPtr = listBody->get(actorPtr->bodyNum);
 
 				if(hqrVar1) {
 					//          initAnimInBody(actorPtr->FRAME, HQR_Get(listAnim, actorPtr->ANIM), bodyPtr);
@@ -2886,7 +2873,7 @@ void drawFoundObect(int menuState, int objectName, int zoomFactor) {
 
 	rotateModel(0, 0, 0, 60, statusVar1, 0, zoomFactor);
 
-	renderModel(0, 0, 0, 0, 0, 0, HQR_Get(listBody, currentFoundBodyIdx));
+	renderModel(0, 0, 0, 0, 0, 0, listBody->get(currentFoundBodyIdx));
 
 	drawText(160, currentMenuTop, 20, 1);
 	drawText(160, currentMenuTop + 16, objectName, 1);
@@ -2979,7 +2966,7 @@ void foundObject(int objIdx, int param) {
 	}
 
 	currentFoundBodyIdx = objPtr->foundBody;
-	currentFoundBody = HQR_Get(listBody, currentFoundBodyIdx);
+	currentFoundBody = listBody->get(currentFoundBodyIdx);
 
 	setupSMCode(160, 100, 128, 300, 298);
 
@@ -3304,7 +3291,7 @@ void processActor1(void) {
 			currentProcessedActorPtr->modZ = 0;
 		}
 
-		initBufferAnim(bufferAnim + (bufferAnimCounter++) * 248, HQR_Get(listBody, currentProcessedActorPtr->bodyNum));
+		initBufferAnim(bufferAnim + (bufferAnimCounter++) * 248, listBody->get(currentProcessedActorPtr->bodyNum));
 
 		if(bufferAnimCounter == 20)
 			bufferAnimCounter = 0;
@@ -3318,7 +3305,7 @@ void processActor1(void) {
 		currentProcessedActorPtr->END_ANIM = 0;
 		currentProcessedActorPtr->FRAME = 0;
 
-		currentProcessedActorPtr->field_4C = getAnimParam(HQR_Get(listAnim, var_6));
+		currentProcessedActorPtr->field_4C = getAnimParam(listAnim->get(var_6));
 	}
 
 	if(currentProcessedActorPtr->ANIM == -1) { // no animation
@@ -3366,7 +3353,7 @@ void processActor1(void) {
 		var_4A = currentProcessedActorPtr->modY;
 		var_48 = currentProcessedActorPtr->modZ;
 
-		currentProcessedActorPtr->END_FRAME = setInterAnimObjet(currentProcessedActorPtr->FRAME, HQR_Get(listAnim, currentProcessedActorPtr->ANIM), HQR_Get(listBody, currentProcessedActorPtr->bodyNum));
+		currentProcessedActorPtr->END_FRAME = setInterAnimObjet(currentProcessedActorPtr->FRAME, listAnim->get(currentProcessedActorPtr->ANIM), listBody->get(currentProcessedActorPtr->bodyNum));
 
 		walkStep(animRot2, animRot1, currentProcessedActorPtr->beta);
 
@@ -4095,7 +4082,7 @@ void throwStoppedAt(int x, int z) {
 	ZVStruct zvLocal;
 	uint8 *bodyPtr;
 
-	bodyPtr = (uint8 *)HQR_Get(listBody, currentProcessedActorPtr->bodyNum);
+	bodyPtr = (uint8 *)listBody->get(currentProcessedActorPtr->bodyNum);
 
 	getZvNormal((char *)bodyPtr, &zvLocal);
 
@@ -4201,8 +4188,10 @@ int parseAllSaves(int arg) {
 }
 
 void configureHqrHero(hqrEntryStruct *hqrPtr, const char *name) {
-	strcpy(hqrPtr->string, "        ");
-	strncpy(hqrPtr->string, name, 8);
+	char temp[10];
+	strcpy(temp, "        ");
+	strncpy(temp, name, 8);
+	hqrPtr->setString(temp);
 }
 
 int drawTextOverlay(void) {
@@ -4304,13 +4293,13 @@ void Sound_Quit(void);
 void cleanupAndExit(void) {
 	Sound_Quit();
 
-	HQR_Free(listMus);
-	HQR_Free(listSamp);
-	HQR_Free(hqrUnk);
-	HQR_Free(listLife);
-	HQR_Free(listTrack);
-	HQR_Free(listBody);
-	HQR_Free(listAnim);
+	delete listMus;
+	delete listSamp;
+	delete hqrUnk;
+	delete listLife;
+	delete listTrack;
+	delete listBody;
+	delete listAnim;
 
 	/* free(tabTextes);
 	 free(aux);

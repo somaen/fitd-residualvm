@@ -1174,7 +1174,7 @@ void playMusic(int musicNumber) {
 			if(musicNumber >= 0) {
 				fadeMusic(0, 0, 0x40);
 
-				musicPtr = HQR_Get(listMus, musicNumber);
+				musicPtr = listMus->get(musicNumber);
 
 				loadMusic(0, musicPtr);
 

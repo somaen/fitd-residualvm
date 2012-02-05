@@ -24,6 +24,8 @@
 #define _MAIN_
 namespace Fitd {
 
+struct hqrEntryStruct;
+
 extern int input5;
 
 void menuWaitVSync();

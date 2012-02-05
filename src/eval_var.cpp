@@ -30,7 +30,7 @@ int32 getPosRelTable[] = {4, 1, 8, 2, 4, 1, 8, 0};
 
 int32 getMatrix(int32 param1, int32 actorIdx, int32 param2) {
 	int32 matrixWidth;
-	char *matrixPtr = HQR_Get(listMatrix, param1);
+	char *matrixPtr = listMatrix->get(param1);
 
 	matrixWidth = *matrixPtr;
 	matrixPtr++;
@@ -433,7 +433,7 @@ int evalVar(void) {
 				temp2 = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
 
-				return(testZvEndAnim(actorPtr, HQR_Get(listAnim, temp1), temp2));
+				return(testZvEndAnim(actorPtr, listAnim->get(temp1), temp2));
 
 				break;
 			}
