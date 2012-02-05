@@ -414,12 +414,12 @@ void FitdEngine::sysInit(void) {
 
 	//  if(musicConfigured)
 	{
-		listMus = HQR_InitRessource("ListMus", 110000, 40);
+		listMus = new hqrEntryStruct("ListMus", 110000, 40);
 	}
 
-	listSamp = HQR_InitRessource("ListSamp", 64000, 30);
+	listSamp = new hqrEntryStruct("ListSamp", 64000, 30);
 
-	hqrUnk = HQR_Init(10000, 50);
+	hqrUnk = new hqrEntryStruct(10000, 50);
 }
 
 void FitdEngine::preloadResource() {

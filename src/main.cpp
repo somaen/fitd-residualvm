@@ -859,19 +859,19 @@ void initEngine() {
 		CVars[getCVarsIdx(CHOOSE_PERSO)] = choosePersoBackup;
 	}
 
-	listLife = HQR_InitRessource("LISTLIFE", 10000, 100);
-	listTrack = HQR_InitRessource("LISTTRAK", 1000, 10);
+	listLife = new hqrEntryStruct("LISTLIFE", 10000, 100);
+	listTrack = new hqrEntryStruct("LISTTRAK", 1000, 10);
 
 	// TODO: missing dos memory check here
 
 	if(g_fitd->getGameType() == GType_AITD1) {
-		listBody = HQR_InitRessource(listBodySelect[CVars[getCVarsIdx(CHOOSE_PERSO)]], 100000, 50); // was calculated from free mem size
-		listAnim = HQR_InitRessource(listAnimSelect[CVars[getCVarsIdx(CHOOSE_PERSO)]], 100000, 50); // was calculated from free mem size
+		listBody = new hqrEntryStruct(listBodySelect[CVars[getCVarsIdx(CHOOSE_PERSO)]], 100000, 50); // was calculated from free mem size
+		listAnim = new hqrEntryStruct(listAnimSelect[CVars[getCVarsIdx(CHOOSE_PERSO)]], 100000, 50); // was calculated from free mem size
 	} else {
-		listBody = HQR_InitRessource("LISTBODY", 100000, 50); // was calculated from free mem size
-		listAnim = HQR_InitRessource("LISTANIM", 100000, 50); // was calculated from free mem size
+		listBody = new hqrEntryStruct("LISTBODY", 100000, 50); // was calculated from free mem size
+		listAnim = new hqrEntryStruct("LISTANIM", 100000, 50); // was calculated from free mem size
 
-		listMatrix = HQR_InitRessource("LISTMAT", 16000, 5);
+		listMatrix = new hqrEntryStruct("LISTMAT", 16000, 5);
 	}
 
 

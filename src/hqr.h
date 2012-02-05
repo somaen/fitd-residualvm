@@ -20,36 +20,32 @@
  *
  */
 
-#ifndef _HQR_
-#define _HQR_
+#ifndef FITD_HQR_H
+#define FITD_HQR_H
+
 namespace Fitd {
 
-struct hqrSubEntryStruct {
-	int16 key;
-	int16 size;
-	uint32 lastTimeUsed;
-	char *ptr;
-};
+struct hqrSubEntryStruct;
 	
 struct hqrEntryStruct {
+private:
 	char _string[10];
 	uint16 _maxFreeData;
 	uint16 _sizeFreeData;
 	uint16 _numMaxEntry;
 	uint16 _numUsedEntry;
 	hqrSubEntryStruct *_entries;
-	
+public:
+	hqrEntryStruct(const char *name, int size, int numEntries);
+	hqrEntryStruct(int size, int numEntries);
 	~hqrEntryStruct();
 	char *get(int index);
 	void reset();
 	int printTextSub1(int size);
 	char *printTextSub2(int index);
 	void setString(const char* str);
+	void moveHqrEntry(int index);
 };
-
-hqrEntryStruct *HQR_InitRessource(const char *name, int size, int numEntries);
-hqrEntryStruct *HQR_Init(int size, int numEntry);
-
 
 } // end of namespace Fitd
 
