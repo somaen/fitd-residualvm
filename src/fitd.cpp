@@ -348,27 +348,17 @@ void FitdEngine::sysInit(void) {
 
 	CVars = (int16 *)malloc(getNumCVars() * sizeof(int16));
 
-	switch(getGameType()) {
-	case GType_JACK:
-	case GType_AITD2:
-	case GType_AITD3:
-	case GType_TIMEGATE: {
-		fontData = g_resourceLoader->loadPakSafe("ITD_RESS", 1);
-		break;
-	}
-	case GType_AITD1: {
+	uint32 initType;
+	if (getGameType() == GType_AITD1) {
 		fontData = g_resourceLoader->loadPakSafe("ITD_RESS", 5);
-		break;
-	}
+		initType = 1;
+	} else {
+		fontData = g_resourceLoader->loadPakSafe("ITD_RESS", 1);
+		initType = 0;
 	}
 
 	initFont(fontData, 14);
-
-	if(getGameType() == GType_AITD1) {
-		initFont2(2, 0);
-	} else {
-		initFont2(2, 1);
-	}
+	initFont2(2, initType);
 
 	switch(getGameType()) {
 	case GType_JACK:
@@ -393,10 +383,9 @@ void FitdEngine::sysInit(void) {
 	///////////////////////////////////////////////
 	{
 		for (int i = 0; i < getNumCVars(); i++) {
-			CVars[i] = stream->readUint16LE();
+			CVars[i] = stream->readUint16LE(); // This might not be entirely correct.
 		}
 		//		fread(CVars, getNumCVars(), 2, fHandle);
-		//fclose(fHandle); 
 		delete stream;
 
 		for(int i = 0; i < getNumCVars(); i++) {
@@ -444,9 +433,11 @@ int32 FitdEngine::getTicks() {
 uint32 FitdEngine::getGameType() {
 	return _gameType;
 }
+
 int FitdEngine::getNumCVars() {
 	return _numCVars;
 }
+
 uint32 FitdEngine::randRange(int min, int max) {
 	return((rand() % (max - min)) + min);
 }

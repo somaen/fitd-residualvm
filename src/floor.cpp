@@ -30,6 +30,98 @@ unsigned long int etageVar0Size = 0;
 unsigned long int numGlobalCamera = 0;
 cameraDataStruct *globalCameraDataTable = NULL;
 
+void cameraDataStruct::load(const char *data) {
+	alpha = READ_LE_UINT16(data + 0x00);
+	beta  = READ_LE_UINT16(data + 0x02);
+	gamma = READ_LE_UINT16(data + 0x04);
+	
+	x = READ_LE_UINT16(data + 0x06);
+	y = READ_LE_UINT16(data + 0x08);
+	z = READ_LE_UINT16(data + 0x0A);
+	
+	focal1 = READ_LE_UINT16(data + 0x0C);
+	focal2 = READ_LE_UINT16(data + 0x0E);
+	focal3 = READ_LE_UINT16(data + 0x10);
+	
+	numCameraZoneDef = READ_LE_UINT16(data + 0x12);
+	
+	cameraZoneDefTable = new cameraZoneDefStruct[numCameraZoneDef];
+
+	const char *backupDataPtr = data;
+	data += 0x14;
+	
+	for(int k = 0; k < numCameraZoneDef; k++) {
+		cameraZoneDefStruct *pCurrentCameraZoneDefEntry;
+		
+		pCurrentCameraZoneDefEntry = &cameraZoneDefTable[k];
+		
+		pCurrentCameraZoneDefEntry->load(data, backupDataPtr);
+		
+		if(g_fitd->getGameType() == GType_AITD1)
+			data += 0x0C;
+		else
+			data += 0x10;
+		
+		if(g_fitd->getGameType() == GType_TIMEGATE) {
+			data += 4;
+		}
+	}
+}
+	
+void cameraZoneDefStruct::load(const char *data, const char *basedata) {
+	dummy1 = READ_LE_UINT16(data + 0x00);
+	dummy2 = READ_LE_UINT16(data + 0x02);
+	dummy3 = READ_LE_UINT16(data + 0x04);
+	dummy4 = READ_LE_UINT16(data + 0x06);
+	dummy5 = READ_LE_UINT16(data + 0x08);
+	dummy6 = READ_LE_UINT16(data + 0x0A);
+	
+	if(g_fitd->getGameType() != GType_AITD1) {
+		dummy7 = READ_LE_UINT16(data + 0x0C);
+		dummy8 = READ_LE_UINT16(data + 0x0E);
+	}
+	
+	// load camera zone
+	{
+		const char *pZoneData;
+		int32 numOfZones;
+		
+		pZoneData = basedata + dummy3;
+		//pZoneData = currentCameraData;
+		
+		numZones = numZones = READ_LE_UINT16(pZoneData);
+		pZoneData += 2;
+		
+		cameraZoneEntryTable = (cameraZoneEntryStruct *)malloc(sizeof(cameraZoneEntryStruct) * numOfZones);
+		
+		ASSERT(cameraZoneEntryTable);
+		
+		for(int j = 0; j < numZones; j++) {
+			cameraZoneEntryTable[j].load(pZoneData);
+			pZoneData += 2 + (4 * cameraZoneEntryTable[j].numPoints);
+		}
+	}
+}
+
+void cameraZoneEntryStruct::load(const char *data) {
+	int32 numOfPoints;
+	
+	numPoints = numOfPoints = READ_LE_UINT16(data);
+	data += 2;
+	
+	pointTable = new cameraZonePointStruct[numOfPoints + 1];
+	
+	for(int32 pointIdx = 0; pointIdx < numPoints; pointIdx++) {
+		pointTable[pointIdx].x = READ_LE_UINT16(data);
+		data += 2;
+		pointTable[pointIdx].y = READ_LE_UINT16(data);
+		data += 2;
+	}
+	
+	pointTable[numOfPoints].x = pointTable[0].x; // copy first point to last position
+	pointTable[numOfPoints].y = pointTable[0].y;
+}
+
 void loadFloor(int32 floorNumber) {
 	int32 i;
 	int32 expectedNumberOfRoom;
@@ -192,8 +284,9 @@ void loadFloor(int32 floorNumber) {
 		expectedNumberOfCamera = ((READ_LE_UINT32(etageVar1)) / 4);
 	}
 
-	globalCameraDataTable = (cameraDataStruct *)malloc(sizeof(cameraDataStruct) * expectedNumberOfCamera);
-
+	//globalCameraDataTable = (cameraDataStruct *)malloc(sizeof(cameraDataStruct) * expectedNumberOfCamera);
+	globalCameraDataTable = new cameraDataStruct[expectedNumberOfCamera];
+	
 	for(i = 0; i < expectedNumberOfCamera; i++) {
 		int32 k;
 		uint32 offset;
@@ -217,97 +310,14 @@ void loadFloor(int32 floorNumber) {
 
 		// load cameras
 		if(offset < cameraDataSize) {
-			char *backupDataPtr;
-
 			if(g_fitd->getGameType() < GType_AITD3) {
 				currentCameraData = (etageVar1 + READ_LE_UINT32(etageVar1 + i * 4));
 			}
 
-			backupDataPtr = currentCameraData;
-
-			globalCameraDataTable[i].alpha = READ_LE_UINT16(currentCameraData + 0x00);
-			globalCameraDataTable[i].beta  = READ_LE_UINT16(currentCameraData + 0x02);
-			globalCameraDataTable[i].gamma = READ_LE_UINT16(currentCameraData + 0x04);
-
-			globalCameraDataTable[i].x = READ_LE_UINT16(currentCameraData + 0x06);
-			globalCameraDataTable[i].y = READ_LE_UINT16(currentCameraData + 0x08);
-			globalCameraDataTable[i].z = READ_LE_UINT16(currentCameraData + 0x0A);
-
-			globalCameraDataTable[i].focal1 = READ_LE_UINT16(currentCameraData + 0x0C);
-			globalCameraDataTable[i].focal2 = READ_LE_UINT16(currentCameraData + 0x0E);
-			globalCameraDataTable[i].focal3 = READ_LE_UINT16(currentCameraData + 0x10);
-
-			globalCameraDataTable[i].numCameraZoneDef = READ_LE_UINT16(currentCameraData + 0x12);
-
-			currentCameraData += 0x14;
-
-			globalCameraDataTable[i].cameraZoneDefTable = (cameraZoneDefStruct *)malloc(sizeof(cameraZoneDefStruct) * globalCameraDataTable[i].numCameraZoneDef);
+			globalCameraDataTable[i].load(currentCameraData);
 
 			ASSERT(globalCameraDataTable[i].cameraZoneDefTable);
 
-			for(k = 0; k < globalCameraDataTable[i].numCameraZoneDef; k++) {
-				cameraZoneDefStruct *pCurrentCameraZoneDefEntry;
-
-				pCurrentCameraZoneDefEntry = &globalCameraDataTable[i].cameraZoneDefTable[k];
-
-				pCurrentCameraZoneDefEntry->dummy1 = READ_LE_UINT16(currentCameraData + 0x00);
-				pCurrentCameraZoneDefEntry->dummy2 = READ_LE_UINT16(currentCameraData + 0x02);
-				pCurrentCameraZoneDefEntry->dummy3 = READ_LE_UINT16(currentCameraData + 0x04);
-				pCurrentCameraZoneDefEntry->dummy4 = READ_LE_UINT16(currentCameraData + 0x06);
-				pCurrentCameraZoneDefEntry->dummy5 = READ_LE_UINT16(currentCameraData + 0x08);
-				pCurrentCameraZoneDefEntry->dummy6 = READ_LE_UINT16(currentCameraData + 0x0A);
-
-				if(g_fitd->getGameType() != GType_AITD1) {
-					pCurrentCameraZoneDefEntry->dummy7 = READ_LE_UINT16(currentCameraData + 0x0C);
-					pCurrentCameraZoneDefEntry->dummy8 = READ_LE_UINT16(currentCameraData + 0x0E);
-				}
-
-				// load camera zone
-				{
-					char *pZoneData;
-					int32 numZones;
-					int32 j;
-
-					pZoneData = backupDataPtr + globalCameraDataTable[i].cameraZoneDefTable[k].dummy3;
-					//pZoneData = currentCameraData;
-
-					pCurrentCameraZoneDefEntry->numZones = numZones = READ_LE_UINT16(pZoneData);
-					pZoneData += 2;
-
-					pCurrentCameraZoneDefEntry->cameraZoneEntryTable = (cameraZoneEntryStruct *)malloc(sizeof(cameraZoneEntryStruct) * numZones);
-
-					ASSERT(pCurrentCameraZoneDefEntry->cameraZoneEntryTable);
-
-					for(j = 0; j < pCurrentCameraZoneDefEntry->numZones; j++) {
-						int32 pointIdx;
-						int32 numPoints;
-
-						pCurrentCameraZoneDefEntry->cameraZoneEntryTable[j].numPoints = numPoints = READ_LE_UINT16(pZoneData);
-						pZoneData += 2;
-
-						pCurrentCameraZoneDefEntry->cameraZoneEntryTable[j].pointTable = (cameraZonePointStruct *)malloc(sizeof(cameraZonePointStruct) * (numPoints + 1));
-
-						for(pointIdx = 0; pointIdx < pCurrentCameraZoneDefEntry->cameraZoneEntryTable[j].numPoints; pointIdx++) {
-							pCurrentCameraZoneDefEntry->cameraZoneEntryTable[j].pointTable[pointIdx].x = READ_LE_UINT16(pZoneData);
-							pZoneData += 2;
-							pCurrentCameraZoneDefEntry->cameraZoneEntryTable[j].pointTable[pointIdx].y = READ_LE_UINT16(pZoneData);
-							pZoneData += 2;
-						}
-
-						pCurrentCameraZoneDefEntry->cameraZoneEntryTable[j].pointTable[numPoints].x = pCurrentCameraZoneDefEntry->cameraZoneEntryTable[j].pointTable[0].x; // copy first point to last position
-						pCurrentCameraZoneDefEntry->cameraZoneEntryTable[j].pointTable[numPoints].y = pCurrentCameraZoneDefEntry->cameraZoneEntryTable[j].pointTable[0].y;
-					}
-				}
-
-				if(g_fitd->getGameType() == GType_AITD1)
-					currentCameraData += 0x0C;
-				else
-					currentCameraData += 0x10;
-
-				if(g_fitd->getGameType() == GType_TIMEGATE) {
-					currentCameraData += 4;
-				}
-			}
 		} else {
 			break;
 		}

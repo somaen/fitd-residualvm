@@ -55,6 +55,8 @@ struct cameraZoneEntryStruct {
 	uint16 numPoints;
 
 	cameraZonePointStruct *pointTable;
+	
+	void load(const char *data);
 };
 
 typedef struct cameraZoneEntryStruct cameraZoneEntryStruct;
@@ -71,6 +73,7 @@ struct cameraZoneDefStruct {
 
 	uint16 numZones;
 	cameraZoneEntryStruct *cameraZoneEntryTable;
+	void load(const char *data, const char *basedata);
 };
 
 typedef struct cameraZoneDefStruct cameraZoneDefStruct;
@@ -91,6 +94,8 @@ struct cameraDataStruct {
 	uint16 numCameraZoneDef;
 
 	cameraZoneDefStruct *cameraZoneDefTable;
+	
+	void load(const char *data);
 };
 typedef struct cameraDataStruct cameraDataStruct;
 
