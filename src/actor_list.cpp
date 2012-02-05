@@ -24,24 +24,24 @@
 
 namespace Fitd {
 
-int sortCompareFunction(const void *param1, const void *param2) {
-	int distance1 = 0;
-	int distance2 = 0;
+int32 sortCompareFunction(const void *param1, const void *param2) {
+	int32 distance1 = 0;
+	int32 distance2 = 0;
 	actorStruct *actor1Ptr;
 	actorStruct *actor2Ptr;
 	ZVStruct *actor1ZvPtr;
 	ZVStruct *actor2ZvPtr;
 	ZVStruct localZv1;
 	ZVStruct localZv2;
-	int flag = 0;
-	int y1;
-	int y2;
+	int32 flag = 0;
+	int32 y1;
+	int32 y2;
 
-	ASSERT(*(int *)param1 >= 0 && *(int *)param1 < NUM_MAX_ACTOR);
-	ASSERT(*(int *)param2 >= 0 && *(int *)param2 < NUM_MAX_ACTOR);
+	ASSERT(*(int32 *)param1 >= 0 && *(int32 *)param1 < NUM_MAX_ACTOR);
+	ASSERT(*(int32 *)param2 >= 0 && *(int32 *)param2 < NUM_MAX_ACTOR);
 
-	actor1Ptr = &actorTable[*(int *)param1];
-	actor2Ptr = &actorTable[*(int *)param2];
+	actor1Ptr = &actorTable[*(int32 *)param1];
+	actor2Ptr = &actorTable[*(int32 *)param2];
 
 	actor1ZvPtr = &actor1Ptr->zv;
 	actor2ZvPtr = &actor2Ptr->zv;

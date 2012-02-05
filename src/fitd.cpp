@@ -351,7 +351,7 @@ void FitdEngine::sysInit(void) {
 		theEnd(1, "BufferAnim");
 	}
 
-	CVars = (short int *)malloc(getNumCVars() * sizeof(short int));
+	CVars = (int16 *)malloc(getNumCVars() * sizeof(int16));
 
 	switch(getGameType()) {
 	case GType_JACK:

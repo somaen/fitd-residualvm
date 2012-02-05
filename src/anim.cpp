@@ -25,24 +25,24 @@
 namespace Fitd {
 
 int initAnimInBody(int frame, char *anim, char *body) {
-	short int temp;
-	short int ax;
-	short int cx;
-	short int bx;
+	int16 temp;
+	int16 ax;
+	int16 cx;
+	int16 bx;
 	char *saveAnim;
 	int i;
 	int flag;
 
-	flag = (*(short int *)body);
+	flag = (*(int16 *)body);
 
-	temp = *(short int *)anim;
+	temp = *(int16 *)anim;
 	anim += 2;
 
 	if(frame >= temp) {
 		return(0);
 	}
 
-	ax = *(short int *)anim;
+	ax = *(int16 *)anim;
 	anim += 2;
 
 	cx = ax;
@@ -55,7 +55,7 @@ int initAnimInBody(int frame, char *anim, char *body) {
 
 	anim += ax;
 
-	animCurrentTime = *(short int *)anim;
+	animCurrentTime = *(int16 *)anim;
 	animKeyframeLength = animCurrentTime;
 
 	if(!(flag & 2)) {
@@ -65,17 +65,17 @@ int initAnimInBody(int frame, char *anim, char *body) {
 	body += 14;
 
 	*(char **)(body + 2) = anim;
-	*(unsigned short int *)(body + 6) = timer;
+	*(uint16 *)(body + 6) = timer;
 
-	body += *(short int *)body;
+	body += *(int16 *)body;
 	body += 2;
 
-	ax = *(short int *)body;
+	ax = *(int16 *)body;
 	bx = ax;
 
 	body += (((ax << 1) + bx) << 1) + 2;
 
-	bx = ax = *(short int *)body;
+	bx = ax = *(int16 *)body;
 
 	body += bx << 1;
 
@@ -89,30 +89,30 @@ int initAnimInBody(int frame, char *anim, char *body) {
 	anim += 8;
 
 	for(i = 0; i < cx; i++) {
-		*(short int *)(body) = *(short int *)(anim);
+		*(int16 *)(body) = *(int16 *)(anim);
 		body += 2;
 		anim += 2;
-		*(short int *)(body) = *(short int *)(anim);
+		*(int16 *)(body) = *(int16 *)(anim);
 		body += 2;
 		anim += 2;
-		*(short int *)(body) = *(short int *)(anim);
+		*(int16 *)(body) = *(int16 *)(anim);
 		body += 2;
 		anim += 2;
-		*(short int *)(body) = *(short int *)(anim);
+		*(int16 *)(body) = *(int16 *)(anim);
 		body += 2;
 		anim += 2;
 
 		if(flag & 8) {
-			*(short int *)(body) = *(short int *)(anim);
+			*(int16 *)(body) = *(int16 *)(anim);
 			body += 2;
 			anim += 2;
-			*(short int *)(body) = *(short int *)(anim);
+			*(int16 *)(body) = *(int16 *)(anim);
 			body += 2;
 			anim += 2;
-			*(short int *)(body) = *(short int *)(anim);
+			*(int16 *)(body) = *(int16 *)(anim);
 			body += 2;
 			anim += 2;
-			*(short int *)(body) = *(short int *)(anim);
+			*(int16 *)(body) = *(int16 *)(anim);
 			body += 2;
 			anim += 2;
 		}
@@ -124,11 +124,11 @@ int initAnimInBody(int frame, char *anim, char *body) {
 
 	anim += 2;
 
-	animRot2 = *(short int *)anim;
+	animRot2 = *(int16 *)anim;
 	anim += 2;
-	animRot3 = *(short int *)anim;
+	animRot3 = *(int16 *)anim;
 	anim += 2;
-	animRot1 = *(short int *)anim;
+	animRot1 = *(int16 *)anim;
 	anim += 2;
 
 	return(1);
@@ -186,25 +186,25 @@ int anim(int animNum, int arg_2, int arg_4) {
 }
 
 void initBufferAnim(char *buffer, char *bodyPtr) {
-	int flag = *(short int *)bodyPtr;
+	int flag = *(int16 *)bodyPtr;
 	if(flag & 2) {
 		char *source = bodyPtr + 0x10;
-		short int ax;
+		int16 ax;
 		int cx;
 		int i;
 
-		*(unsigned short int *)(source + 4) = (unsigned short int)timer;
+		*(uint16 *)(source + 4) = (unsigned short int)timer;
 		*(char **)(source) = buffer;
 
-		source += *(short int *)(source - 2);
+		source += *(int16 *)(source - 2);
 
-		ax = *(short int *)(source);
+		ax = *(int16 *)(source);
 
 		ax = (((ax * 2) + ax) * 2) + 2;
 
 		source += ax;
 
-		cx = *(short int *)source;
+		cx = *(int16 *)source;
 
 		source += cx * 2;
 
@@ -212,19 +212,19 @@ void initBufferAnim(char *buffer, char *bodyPtr) {
 		source += 10;
 
 		for(i = 0; i < cx; i++) {
-			*(short int *)(buffer) = *(short int *)(source);
-			*(short int *)(buffer + 2) = *(short int *)(source + 2);
-			*(short int *)(buffer + 4) = *(short int *)(source + 4);
-			*(short int *)(buffer + 6) = *(short int *)(source + 6);
+			*(int16 *)(buffer) = *(int16 *)(source);
+			*(int16 *)(buffer + 2) = *(int16 *)(source + 2);
+			*(int16 *)(buffer + 4) = *(int16 *)(source + 4);
+			*(int16 *)(buffer + 6) = *(int16 *)(source + 6);
 
 			buffer += 8;
 			source += 8;
 
 			if(flag & 8) {
-				*(short int *)(buffer) = *(short int *)(source);
-				*(short int *)(buffer + 2) = *(short int *)(source + 2);
-				*(short int *)(buffer + 4) = *(short int *)(source + 4);
-				*(short int *)(buffer + 6) = *(short int *)(source + 6);
+				*(int16 *)(buffer) = *(int16 *)(source);
+				*(int16 *)(buffer + 2) = *(int16 *)(source + 2);
+				*(int16 *)(buffer + 4) = *(int16 *)(source + 4);
+				*(int16 *)(buffer + 6) = *(int16 *)(source + 6);
 
 				buffer += 8;
 				source += 8;
@@ -236,52 +236,52 @@ void initBufferAnim(char *buffer, char *bodyPtr) {
 	}
 }
 
-short int getAnimParam(char *animPtr) {
-	return(*(short int *)animPtr);
+int16 getAnimParam(char *animPtr) {
+	return(*(int16 *)animPtr);
 }
 
-short int getAnimType(char **bodyPtr) { // local
-	short int temp = *(short int *)animVar1;
+int16 getAnimType(char **bodyPtr) { // local
+	int16 temp = *(int16 *)animVar1;
 
 	animVar1 += 2;
 
 	animVar4 += 2;
 
-	*(short int *)(*bodyPtr) = temp;
+	*(int16 *)(*bodyPtr) = temp;
 	(*bodyPtr) += 2;
 
 	return(temp);
 }
 
 void processAnimRotation(char **bodyPtr, int bp, int bx) { // local
-	short int oldRotation = *(short int *)animVar4;
-	short int newRotation;
-	short int diff;
+	int16 oldRotation = *(int16 *)animVar4;
+	int16 newRotation;
+	int16 diff;
 
 	animVar4 += 2;
 
-	newRotation = *(short int *)animVar1;
+	newRotation = *(int16 *)animVar1;
 	animVar1 += 2;
 
 	diff = newRotation - oldRotation;
 
 	if(diff == 0) {
-		*(short int *)(*bodyPtr) = newRotation;
+		*(int16 *)(*bodyPtr) = newRotation;
 	} else {
 		if(diff <= 0x200) {
 			if(diff >= -0x200) {
-				*(short int *)(*bodyPtr) = ((diff * bp) / bx) + oldRotation;
+				*(int16 *)(*bodyPtr) = ((diff * bp) / bx) + oldRotation;
 			} else {
 				newRotation += 0x400;
 				newRotation -= oldRotation;
 
-				*(short int *)(*bodyPtr) = ((newRotation * bp) / bx) + oldRotation;
+				*(int16 *)(*bodyPtr) = ((newRotation * bp) / bx) + oldRotation;
 			}
 		} else {
 			oldRotation += 0x400;
 			newRotation -= oldRotation;
 
-			*(short int *)(*bodyPtr) = ((newRotation * bp) / bx) + oldRotation;
+			*(int16 *)(*bodyPtr) = ((newRotation * bp) / bx) + oldRotation;
 		}
 	}
 
@@ -289,34 +289,34 @@ void processAnimRotation(char **bodyPtr, int bp, int bx) { // local
 }
 
 void processAnimTranslation(char **bodyPtr, int bp, int bx) { // local
-	short int cx = *(short int *)animVar4;
-	short int ax;
+	int16 cx = *(int16 *)animVar4;
+	int16 ax;
 	animVar4 += 2;
 
-	ax = *(short int *)animVar1;
+	ax = *(int16 *)animVar1;
 	animVar1 += 2;
 
 	if(ax == cx) {
-		*(short int *)(*bodyPtr) = ax;
+		*(int16 *)(*bodyPtr) = ax;
 	} else {
-		*(short int *)(*bodyPtr) = (((ax - cx) * bp) / bx) + cx;
+		*(int16 *)(*bodyPtr) = (((ax - cx) * bp) / bx) + cx;
 	}
 
 	(*bodyPtr) += 2;
 }
 
-short int setInterAnimObjet(int frame, char *animPtr, char *bodyPtr) {
-	int numOfBonesInAnim = *(short int *)(animPtr + 2);
-	unsigned short int keyframeLength;
-	unsigned short int timeOfKeyframeStart;
+int16 setInterAnimObjet(int frame, char *animPtr, char *bodyPtr) {
+	int numOfBonesInAnim = *(int16 *)(animPtr + 2);
+	uint16 keyframeLength;
+	uint16 timeOfKeyframeStart;
 	char *animBufferPtr;
 	int ax;
-	unsigned short int bx;
-	unsigned short int time;
+	uint16 bx;
+	uint16 time;
 	int bp;
 	int flag;
 
-	flag = *(short int *)bodyPtr;
+	flag = *(int16 *)bodyPtr;
 
 	animPtr += 4;
 
@@ -329,9 +329,9 @@ short int setInterAnimObjet(int frame, char *animPtr, char *bodyPtr) {
 	// animVar1 = ptr to the current keyFrame
 	animVar1 = animPtr;
 
-	keyframeLength = *(unsigned short int *)animPtr; // keyframe length
+	keyframeLength = *(uint16 *)animPtr; // keyframe length
 
-	if(!((*(short int *)bodyPtr) & 2)) { // do not anim if the model can't be animated
+	if(!((*(int16 *)bodyPtr) & 2)) { // do not anim if the model can't be animated
 		return(0);
 	}
 
@@ -339,7 +339,7 @@ short int setInterAnimObjet(int frame, char *animPtr, char *bodyPtr) {
 
 	animVar3 = bodyPtr;
 
-	timeOfKeyframeStart = *(unsigned short int *)(bodyPtr + 4); // time of start of keyframe
+	timeOfKeyframeStart = *(uint16 *)(bodyPtr + 4); // time of start of keyframe
 
 	animBufferPtr = *(char **)(bodyPtr);
 
@@ -350,13 +350,13 @@ short int setInterAnimObjet(int frame, char *animPtr, char *bodyPtr) {
 	// animVar4 = ptr to previous key frame
 	animVar4 = animBufferPtr;
 
-	bodyPtr += *(short int *)(bodyPtr - 2);
+	bodyPtr += *(int16 *)(bodyPtr - 2);
 
-	ax = *(short int *)bodyPtr;
+	ax = *(int16 *)bodyPtr;
 	ax = (ax * 6) + 2;
 	bodyPtr += ax; // skip the points data
 
-	ax = *(short int *)bodyPtr; // num of bones
+	ax = *(int16 *)bodyPtr; // num of bones
 	bx = ax;
 	bodyPtr += bx * 2; // skip bones idx table
 
@@ -430,9 +430,9 @@ short int setInterAnimObjet(int frame, char *animPtr, char *bodyPtr) {
 
 		animVar1 += 2;
 
-		animRot2 = ((*(short int *)(animVar1)) * bp) / bx; // X
-		animRot3 = ((*(short int *)(animVar1 + 2)) * bp) / bx; // Y
-		animRot1 = ((*(short int *)(animVar1 + 4)) * bp) / bx; // Z
+		animRot2 = ((*(int16 *)(animVar1)) * bp) / bx; // X
+		animRot3 = ((*(int16 *)(animVar1 + 2)) * bp) / bx; // Y
+		animRot1 = ((*(int16 *)(animVar1 + 4)) * bp) / bx; // Z
 
 		animVar1 += 6;
 
@@ -448,19 +448,19 @@ short int setInterAnimObjet(int frame, char *animPtr, char *bodyPtr) {
 		si += 8;
 
 		do {
-			*(short int *)(bodyPtr) = *(short int *)(si);
-			*(short int *)(bodyPtr + 2) = *(short int *)(si + 2);
-			*(short int *)(bodyPtr + 4) = *(short int *)(si + 4);
-			*(short int *)(bodyPtr + 6) = *(short int *)(si + 6);
+			*(int16 *)(bodyPtr) = *(int16 *)(si);
+			*(int16 *)(bodyPtr + 2) = *(int16 *)(si + 2);
+			*(int16 *)(bodyPtr + 4) = *(int16 *)(si + 4);
+			*(int16 *)(bodyPtr + 6) = *(int16 *)(si + 6);
 
 			bodyPtr += 8;
 			si += 8;
 
 			if(flag & 8) {
-				*(short int *)(bodyPtr) = *(short int *)(si);
-				*(short int *)(bodyPtr + 2) = *(short int *)(si + 2);
-				*(short int *)(bodyPtr + 4) = *(short int *)(si + 4);
-				*(short int *)(bodyPtr + 6) = *(short int *)(si + 6);
+				*(int16 *)(bodyPtr) = *(int16 *)(si);
+				*(int16 *)(bodyPtr + 2) = *(int16 *)(si + 2);
+				*(int16 *)(bodyPtr + 4) = *(int16 *)(si + 4);
+				*(int16 *)(bodyPtr + 6) = *(int16 *)(si + 6);
 				bodyPtr += 8;
 				si += 8;
 			}
@@ -471,16 +471,16 @@ short int setInterAnimObjet(int frame, char *animPtr, char *bodyPtr) {
 
 		*(char **)animVar3 = animVar1;
 
-		*(unsigned short int *)(animVar3 + 4) = (unsigned short int)timer;
+		*(uint16 *)(animVar3 + 4) = (unsigned short int)timer;
 
 		tempBx += 2;
 
 		animCurrentTime = bx;
 		animKeyframeLength = bx;
 
-		animRot2 = *(short int *)(tempBx);
-		animRot3 = *(short int *)(tempBx + 2);
-		animRot1 = *(short int *)(tempBx + 4);
+		animRot2 = *(int16 *)(tempBx);
+		animRot3 = *(int16 *)(tempBx + 2);
+		animRot1 = *(int16 *)(tempBx + 4);
 
 		tempBx += 6;
 

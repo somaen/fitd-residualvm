@@ -26,27 +26,27 @@
 namespace Fitd {
 
 char *fontVar1 = NULL;
-short int fontSm1 = 0;
-short int fontSm2 = 0x1234;
+int16 fontSm1 = 0;
+int16 fontSm2 = 0x1234;
 char *fontVar4 = NULL;
 extern char *fontVar4;
 char *fontVar5 = NULL;
 extern char *fontVar5;
-short int currentFontColor = 0;
-extern short int currentFontColor;
-short int fontSm4 = 2;
-short int fontSm5 = 1;
-short int fontSm3 = 18;
-short int fontVar6 = 0;
-short int fontSm7 = 0x1234;
-short int fontSm8 = 0x1234;
-short int fontSm9 = 0x80;
+int16 currentFontColor = 0;
+extern int16 currentFontColor;
+int16 fontSm4 = 2;
+int16 fontSm5 = 1;
+int16 fontSm3 = 18;
+int16 fontVar6 = 0;
+int16 fontSm7 = 0x1234;
+int16 fontSm8 = 0x1234;
+int16 fontSm9 = 0x80;
 
 unsigned char flagTable[] = {0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01};
 
 void initFont(char *fontData, int color) {
-	short int tempDx;
-	short int tempAxFlip;
+	int16 tempDx;
+	int16 tempAxFlip;
 
 	fontVar1 = fontData; // fontPtr
 
@@ -87,7 +87,7 @@ int computeStringWidth(char *string) {
 
 	while((character = ((unsigned char)(*(string++))))) {
 		char *dataPtr;
-		unsigned short int data;
+		uint16 data;
 
 		dataPtr = fontVar5 + character * 2;
 		data = (int16)READ_LE_UINT16(dataPtr);
@@ -119,8 +119,8 @@ void renderText(int x, int y, char *surface, char *string) {
 
 	while((character = *((unsigned char *)(string++)))) {
 		char *dataPtr;
-		unsigned short int data;
-		unsigned short int dx;
+		uint16 data;
+		uint16 dx;
 
 		dataPtr = fontVar5 + character * 2;
 		data = READ_LE_UINT16(dataPtr);

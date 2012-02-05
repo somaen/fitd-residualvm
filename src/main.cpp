@@ -2644,7 +2644,6 @@ void getHotPoint(int hotPointIdx, char *bodyPtr, point3dStruct *hotPoint) {
 }
 
 void mainDraw(int mode) {
-	int i;
 #ifdef USE_GL
 	if(mode == 2)
 		g_driver->CopyBlockPhys((unsigned char *)screen, 0, 0, 320, 200);
@@ -2671,7 +2670,7 @@ void mainDraw(int mode) {
 
 #ifdef INTERNAL_DEBUGGER
 	if(backgroundMode == backgroundModeEnum_3D) {
-		for(i = 0; i < getNumberOfRoom(); i++) {
+		for(int i = 0; i < getNumberOfRoom(); i++) {
 			drawHardCol(i);
 			drawSceZone(i);
 		}
@@ -2686,7 +2685,7 @@ void mainDraw(int mode) {
 	g_driver->startModelRender();
 #endif
 
-	for(i = 0; i < numActorInList; i++) {
+	for(int i = 0; i < numActorInList; i++) {
 		int currentDrawActor = sortedActorTable[i];
 		actorStruct *actorPtr;
 
@@ -2845,9 +2844,7 @@ int processActor1Sub1(int actorIdx, ZVStruct *zvPtr) {
 	actorStruct *currentActor = actorTable;
 	int actorRoom = actorTable[actorIdx].room;
 
-	int i;
-
-	for(i = 0; i < NUM_MAX_ACTOR; i++) {
+	for(int i = 0; i < NUM_MAX_ACTOR; i++) {
 		if(currentActor->field_0 != -1 && i != actorIdx) {
 			ZVStruct *currentActorZv = &currentActor->zv;
 
@@ -3721,13 +3718,11 @@ int changeCameraSub1(int x1, int x2, int z1, int z2, cameraZoneDefStruct *pCamer
 	int xMid = (x1 + x2) / 2;
 	int zMid = (z1 + z2) / 2;
 
-	int i;
-
-	for(i = 0; i < pCameraZoneDef->numZones; i++) {
+	for(int i = 0; i < pCameraZoneDef->numZones; i++) {
 		int j;
 		int flag = 0;
 
-		for(j = 0; j < pCameraZoneDef->cameraZoneEntryTable[i].numPoints; j++) {
+		for(int j = 0; j < pCameraZoneDef->cameraZoneEntryTable[i].numPoints; j++) {
 			int zoneX1;
 			int zoneZ1;
 			int zoneX2;
@@ -3768,7 +3763,7 @@ int changeCameraSub2(void) {
 
 	int i;
 
-	for(i = 0; i < numCameraInRoom; i++) {
+	for(int i = 0; i < numCameraInRoom; i++) {
 		ASSERT(i < NUM_MAX_CAMERA_IN_ROOM);
 		if(changeCameraSub1(x1, x2, z1, z2, currentCameraZoneList[i])) { // if in camera zone ?
 			int newAngle = actorPtr->beta + (((cameraDataTable[i]->beta) + 0x200) & 0x3FF);
@@ -4223,9 +4218,7 @@ int drawTextOverlay(void) {
 	currentMessage = messageTable;
 
 	if(lightVar1 == 0) {
-		int i;
-
-		for(i = 0; i < 5; i++) {
+		for(int i = 0; i < 5; i++) {
 			if(currentMessage->string) {
 				int width = currentMessage->string->width;
 				int X = 160 - width / 2;
@@ -4271,16 +4264,14 @@ void makeMessage(int messageIdx) {
 	messagePtr = getTextFromIdx(messageIdx);
 
 	if(messagePtr) {
-		int i;
-
-		for(i = 0; i < 5; i++) {
+		for(int i = 0; i < 5; i++) {
 			if(messageTable[i].string == messagePtr) {
 				messageTable[i].time = 0;
 				return;
 			}
 		}
 
-		for(i = 0; i < 5; i++) {
+		for(int i = 0; i < 5; i++) {
 			if(messageTable[i].string == NULL) {
 				messageTable[i].string = messagePtr;
 				messageTable[i].time = 0;

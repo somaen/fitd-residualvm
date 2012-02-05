@@ -24,17 +24,17 @@
 
 namespace Fitd {
 
-void drawPartOfAITDBox(int left, int top, int index, char *gfxData) {
+void drawPartOfAITDBox(int32 left, int32 top, int32 index, char *gfxData) {
 	char *outPtr;
 	char *inPtr;
 
-	int width;
-	int height;
+	int32 width;
+	int32 height;
 
-	int offset;
+	int32 offset;
 
-	int i;
-	int j;
+	int32 i;
+	int32 j;
 
 	if(g_fitd->getGameType() != GType_AITD1)
 		return;
@@ -60,17 +60,17 @@ void drawPartOfAITDBox(int left, int top, int index, char *gfxData) {
 	}
 }
 
-void drawAITDBox(int x, int y, int width, int height) {
-	int top;
-	int right;
-	int left;
-	int bottom;
+void drawAITDBox(int32 x, int32 y, int32 width, int32 height) {
+	int32 top;
+	int32 right;
+	int32 left;
+	int32 bottom;
 
-	int currentLeftPosition;
-	int currentTopPosition;
+	int32 currentLeftPosition;
+	int32 currentTopPosition;
 
-	int halfWidth;
-	int halfHeight;
+	int32 halfWidth;
+	int32 halfHeight;
 
 	setClipSize(0, 0, 319, 199);
 

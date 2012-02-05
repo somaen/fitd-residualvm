@@ -24,7 +24,7 @@
 
 namespace Fitd {
 
-short int cosTable[] = {
+int16 cosTable[] = {
 	4,
 	201,
 	402,

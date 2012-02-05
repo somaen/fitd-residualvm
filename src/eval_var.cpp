@@ -26,10 +26,10 @@
 
 namespace Fitd {
 
-int getPosRelTable[] = {4, 1, 8, 2, 4, 1, 8, 0};
+int32 getPosRelTable[] = {4, 1, 8, 2, 4, 1, 8, 0};
 
-int getMatrix(int param1, int actorIdx, int param2) {
-	int matrixWidth;
+int32 getMatrix(int32 param1, int32 actorIdx, int32 param2) {
+	int32 matrixWidth;
 	char *matrixPtr = HQR_Get(listMatrix, param1);
 
 	matrixWidth = *matrixPtr;
@@ -41,12 +41,12 @@ int getMatrix(int param1, int actorIdx, int param2) {
 	return *matrixPtr;
 }
 
-int getPosRel(actorStruct *actor1, actorStruct *actor2) {
-	int beta1 = actor1->beta;
-	int counter = 3;
+int32 getPosRel(actorStruct *actor1, actorStruct *actor2) {
+	int32 beta1 = actor1->beta;
+	int32 counter = 3;
 	ZVStruct localZv;
-	int centerX;
-	int centerZ;
+	int32 centerX;
+	int32 centerZ;
 
 	if(beta1 >= 0x80 && beta1 < 0x180) {
 		counter = 2;
@@ -95,37 +95,37 @@ int getPosRel(actorStruct *actor1, actorStruct *actor2) {
 	return(getPosRelTable[counter]);
 }
 
-int calcDist(int X1, int Y1, int Z1, int X2, int Y2, int Z2) {
-	int Xdist = abs(X1 - X2);
-	int Ydist = abs(Y1 - Y2);
-	int Zdist = abs(Z1 - Z2);
+int32 calcDist(int32 X1, int32 Y1, int32 Z1, int32 X2, int32 Y2, int32 Z2) {
+	int32 Xdist = abs(X1 - X2);
+	int32 Ydist = abs(Y1 - Y2);
+	int32 Zdist = abs(Z1 - Z2);
 
 	return(Xdist + Ydist + Zdist); // recheck overflow
 }
 
-int testZvEndAnim(actorStruct *actorPtr, char *animPtr, int param) {
-	short int var_16;
-	short int var_14;
-	short int var_E = 0;
-	short int var_12 = 0;
-	short int var_10 = param;
-	short int var_18;
+int32 testZvEndAnim(actorStruct *actorPtr, char *animPtr, int32 param) {
+	int16 var_16;
+	int16 var_14;
+	int16 var_E = 0;
+	int16 var_12 = 0;
+	int16 var_10 = param;
+	int16 var_18;
 	ZVStruct localZv;
 
 	ASSERT(actorPtr);
 	ASSERT(animPtr);
 
-	var_16 = *(short int *)(animPtr);
+	var_16 = *(int16 *)(animPtr);
 	animPtr += 2;
-	var_14 = *(short int *)(animPtr);
+	var_14 = *(int16 *)(animPtr);
 	animPtr += 2;
 
 	for(var_18 = 0; var_18 < var_16; var_18 ++) {
 		animPtr += 2;
-		var_12 += *(short int *)animPtr;
+		var_12 += *(int16 *)animPtr;
 		animPtr += 2;
 		animPtr += 2;
-		var_E += *(short int *)animPtr; // step depth
+		var_E += *(int16 *)animPtr; // step depth
 		animPtr += 2;
 
 		animPtr += var_14 * 8;
@@ -163,16 +163,16 @@ int evalVar(void) {
 		return evalVar2();
 	}
 
-	var1 = *(short int *)(currentLifePtr);
+	var1 = *(int16 *)(currentLifePtr);
 	currentLifePtr += 2;
 
 	if(var1 == -1) {
-		int temp = *(short int *)(currentLifePtr);
+		int temp = *(int16 *)(currentLifePtr);
 		currentLifePtr += 2;
 
 		return(temp);
 	} else if(var1 == 0) {
-		int temp = *(short int *)(currentLifePtr);
+		int temp = *(int16 *)(currentLifePtr);
 		currentLifePtr += 2;
 
 		return(vars[temp]);
@@ -183,7 +183,7 @@ int evalVar(void) {
 		if(var1 & 0x8000) {
 			int objectNumber;
 
-			objectNumber = *(short int *)currentLifePtr;
+			objectNumber = *(int16 *)currentLifePtr;
 
 			actorIdx = objectTable[objectNumber].ownerIdx;
 
@@ -290,7 +290,7 @@ int evalVar(void) {
 				break;
 			}
 			case 0xE: { // DIST
-				int actorNumber = objectTable[*(short int *)currentLifePtr].ownerIdx;
+				int actorNumber = objectTable[*(int16 *)currentLifePtr].ownerIdx;
 				currentLifePtr += 2;
 
 				if(actorNumber == -1) {
@@ -328,7 +328,7 @@ int evalVar(void) {
 			case 0x12: { // POSREL
 				int objNum;
 
-				objNum = *(short int *)currentLifePtr;
+				objNum = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
 
 				if(objectTable[objNum].ownerIdx == -1) {
@@ -389,7 +389,7 @@ int evalVar(void) {
 				break;
 			}
 			case 0x1C: {
-				int temp = *(short int *)currentLifePtr;
+				int temp = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
 				return(rand() % temp);
 				break;
@@ -409,7 +409,7 @@ int evalVar(void) {
 			case 0x20: {
 				int objNum;
 
-				objNum = *(short int *)currentLifePtr;
+				objNum = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
 
 				if(objectTable[objNum].flags2 & 0xC000) {
@@ -428,9 +428,9 @@ int evalVar(void) {
 				int temp1;
 				int temp2;
 
-				temp1 = *(short int *)currentLifePtr;
+				temp1 = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
-				temp2 = *(short int *)currentLifePtr;
+				temp2 = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
 
 				return(testZvEndAnim(actorPtr, HQR_Get(listAnim, temp1), temp2));
@@ -442,7 +442,7 @@ int evalVar(void) {
 				break;
 			}
 			case 0x24: {
-				int temp = CVars[*(short int *)currentLifePtr];
+				int temp = CVars[*(int16 *)currentLifePtr];
 				currentLifePtr += 2;
 				return(temp);
 				break;
@@ -454,7 +454,7 @@ int evalVar(void) {
 			case 0x26: { // THROW
 				int objNum;
 
-				objNum = *(short int *)currentLifePtr;
+				objNum = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
 
 				if(objectTable[objNum].flags2 & 0x1000) {
@@ -476,16 +476,16 @@ int evalVar(void) {
 int evalVar2(void) {
 	int var1;
 
-	var1 = *(short int *)(currentLifePtr);
+	var1 = *(int16 *)(currentLifePtr);
 	currentLifePtr += 2;
 
 	if(var1 == -1) {
-		int temp = *(short int *)(currentLifePtr);
+		int temp = *(int16 *)(currentLifePtr);
 		currentLifePtr += 2;
 
 		return(temp);
 	} else if(var1 == 0) {
-		int temp = *(short int *)(currentLifePtr);
+		int temp = *(int16 *)(currentLifePtr);
 		currentLifePtr += 2;
 
 		return(vars[temp]);
@@ -496,7 +496,7 @@ int evalVar2(void) {
 		if(var1 & 0x8000) {
 			int objectNumber;
 
-			objectNumber = *(short int *)currentLifePtr;
+			objectNumber = *(int16 *)currentLifePtr;
 
 			actorIdx = objectTable[objectNumber].ownerIdx;
 
@@ -603,7 +603,7 @@ int evalVar2(void) {
 				break;
 			}
 			case 0xE: { // DIST
-				int actorNumber = objectTable[*(short int *)currentLifePtr].ownerIdx;
+				int actorNumber = objectTable[*(int16 *)currentLifePtr].ownerIdx;
 				currentLifePtr += 2;
 
 				if(actorNumber == -1) {
@@ -641,7 +641,7 @@ int evalVar2(void) {
 			case 0x12: { // POSREL
 				int objNum;
 
-				objNum = *(short int *)currentLifePtr;
+				objNum = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
 
 				if(objectTable[objNum].ownerIdx == -1) {
@@ -702,7 +702,7 @@ int evalVar2(void) {
 				break;
 			}
 			case 0x1C: {
-				int temp = *(short int *)currentLifePtr;
+				int temp = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
 				return(rand() % temp);
 				break;
@@ -722,7 +722,7 @@ int evalVar2(void) {
 			case 0x20: {
 				int objNum;
 
-				objNum = *(short int *)currentLifePtr;
+				objNum = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
 
 				if(objectTable[objNum].flags2 & 0xC000) {
@@ -738,7 +738,7 @@ int evalVar2(void) {
 				break;
 			}
 			case 0x22: { // c_var
-				int temp = CVars[*(short int *)currentLifePtr];
+				int temp = CVars[*(int16 *)currentLifePtr];
 				currentLifePtr += 2;
 				return(temp);
 				break;
@@ -750,7 +750,7 @@ int evalVar2(void) {
 			case 0x24: { // THROW
 				int objNum;
 
-				objNum = *(short int *)currentLifePtr;
+				objNum = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
 
 				if(objectTable[objNum].flags2 & 0x1000) {
@@ -764,10 +764,10 @@ int evalVar2(void) {
 				int param1;
 				int param2;
 
-				param1 = *(short int *)currentLifePtr;
+				param1 = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
 
-				param2 = *(short int *)currentLifePtr;
+				param2 = *(int16 *)currentLifePtr;
 				currentLifePtr += 2;
 
 				return getMatrix(param1, actorIdx, objectTable[param2].ownerIdx);

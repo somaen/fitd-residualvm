@@ -42,12 +42,12 @@ void processAnimAction(void) {
 		break;
 	}
 	case 2: { // HIT
-		int x;
-		int y;
-		int z;
-		int range;
-		int collision;
-		int i;
+		int32 x;
+		int32 y;
+		int32 z;
+		int32 range;
+		int32 collision;
+		int32 i;
 		ZVStruct rangeZv;
 
 		if(currentProcessedActorPtr->ANIM != currentProcessedActorPtr->animActionANIM) {
@@ -99,7 +99,7 @@ void processAnimAction(void) {
 		break;
 	}
 	case 5: { // FIRE
-		int touchedActor;
+		int32 touchedActor;
 
 		createFlow(3,
 		           currentProcessedActorPtr->roomX + currentProcessedActorPtr->hotPoint.x,
@@ -143,13 +143,13 @@ void processAnimAction(void) {
 	}
 	case 6: { // PRE_THROW
 		if(currentProcessedActorPtr->ANIM == currentProcessedActorPtr->animActionANIM) {
-			int objIdx = currentProcessedActorPtr->animActionParam;
+			int32 objIdx = currentProcessedActorPtr->animActionParam;
 
 			objectStruct *objPtr = &objectTable[objIdx];
 
-			int x = currentProcessedActorPtr->roomX + currentProcessedActorPtr->hotPoint.x + currentProcessedActorPtr->modX;
-			int y = currentProcessedActorPtr->roomY + currentProcessedActorPtr->hotPoint.y + currentProcessedActorPtr->modY;
-			int z = currentProcessedActorPtr->roomZ + currentProcessedActorPtr->hotPoint.z + currentProcessedActorPtr->modZ;
+			int32 x = currentProcessedActorPtr->roomX + currentProcessedActorPtr->hotPoint.x + currentProcessedActorPtr->modX;
+			int32 y = currentProcessedActorPtr->roomY + currentProcessedActorPtr->hotPoint.y + currentProcessedActorPtr->modY;
+			int32 z = currentProcessedActorPtr->roomZ + currentProcessedActorPtr->hotPoint.z + currentProcessedActorPtr->modZ;
 
 			ZVStruct rangeZv;
 
@@ -167,9 +167,9 @@ void processAnimAction(void) {
 				putAt(objIdx, currentProcessedActorPtr->field_0);
 			} else {
 				if(currentProcessedActorPtr->FRAME == currentProcessedActorPtr->animActionFRAME) {
-					int x;
-					int y;
-					int z;
+					int32 x;
+					int32 y;
+					int32 z;
 
 					currentProcessedActorPtr->animActionType = 7;
 
@@ -199,11 +199,11 @@ void processAnimAction(void) {
 		break;
 	}
 	case 7: { // THROW
-		int x;
-		int y;
-		int z;
-		int objIdx;
-		int actorIdx;
+		int32 x;
+		int32 y;
+		int32 z;
+		int32 objIdx;
+		int32 actorIdx;
 		actorStruct *actorPtr;
 
 		currentProcessedActorPtr->animActionType = 0;
@@ -262,18 +262,18 @@ void processAnimAction(void) {
 
 		ZVStruct rangeZv;
 		ZVStruct rangeZv2;
-		int xtemp;
-		int ytemp;
-		int ztemp;
-		int x1;
-		int x2;
-		int x3;
-		int y1;
-		int y2;
-		int z1;
-		int z2;
-		int z3;
-		int step;
+		int32 xtemp;
+		int32 ytemp;
+		int32 ztemp;
+		int32 x1;
+		int32 x2;
+		int32 x3;
+		int32 y1;
+		int32 y2;
+		int32 z1;
+		int32 z2;
+		int32 z3;
+		int32 step;
 
 		copyZv(&currentProcessedActorPtr->zv, &rangeZv);
 		copyZv(&currentProcessedActorPtr->zv, &rangeZv2);
@@ -306,7 +306,7 @@ void processAnimAction(void) {
 		animMoveX = 0;
 
 		do {
-			int collision;
+			int32 collision;
 			sceZoneStruct *ptr;
 
 			walkStep(0, -step, currentProcessedActorPtr->beta);
@@ -327,15 +327,15 @@ void processAnimAction(void) {
 			collision =  processActor1Sub1(currentProcessedActorIdx, &rangeZv);
 
 			if(collision) {
-				int collision2 = collision;
-				int i;
+				int32 collision2 = collision;
+				int32 i;
 
 				currentProcessedActorPtr->hotPoint.x = 0;
 				currentProcessedActorPtr->hotPoint.y = 0;
 				currentProcessedActorPtr->hotPoint.z = 0;
 
 				for(i = 0; i < collision; i++) {
-					int currentActorCol = currentProcessedActorPtr->COL[i];
+					int32 currentActorCol = currentProcessedActorPtr->COL[i];
 
 					if(actorTable[currentActorCol].field_0 == objPtr->alpha) {
 						collision2--;

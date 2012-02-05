@@ -30,11 +30,11 @@ unsigned long int etageVar0Size = 0;
 unsigned long int numGlobalCamera = 0;
 cameraDataStruct *globalCameraDataTable = NULL;
 
-void loadFloor(int floorNumber) {
-	int i;
-	int expectedNumberOfRoom;
-	int expectedNumberOfCamera;
-	unsigned int cameraDataSize;
+void loadFloor(int32 floorNumber) {
+	int32 i;
+	int32 expectedNumberOfRoom;
+	int32 expectedNumberOfCamera;
+	uint32 cameraDataSize;
 	char buffer[256];
 	char buffer2[256];
 
@@ -195,8 +195,8 @@ void loadFloor(int floorNumber) {
 	globalCameraDataTable = (cameraDataStruct *)malloc(sizeof(cameraDataStruct) * expectedNumberOfCamera);
 
 	for(i = 0; i < expectedNumberOfCamera; i++) {
-		int k;
-		unsigned int offset;
+		int32 k;
+		uint32 offset;
 		char *currentCameraData;
 
 		if(g_fitd->getGameType() >= GType_AITD3) {
@@ -265,8 +265,8 @@ void loadFloor(int floorNumber) {
 				// load camera zone
 				{
 					char *pZoneData;
-					int numZones;
-					int j;
+					int32 numZones;
+					int32 j;
 
 					pZoneData = backupDataPtr + globalCameraDataTable[i].cameraZoneDefTable[k].dummy3;
 					//pZoneData = currentCameraData;
@@ -279,8 +279,8 @@ void loadFloor(int floorNumber) {
 					ASSERT(pCurrentCameraZoneDefEntry->cameraZoneEntryTable);
 
 					for(j = 0; j < pCurrentCameraZoneDefEntry->numZones; j++) {
-						int pointIdx;
-						int numPoints;
+						int32 pointIdx;
+						int32 numPoints;
 
 						pCurrentCameraZoneDefEntry->cameraZoneEntryTable[j].numPoints = numPoints = READ_LE_UINT16(pZoneData);
 						pZoneData += 2;
