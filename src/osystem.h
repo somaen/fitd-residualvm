@@ -24,12 +24,9 @@
 #ifndef USE_GL
 #define USE_GL
 #endif
-/*
-#define byte char
 
-#define bool char
-#define true 1
-#define false 0*/
+#include "palette.h"
+
 namespace Fitd {
 
 class GFXSystem {
@@ -41,6 +38,7 @@ public:
 	int _mouseLeft;
 	
 	char *_palette;
+	Palette *_paletteObj;
 
 	void delay(int time);
 	void crossFade(char *buffer, char *palette);

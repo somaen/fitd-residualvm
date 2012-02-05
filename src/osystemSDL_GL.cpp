@@ -184,6 +184,7 @@ void Sound_Quit(void) {
 
 GFXSystem::GFXSystem() {
 	_palette = new char[0x300];
+	_paletteObj = new Palette(_palette);
 }
 
 void GFXSystem::init()  // that's the constructor of the system dependent

@@ -75,9 +75,9 @@ char input4;
 char button;
 
 char *languageNameTable[] = {
-	"FRANCAIS",
-	"ITALIANO",
 	"ENGLISH",
+	"FRANCAIS",
+	"ITALIANO",	
 	"ESPAGNOL",
 	"DEUTSCH",
 	NULL,

@@ -6,9 +6,10 @@
 namespace Fitd {
 
 class Palette {
-	unsigned char *_data;
+	char *_data;
 public:
 	Palette();
+	Palette(char *pal);
 	~Palette();
 	void loadDefault();
 	void loadDefaultAITD3();

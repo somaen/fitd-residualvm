@@ -59,13 +59,13 @@ am_fitd_OBJECTS = actor_list.$(OBJEXT) aitd_box.$(OBJEXT) \
 	life_macro_table.$(OBJEXT) life_2.$(OBJEXT) lines.$(OBJEXT) \
 	main.$(OBJEXT) main_loop.$(OBJEXT) music.$(OBJEXT) \
 	object.$(OBJEXT) osystemSDL.$(OBJEXT) osystemSDL_GL.$(OBJEXT) \
-	pak.$(OBJEXT) polys.$(OBJEXT) resource.$(OBJEXT) \
-	renderer.$(OBJEXT) room.$(OBJEXT) sequence.$(OBJEXT) \
-	save.$(OBJEXT) screen.$(OBJEXT) startup_menu.$(OBJEXT) \
-	system_menu.$(OBJEXT) tatou.$(OBJEXT) thread_code.$(OBJEXT) \
-	time.$(OBJEXT) track.$(OBJEXT) unpack.$(OBJEXT) vars.$(OBJEXT) \
-	version.$(OBJEXT) video_mode.$(OBJEXT) zv.$(OBJEXT) \
-	textconsole.$(OBJEXT)
+	palette.$(OBJEXT) pak.$(OBJEXT) polys.$(OBJEXT) \
+	resource.$(OBJEXT) renderer.$(OBJEXT) room.$(OBJEXT) \
+	sequence.$(OBJEXT) save.$(OBJEXT) screen.$(OBJEXT) \
+	startup_menu.$(OBJEXT) system_menu.$(OBJEXT) tatou.$(OBJEXT) \
+	thread_code.$(OBJEXT) time.$(OBJEXT) track.$(OBJEXT) \
+	unpack.$(OBJEXT) vars.$(OBJEXT) version.$(OBJEXT) \
+	video_mode.$(OBJEXT) zv.$(OBJEXT) textconsole.$(OBJEXT)
 fitd_OBJECTS = $(am_fitd_OBJECTS)
 fitd_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@
@@ -207,7 +207,7 @@ debugger.cpp debugger.h eval_var.cpp eval_var.h file_access.cpp file_access.h \
 filestream.cpp fitd.cpp fitd.h floor.cpp floor.h fmopl.cpp fmopl.h font.cpp font.h hqr.cpp hqr.h input.cpp input.h \
 inventory.cpp inventory.h life.cpp life_macro_table.cpp life.h life_2.cpp life_2.h lines.cpp main.cpp main.h \
 main_loop.cpp main_loop.h music.cpp music.h object.cpp object.h \
-osystem.h osystemSDL.cpp osystemSDL_GL.cpp pak.cpp pak.h polys.cpp \
+osystem.h osystemSDL.cpp osystemSDL_GL.cpp palette.h palette.cpp pak.cpp pak.h polys.cpp \
 resource.cpp resource.h renderer.cpp renderer.h room.cpp room.h sequence.cpp save.cpp save.h screen.cpp screen.h \
 startup_menu.cpp startup_menu.h system_menu.cpp system_menu.h tatou.cpp tatou.h \
 common/textconsole.h thread_code.cpp thread_code.h \
@@ -339,6 +339,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/osystemSDL.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/osystemSDL_GL.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pak.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/palette.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/polys.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/renderer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/resource.Po@am__quote@
