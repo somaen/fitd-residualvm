@@ -45,8 +45,7 @@
 #include "SDL_mixer.h"
 #include "osystem.h"
 
-#include <GL/gl.h>      // Header File For The OpenGL32 Library
-#include <GL/glu.h>     // Header File For The GLu32 Library
+#include "SDL_opengl.h"
 
 #include "common/textconsole.h"
 #include "fitd.h"

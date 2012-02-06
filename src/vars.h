@@ -402,17 +402,12 @@ extern int32 angleCompBeta;
 
 extern int32 bufferAnimCounter;
 
-extern int32 animCurrentTime;
-extern int32 animKeyframeLength;
 extern int32 animMoveX;
 extern int32 animMoveY;
 extern int32 animMoveZ;
 extern int32 animRot1;
 extern int32 animRot2;
 extern int32 animRot3;
-extern char *animVar1;
-extern char *animVar3;
-
 
 extern int16 newFloor;
 
