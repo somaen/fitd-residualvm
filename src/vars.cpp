@@ -215,17 +215,12 @@ int32 angleCompBeta;
 
 int32 bufferAnimCounter = 0;
 
-int32 animCurrentTime;
-int32 animKeyframeLength;
 int32 animMoveX;
 int32 animMoveY;
 int32 animMoveZ;
 int32 animRot1;
 int32 animRot2;
 int32 animRot3;
-char *animVar1;
-char *animVar3;
-
 
 int16 newFloor;
 

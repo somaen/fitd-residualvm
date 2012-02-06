@@ -24,7 +24,8 @@
 #include "common.h"
 
 namespace Fitd {
-
+int32 animCurrentTime;
+int32 animKeyframeLength;
 int initAnimInBody(int frame, char *anim, char *body) {
 	int16 temp;
 	int16 ax;
@@ -240,13 +241,15 @@ void initBufferAnim(char *buffer, char *bodyPtr) {
 int16 getAnimParam(char *animPtr) {
 	return(*(int16 *)animPtr);
 }
+int16 *animVar1;
+int16 *animVar3;
 int16 *animVar4;
 int16 getAnimType(char **bodyPtr) { // local
-	int16 temp = *(int16 *)animVar1;
+	int16 temp = *animVar1;
 
-	animVar1 += 2;
+	animVar1 += 1;
 
-	animVar4 += 2;
+	animVar4 += 1;
 
 	*(int16 *)(*bodyPtr) = temp;
 	(*bodyPtr) += 2;
@@ -255,15 +258,15 @@ int16 getAnimType(char **bodyPtr) { // local
 }
 
 void processAnimRotation(char **bodyPtr, int bp, int bx) { // local
-	int16 *test = (int16 *)animVar4;
-	int16 oldRotation = *(int16 *)animVar4;
+	int16 *test = animVar4;
+	int16 oldRotation = *animVar4;
 	int16 newRotation;
 	int16 diff;
 
-	animVar4 += 2;
+	animVar4 += 1;
 
-	newRotation = *(int16 *)animVar1;
-	animVar1 += 2;
+	newRotation = *animVar1;
+	animVar1 += 1;
 
 	diff = newRotation - oldRotation;
 
@@ -291,12 +294,12 @@ void processAnimRotation(char **bodyPtr, int bp, int bx) { // local
 }
 
 void processAnimTranslation(char **bodyPtr, int bp, int bx) { // local
-	int16 cx = *(int16 *)animVar4;
+	int16 cx = *animVar4;
 	int16 ax;
-	animVar4 += 2;
+	animVar4 += 1;
 
-	ax = *(int16 *)animVar1;
-	animVar1 += 2;
+	ax = *animVar1;
+	animVar1 += 1;
 
 	if(ax == cx) {
 		*(int16 *)(*bodyPtr) = ax;
@@ -329,7 +332,7 @@ int16 setInterAnimObjet(int frame, char *animPtr, char *bodyPtr) {
 	}
 
 	// animVar1 = ptr to the current keyFrame
-	animVar1 = animPtr;
+	animVar1 = (int16 *)animPtr;
 
 	keyframeLength = *(uint16 *)animPtr; // keyframe length
 
@@ -339,14 +342,14 @@ int16 setInterAnimObjet(int frame, char *animPtr, char *bodyPtr) {
 
 	bodyPtr += 16;
 
-	animVar3 = bodyPtr;
+	animVar3 = (int16 *)bodyPtr;
 
 	timeOfKeyframeStart = *(uint16 *)(bodyPtr + 4); // time of start of keyframe
 
-	animBufferPtr = (int16*)(bodyPtr);
+	animBufferPtr = *(int16 **)(bodyPtr);
 
 	if (!animBufferPtr) {
-		animBufferPtr = (int16*)animVar1;
+		animBufferPtr = animVar1;
 	}
 
 	// animVar4 = ptr to previous key frame
@@ -374,10 +377,10 @@ int16 setInterAnimObjet(int frame, char *animPtr, char *bodyPtr) {
 	bp = time;
 
 	if(time < keyframeLength) { // interpole keyframe
-		char *animVar1Backup = animVar1;
+		int16 *animVar1Backup = animVar1;
 		// skip bone 0 anim
-		animVar4 += 8; // anim buffer
-		animVar1 += 8; // current keyframe ptr
+		animVar4 += 4; // anim buffer
+		animVar1 += 4; // current keyframe ptr
 
 		if(!(flag & 8)) {
 			do {
@@ -403,8 +406,8 @@ int16 setInterAnimObjet(int frame, char *animPtr, char *bodyPtr) {
 			do {
 				switch(getAnimType(&bodyPtr)) {
 				case 0: {
-					animVar4 += 6;
-					animVar1 += 6;
+					animVar4 += 3;
+					animVar1 += 3;
 					bodyPtr += 6;
 					break;
 				}
@@ -421,8 +424,8 @@ int16 setInterAnimObjet(int frame, char *animPtr, char *bodyPtr) {
 				processAnimRotation(&bodyPtr, bp, bx);
 				processAnimRotation(&bodyPtr, bp, bx);
 
-				animVar4 += 2;
-				animVar1 += 2;
+				animVar4 += 1;
+				animVar1 += 1;
 				bodyPtr += 10;
 
 			} while(--numOfBonesInAnim);
@@ -430,61 +433,61 @@ int16 setInterAnimObjet(int frame, char *animPtr, char *bodyPtr) {
 
 		animVar1 = animVar1Backup;
 
-		animVar1 += 2;
+		animVar1 += 1;
 
-		animRot2 = ((*(int16 *)(animVar1)) * bp) / bx; // X
-		animRot3 = ((*(int16 *)(animVar1 + 2)) * bp) / bx; // Y
-		animRot1 = ((*(int16 *)(animVar1 + 4)) * bp) / bx; // Z
+		animRot2 = ((*(animVar1)) * bp) / bx; // X
+		animRot3 = ((*(animVar1 + 1)) * bp) / bx; // Y
+		animRot1 = ((*(animVar1 + 2)) * bp) / bx; // Z
 
-		animVar1 += 6;
+		animVar1 += 3;
 
 		animCurrentTime = bx;
 		animKeyframeLength = bp;
 
 		return(0);
 	} else { // change keyframe
-		char *tempBx = animVar1;
-		char *si = animVar1;
+		int16 *tempBx = animVar1;
+		int16 *si = animVar1;
 
 
-		si += 8;
+		si += 4;
 
 		do {
-			*(int16 *)(bodyPtr) = *(int16 *)(si);
-			*(int16 *)(bodyPtr + 2) = *(int16 *)(si + 2);
-			*(int16 *)(bodyPtr + 4) = *(int16 *)(si + 4);
-			*(int16 *)(bodyPtr + 6) = *(int16 *)(si + 6);
+			*(int16 *)(bodyPtr) = *(si);
+			*(int16 *)(bodyPtr + 2) = *(si + 1);
+			*(int16 *)(bodyPtr + 4) = *(si + 2);
+			*(int16 *)(bodyPtr + 6) = *(si + 3);
 
 			bodyPtr += 8;
-			si += 8;
+			si += 4;
 
 			if(flag & 8) {
-				*(int16 *)(bodyPtr) = *(int16 *)(si);
-				*(int16 *)(bodyPtr + 2) = *(int16 *)(si + 2);
-				*(int16 *)(bodyPtr + 4) = *(int16 *)(si + 4);
-				*(int16 *)(bodyPtr + 6) = *(int16 *)(si + 6);
+				*(int16 *)(bodyPtr) = *(si);
+				*(int16 *)(bodyPtr + 2) = *(si + 1);
+				*(int16 *)(bodyPtr + 4) = *(si + 2);
+				*(int16 *)(bodyPtr + 6) = *(si + 3);
 				bodyPtr += 8;
-				si += 8;
+				si += 4;
 			}
 
 			bodyPtr += 8;
 
 		} while(--numOfBonesInAnim);
 
-		*(char **)animVar3 = animVar1;
+		*(int16 **)animVar3 = animVar1;
 
-		*(uint16 *)(animVar3 + 4) = (uint16)g_fitd->getTimer();
+		*(uint16 *)(animVar3 + 2) = (uint16)g_fitd->getTimer();
 
-		tempBx += 2;
+		tempBx += 1;
 
 		animCurrentTime = bx;
 		animKeyframeLength = bx;
 
-		animRot2 = *(int16 *)(tempBx);
-		animRot3 = *(int16 *)(tempBx + 2);
-		animRot1 = *(int16 *)(tempBx + 4);
+		animRot2 = *(tempBx);
+		animRot3 = *(tempBx + 1);
+		animRot1 = *(tempBx + 2);
 
-		tempBx += 6;
+		tempBx += 3;
 
 		return(1);
 
