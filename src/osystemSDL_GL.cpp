@@ -287,15 +287,15 @@ void GFXSystem::init()  // that's the constructor of the system dependent
 	tobj = gluNewTess();
 
 	// Set callback functions
-	/*gluTessCallback(tobj, GLU_TESS_VERTEX, vertexCallback);
-	gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid( *)())glBegin);
+	gluTessCallback(tobj, GLU_TESS_VERTEX, (void(CALLBACK *)())vertexCallback);
+	gluTessCallback(tobj, GLU_TESS_BEGIN, (void(CALLBACK *)())glBegin);
 	gluTessCallback(tobj, GLU_TESS_END, glEnd);
-	gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid( *)())combineCallback);
+	gluTessCallback(tobj, GLU_TESS_COMBINE, (void(CALLBACK *)())combineCallback);
 
-	gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid( *)())vertexCallback);
-	gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid( *)())glBegin);
+	gluTessCallback(tobj, GLU_TESS_VERTEX, (void(CALLBACK *)())vertexCallback);
+	gluTessCallback(tobj, GLU_TESS_BEGIN, (void(CALLBACK *)())glBegin);
 	gluTessCallback(tobj, GLU_TESS_END, glEnd);
-	gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid( *)())combineCallback);*/
+	gluTessCallback(tobj, GLU_TESS_COMBINE, (void(CALLBACK *)())combineCallback);
 
 	// init debug font
 #if 0
