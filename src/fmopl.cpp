@@ -220,7 +220,7 @@ FILE *cymfile = NULL;
 
 
 
-typedef struct {
+struct OPL_SLOT {
 	UINT32  ar;         /* attack rate: AR<<2           */
 	UINT32  dr;         /* decay rate:  DR<<2           */
 	UINT32  rr;         /* release rate:RR<<2           */
@@ -258,19 +258,19 @@ typedef struct {
 
 	/* waveform select */
 	unsigned int wavetable;
-} OPL_SLOT;
+};
 
-typedef struct {
+struct OPL_CH {
 	OPL_SLOT SLOT[2];
 	/* phase generator state */
 	UINT32  block_fnum; /* block+fnum                   */
 	UINT32  fc;         /* Freq. Increment base         */
 	UINT32  ksl_base;   /* KeyScaleLevel Base step      */
 	UINT8   kcode;      /* key code (for key scaling)   */
-} OPL_CH;
+};
 
 /* OPL state */
-typedef struct fm_opl_f {
+struct FM_OPL {
 	/* FM channel slots */
 	OPL_CH  P_CH[9];                /* OPL/OPL2 chips have 9 channels*/
 
@@ -334,7 +334,7 @@ typedef struct fm_opl_f {
 	int rate;                       /* sampling rate (Hz)           */
 	double freqbase;                /* frequency base               */
 	double TimerBase;               /* Timer base time (==sampling time)*/
-} FM_OPL;
+};
 
 
 

@@ -84,8 +84,6 @@ struct quadStruct {
 	bool sorted;
 };
 
-typedef struct quadStruct quadStruct;
-
 quadStruct quadTable[5000];
 int positionInQuadTable = 0;
 

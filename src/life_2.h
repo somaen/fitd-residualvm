@@ -31,8 +31,6 @@ struct sequenceParamStruct {
 	unsigned int sample;
 };
 
-typedef struct sequenceParamStruct sequenceParamStruct;
-
 extern short int numObjInInventoryTable[2];
 extern short int inHandTable[2];
 extern short int currentInHand;

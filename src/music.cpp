@@ -61,8 +61,6 @@ struct channelTable2Element {
 	uint8 var1E;
 };
 
-typedef struct channelTable2Element channelTable2Element;
-
 typedef void(*musicCommandType)(channelTable2Element *entry, int param, uint8 *ptr);
 
 struct channelTableElement {
@@ -74,8 +72,6 @@ struct channelTableElement {
 	uint8 var7;
 	uint16 var8;
 };
-
-typedef struct channelTableElement channelTableElement;
 
 channelTableElement channelDataTable[11] = {
 	{0xFFFF, 0x40, 0xFF, 0xFF, 0xFF, 0x9C, 0xFFFF},

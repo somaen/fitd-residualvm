@@ -50,7 +50,7 @@
 
 namespace Fitd {
 
-typedef struct {
+struct PAK_stream {
 	unsigned long csize;
 	unsigned long ucsize;
 	unsigned char *buf_src;
@@ -58,16 +58,16 @@ typedef struct {
 	unsigned long off_src;
 	unsigned long off_dst;
 	unsigned short flags;
-} PAK_stream;
+};
 
-typedef struct PAK_huft {
+struct PAK_huft {
 	unsigned short e;     // number of PAK_extra bits or operation
 	unsigned short b;     // number of bits in this code or subcode
 	union {
 		unsigned short n;   // literal, length base, or distance base
-		struct PAK_huft *t;     // pointer to next level of table
+		PAK_huft *t;     // pointer to next level of table
 	} v;
-} PAK_huft;
+};
 
 
 static unsigned char PAK_slide[PAK_WSIZE];

@@ -32,8 +32,6 @@ struct rendererPointStruct {
 	float Z;
 };
 
-typedef struct rendererPointStruct rendererPointStruct;
-
 #define NUM_MAX_POINT 5000
 
 rendererPointStruct primPointTable[NUM_MAX_POINT];
@@ -47,15 +45,11 @@ enum primTypeEnum {
 	primTypeEnum_Disc = 3,
 };
 
-typedef enum primTypeEnum primTypeEnum;
-
 struct primEntryLineStruct {
 	uint8 color;
 
 	rendererPointStruct points[2];
 };
-
-typedef struct primEntryLineStruct primEntryLineStruct;
 
 struct primEntryPolyStruct {
 	uint16 numOfPoints;
@@ -64,16 +58,12 @@ struct primEntryPolyStruct {
 	rendererPointStruct *firstPointPtr;
 };
 
-typedef struct primEntryPolyStruct primEntryPolyStruct;
-
 struct primEntryPointStruct {
 	uint8 color;
 	float X;
 	float Y;
 	float Z;
 };
-
-typedef struct primEntryPointStruct primEntryPointStruct;
 
 struct primEntryDiscStruct {
 	uint8 color;
@@ -82,8 +72,6 @@ struct primEntryDiscStruct {
 	float Y;
 	float Z;
 };
-
-typedef struct primEntryDiscStruct primEntryDiscStruct;
 
 struct primEntryStruct {
 	primTypeEnum type;
@@ -95,8 +83,6 @@ struct primEntryStruct {
 		primEntryDiscStruct discEntry;
 	};
 };
-
-typedef struct primEntryStruct primEntryStruct;
 
 #define NUM_MAX_PRIM_ENTRY 500
 
