@@ -119,7 +119,7 @@ void hqrEntryStruct::moveHqrEntry(int index) {
 
 	int size = _entries[index].size;
 
-	free(_entries[index].ptr);
+	delete _entries[index].ptr;
 
 	_numUsedEntry --;
 	_sizeFreeData += size;
@@ -222,7 +222,7 @@ char *hqrEntryStruct::get(int index) {
 		foundEntry->lastTimeUsed = g_fitd->getTimer();
 		//foundEntry[hqrPtr->numUsedEntry].offset = hqrPtr->maxFreeData - hqrPtr->sizeFreeData;
 		foundEntry->size = size;
-		foundEntry->ptr = (char *)malloc(size);
+		foundEntry->ptr = new char[size];
 
 		ptr = foundEntry->ptr;
 
@@ -321,7 +321,7 @@ void hqrEntryStruct::reset() {
 
 	for(int i = 0; i < _numMaxEntry; i++) {
 		if(_entries[i].ptr)
-			free(_entries[i].ptr);
+			delete _entries[i].ptr;
 
 		_entries[i].ptr = NULL;
 	}
@@ -329,10 +329,7 @@ void hqrEntryStruct::reset() {
 }
 
 hqrEntryStruct::~hqrEntryStruct() {
-	for(int i = 0; i < _numMaxEntry; i++) {
-		if(_entries[i].ptr)
-			free(_entries[i].ptr);
-	}
+	reset();
 }
 
 void hqrEntryStruct::setString(const char* str) {
