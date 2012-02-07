@@ -80,7 +80,6 @@ void cameraZoneDefStruct::load(const char *data, const char *basedata) {
 	// load camera zone
 	{
 		const char *pZoneData;
-		int32 numOfZones;
 		
 		pZoneData = basedata + dummy3;
 		//pZoneData = currentCameraData;
@@ -136,7 +135,7 @@ void roomDataStruct::load(const char *data) {
 	
 	cameraIdxTable = new uint16[numCameraInRoom];
 	
-	for(int j = 0; j < numCameraInRoom; j++) {
+	for(uint32 j = 0; j < numCameraInRoom; j++) {
 		cameraIdxTable[j] = READ_LE_UINT16(data + 0xC + 2 * j);
 	}
 	
@@ -149,7 +148,7 @@ void roomDataStruct::load(const char *data) {
 	if(numHardCol) {
 		hardColTable = new hardColStruct[numHardCol];
 		
-		for(int j = 0; j < numHardCol; j++) {
+		for(uint32 j = 0; j < numHardCol; j++) {
 			hardColTable[j].zv.load(hardColData);
 
 			hardColTable[j].parameter = READ_LE_UINT16(hardColData + 0x0C);
@@ -170,7 +169,7 @@ void roomDataStruct::load(const char *data) {
 	if(numSceZone) {
 		sceZoneTable = new sceZoneStruct[numSceZone];
 		
-		for(int j = 0; j < numSceZone; j++) {
+		for(uint32 j = 0; j < numSceZone; j++) {
 			sceZoneTable[j].zv.load(sceZoneData);
 			
 			sceZoneTable[j].parameter = READ_LE_UINT16(sceZoneData + 0x0C);
@@ -189,7 +188,6 @@ void loadFloor(int32 floorNumber) {
 	int32 expectedNumberOfCamera;
 	uint32 cameraDataSize;
 	char buffer[256];
-	char buffer2[256];
 
 	if(etageVar1) {
 		free(etageVar1);
@@ -227,7 +225,6 @@ void loadFloor(int32 floorNumber) {
 	expectedNumberOfRoom = getNumberOfRoom();
 
 	for(i = 0; i < expectedNumberOfRoom; i++) {
-		uint32 j;
 		char *roomData;
 
 		roomDataStruct *currentRoomDataPtr;
@@ -278,7 +275,6 @@ void loadFloor(int32 floorNumber) {
 	globalCameraDataTable = new cameraDataStruct[expectedNumberOfCamera];
 	
 	for(int i = 0; i < expectedNumberOfCamera; i++) {
-		int32 k;
 		uint32 offset;
 		char *currentCameraData;
 

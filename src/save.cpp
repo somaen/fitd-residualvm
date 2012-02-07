@@ -763,7 +763,6 @@ int makeSaveFile(int entry) {
 	fseek(fHandle, temp, SEEK_SET);
 
 	for(i = 0; i < NUM_MAX_ACTOR; i++) {
-		short int temp;
 
 		ASSERT(sizeof(actorTable[i].field_0) == 2);
 		fwrite(&actorTable[i].field_0, 2, 1, fHandle);

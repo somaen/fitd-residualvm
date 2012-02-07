@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- 
+
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- 
+
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -85,15 +85,11 @@ short int computeDistanceToPoint(int x1, int z1, int x2, int z2);
 void setMoveMode(int trackMode, int trackNumber);
 void startActorRotation(short int beta, short int newBeta, short int param, rotateStruct *rotatePtr);
 short int updateActorRotation(rotateStruct *rotatePtr);
-int anim(int animNum, int arg_2, int arg_4);
-short int getAnimParam(char *animPtr);
-int initAnimInBody(int frame, char *anim, char *body);
 void deleteObject(int objIdx);
 void deleteSub(int actorIdx);
 void stopAnim(int actorIdx);
 void makeMessage(int messageIdx);
 int drawTextOverlay(void);
-short int setInterAnimObjet(int frame, char *animPtr, char *bodyPtr);
 
 void getZvRot(char *bodyPtr, ZVStruct *zvPtr, int alpha, int beta, int gamma);
 

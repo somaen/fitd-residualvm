@@ -1059,7 +1059,7 @@ int musicFade(void *param) {
 				}
 
 				if(dx & 0x40) {
-					if(!channelTable2[i].var4 & 0x40)
+					if(!(channelTable2[i].var4 & 0x40))
 						channelTable2[i].var4 |= 0x40;
 				}
 

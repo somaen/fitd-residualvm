@@ -3412,7 +3412,6 @@ void processActor1(void) {
 
 				if(g_fitd->getGameType() == GType_AITD1 || (g_fitd->getGameType() >= GType_JACK && (var_3E->type != 10 || currentProcessedActorIdx != genVar9))) {
 					if(var_52 || var_50) { // move on the X or Y axis ? update to avoid entering the hard col
-						ZVStruct tempZv;
 
 						hardColVar1 = var_52;
 						hardColVar2 = var_50;
@@ -3708,7 +3707,6 @@ int changeCameraSub1(int x1, int x2, int z1, int z2, cameraZoneDefStruct *pCamer
 	int zMid = (z1 + z2) / 2;
 
 	for(int i = 0; i < pCameraZoneDef->numZones; i++) {
-		int j;
 		int flag = 0;
 
 		for(int j = 0; j < pCameraZoneDef->cameraZoneEntryTable[i].numPoints; j++) {
@@ -3749,8 +3747,6 @@ int changeCameraSub2(void) {
 	int x2 = actorPtr->zv.ZVX2 / 10;
 	int z1 = actorPtr->zv.ZVZ1 / 10;
 	int z2 = actorPtr->zv.ZVZ2 / 10;
-
-	int i;
 
 	for(int i = 0; i < numCameraInRoom; i++) {
 		ASSERT(i < NUM_MAX_CAMERA_IN_ROOM);

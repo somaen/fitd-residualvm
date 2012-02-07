@@ -258,7 +258,6 @@ int16 getAnimType(char **bodyPtr) { // local
 }
 
 void processAnimRotation(char **bodyPtr, int bp, int bx) { // local
-	int16 *test = animVar4;
 	int16 oldRotation = *animVar4;
 	int16 newRotation;
 	int16 diff;
