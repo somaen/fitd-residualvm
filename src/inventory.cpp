@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- 
+
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- 
+
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -24,11 +24,6 @@
 #include "common.h"
 
 namespace Fitd {
-
-int statusLeft;
-int statusTop;
-int statusRight;
-int statusBottom;
 
 int numInventoryActions;
 short int inventoryActionTable[5];
@@ -78,7 +73,7 @@ int drawTopStatusBox(int arg_0, int arg_2, int arg_4) {
 	return(var_8);
 }
 
-void renderInventoryObject(int arg) {
+void renderInventoryObject(int arg, int statusLeft, int statusTop, int statusRight, int statusBottom) {
 	setClipSize(statusLeft, statusTop, statusRight, statusBottom);
 	fillBox(statusLeft, statusTop, statusRight, statusBottom, 0);
 
@@ -152,10 +147,10 @@ void makeStatusScreen(void) {
 
 	drawAITDBox(80, 150, 160, 100);
 
-	statusLeft = currentMenuLeft;
-	statusTop = currentMenuTop;
-	statusRight = currentMenuRight;
-	statusBottom = currentMenuBottom;
+	int statusLeft = currentMenuLeft;
+	int statusTop = currentMenuTop;
+	int statusRight = currentMenuRight;
+	int statusBottom = currentMenuBottom;
 
 	setupSMCode(((statusRight - statusLeft) / 2) + statusLeft, ((statusBottom - statusTop) / 2) + statusTop, 128, 400, 390);
 
@@ -297,7 +292,7 @@ void makeStatusScreen(void) {
 				}
 			}
 		}
-		renderInventoryObject(objectTable[var_16].field_24);
+		renderInventoryObject(objectTable[var_16].field_24, statusLeft, statusTop, statusRight, statusBottom);
 
 		if(firstTime) {
 			firstTime = 0;

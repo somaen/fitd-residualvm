@@ -38,26 +38,13 @@ void printString(int index, int textIndex, int selectedIndex) {
 }
 
 void drawSystemMenuLayout(int selectedStringNumber) {
-	int backupTop;
-	int backupBottom;
-	int backupLeft;
-	int backupRight;
 
 	drawAITDBox(160, 100, 320, 200);
 
-	backupTop = currentMenuTop;
-	backupBottom = currentMenuBottom;
-	backupLeft = currentMenuLeft;
-	backupRight = currentMenuRight;
 
 	drawAITDBox(80, 55, 120, 70);
 
 	//scaleDownImage(40,35,aux2);
-
-	currentMenuTop = backupTop;
-	currentMenuBottom = backupBottom;
-	currentMenuLeft = backupLeft;
-	currentMenuRight = backupRight;
 
 	setClipSize(currentMenuLeft, currentMenuTop, currentMenuRight, currentMenuBottom);
 
