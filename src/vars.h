@@ -207,9 +207,6 @@ extern char unkScreenVar[320*200];
 
 extern char rgbaBuffer[320*200*4];
 
-	//extern uint32 timer;
-extern volatile uint32 timeGlobal;
-
 extern int32 currentMenuLeft;
 extern int32 currentMenuTop;
 extern int32 currentMenuRight;
