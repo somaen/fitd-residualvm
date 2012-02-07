@@ -224,9 +224,6 @@ struct hqrEntryStruct;
 
 extern hqrEntryStruct *hqrUnk;
 
-extern hqrEntryStruct *listMus;
-extern hqrEntryStruct *listSamp;
-
 extern int32 videoMode;
 extern int32 musicConfigured;
 extern int32 musicEnabled;

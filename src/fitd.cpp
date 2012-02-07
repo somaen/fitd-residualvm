@@ -89,6 +89,11 @@ FitdEngine::FitdEngine() {
 	g_driver->initBuffer(scaledScreen, 640, 400);
 }
 
+FitdEngine::~FitdEngine() {
+	delete _listMus;
+	delete _listSamp;
+}
+
 void FitdEngine::run() {
 	detectGame();
 	sysInit();
@@ -400,10 +405,10 @@ void FitdEngine::sysInit(void) {
 
 	//  if(musicConfigured)
 	{
-		listMus = new hqrEntryStruct("ListMus", 110000, 40);
+		_listMus = new hqrEntryStruct("ListMus", 110000, 40);
 	}
 
-	listSamp = new hqrEntryStruct("ListSamp", 64000, 30);
+	_listSamp = new hqrEntryStruct("ListSamp", 64000, 30);
 
 	hqrUnk = new hqrEntryStruct(10000, 50);
 }

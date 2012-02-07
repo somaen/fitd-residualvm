@@ -292,7 +292,7 @@ void rotateModel(int x, int y, int z, int alpha, int beta, int gamma, int time) 
 
 void playSound(int num) {
 	int size = getPakSize("listsamp", num);
-	char *ptr = listSamp->get(num);
+	char *ptr = g_fitd->_listSamp->get(num);
 
 #ifndef NO_SOUND
 	g_driver->playSample(ptr, size);
