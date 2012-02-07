@@ -108,6 +108,15 @@ struct roomDataStruct {
 	void load(const char* data);
 };
 
+struct roomDefStruct {
+	int16 offsetToCameraDef; // 0
+	int16 offsetToPosDef; // 2
+	int16 worldX;//4
+	int16 worldY;//6
+	int16 worldZ;//8
+	int16 numCameraInRoom;//0xA
+};
+
 extern cameraDataStruct *cameraDataTable[NUM_MAX_CAMERA_IN_ROOM];
 extern cameraZoneDefStruct *currentCameraZoneList[NUM_MAX_CAMERA_IN_ROOM];
 extern roomDataStruct *roomDataTable;

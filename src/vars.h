@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- 
+
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- 
+
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -168,42 +168,6 @@ struct actorStruct { // used to read data from file too
 	int16 hardMat;
 };
 
-struct objectStruct {
-	int16 ownerIdx;
-	int16 body;
-	union {
-		int16 flags;
-		actorFlags bitField;
-	};
-	int16 field_6;
-	int16 foundBody;
-	int16 foundName;
-	int16 flags2;
-	int16 foundLife;
-	int16 x;
-	int16 y;
-	int16 z;
-	int16 alpha;
-	int16 beta;
-	int16 gamma;
-	int16 stage;
-	int16 room;
-	int16 lifeMode;
-	int16 life;
-	int16 field_24;
-	int16 anim;
-	int16 frame;
-	int16 animType;
-	int16 animInfo;
-	int16 trackMode;
-	int16 trackNumber;
-	int16 positionInTrack;
-
-	// AITD2
-	int16 mark;
-	void readFromStream(Common::SeekableReadStream *stream);
-};
-
 struct boxStruct {
 	int16 var0;
 	int16 var1;
@@ -211,16 +175,8 @@ struct boxStruct {
 	int16 var3;
 };
 
-struct roomDefStruct {
-	int16 offsetToCameraDef; // 0
-	int16 offsetToPosDef; // 2
-	int16 worldX;//4
-	int16 worldY;//6
-	int16 worldZ;//8
-	int16 numCameraInRoom;//0xA
-};
-
 struct hqrEntryStruct;
+struct objectStruct;
 
 extern hqrEntryStruct *hqrUnk;
 
@@ -335,7 +291,6 @@ extern int16 currentEtage;
 extern int32 needChangeRoom;
 
 extern char *cameraPtr;
-extern roomDefStruct *pCurrentRoomData;
 extern int16 currentDisplayedRoom;
 extern int32 mainVar1;
 extern int32 numCameraInRoom;

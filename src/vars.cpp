@@ -150,7 +150,6 @@ int16 currentEtage;
 int32 needChangeRoom;
 
 char *cameraPtr;
-roomDefStruct *pCurrentRoomData;
 
 int16 currentDisplayedRoom;
 int32 mainVar1;
