@@ -33,6 +33,7 @@
 #include "common.h"
 #include "textes.h"
 #include "main_loop.h"
+#include "gfx.h"
 
 namespace Fitd {
 	

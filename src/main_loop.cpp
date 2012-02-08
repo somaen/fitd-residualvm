@@ -23,6 +23,7 @@
 #include "fitd.h"
 #include "actor.h"
 #include "common.h"
+#include "gfx.h"
 
 namespace Fitd {
 
