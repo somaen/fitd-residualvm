@@ -1960,12 +1960,12 @@ void drawConverZones() {
 	int i;
 	for(i = 0; i < numCameraInRoom; i++) {
 		int j;
-		for(j = 0; j < cameraDataTable[i]->numCameraZoneDef; j++) {
+		for(j = 0; j < cameraDataTable[i]->_numCameraZoneDef; j++) {
 			int k;
 
-			if(cameraDataTable[i]->cameraZoneDefTable[j].dummy1 == currentDisplayedRoom) {
-				for(k = 0; k < cameraDataTable[i]->cameraZoneDefTable[j].numZones; k++) {
-					drawConverZone(&cameraDataTable[i]->cameraZoneDefTable[j].cameraZoneEntryTable[k]);
+			if(cameraDataTable[i]->_cameraZoneDefTable[j].dummy1 == currentDisplayedRoom) {
+				for(k = 0; k < cameraDataTable[i]->_cameraZoneDefTable[j].numZones; k++) {
+					drawConverZone(&cameraDataTable[i]->_cameraZoneDefTable[j].cameraZoneEntryTable[k]);
 				}
 			}
 		}

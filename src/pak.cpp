@@ -24,6 +24,7 @@
 #include "filestream.h"
 #include "common.h"
 #include "common/forbidden.h"
+#include "common/textconsole.h"
 
 namespace Fitd {
 
@@ -208,7 +209,7 @@ char *loadPak(const char *name, int index) {
 
 			file.read((unsigned char*)nameBuffer, pakInfo.offset);
 #ifdef INTERNAL_DEBUGGER
-			printf("Loading %s/%s\n", name, nameBuffer + 2);
+			warning("Loading %s/%s\n", name, nameBuffer + 2);
 #endif
 		} else {
 			file.seek(pakInfo.offset, SEEK_CUR);

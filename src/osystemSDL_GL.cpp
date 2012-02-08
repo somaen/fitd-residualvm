@@ -685,7 +685,7 @@ void GFXSystem::playSample(char *samplePtr, int size) {
 
 	if(!sample) {
 #ifdef INTERNAL_DEBUGGER
-		printf("Mix_LoadWAV_RW: %s\n", Mix_GetError());
+		warning("Mix_LoadWAV_RW: %s\n", Mix_GetError());
 #endif
 	} else {
 		Mix_PlayChannel(-1, sample, 0);
@@ -1095,7 +1095,7 @@ void GFXSystem::drawSphere(float X, float Y, float Z, uint8 color, float size) {
 }
 
 #ifdef INTERNAL_DEBUGGER
-void GFXSystem::drawDebugText(const u32 X, const u32 Y, const u8 *string) {
+void GFXSystem::drawDebugText(const uint32 X, const uint32 Y, const uint8 *string) {
 #if 0
 	u32 currentX = X;
 	u32 i;
