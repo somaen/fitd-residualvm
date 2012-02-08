@@ -191,8 +191,6 @@ int16 renderPointList[6400];
 int32 numActorInList;
 int32 sortedActorTable[NUM_MAX_ACTOR];
 
-int32 bufferAnimCounter = 0;
-
 int32 animMoveX;
 int32 animMoveY;
 int32 animMoveZ;

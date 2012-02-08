@@ -242,6 +242,8 @@ void processActor1(void) {
 	ZVStruct *zvPtr;
 	int j;
 
+	static int32 bufferAnimCounter = 0;
+
 	if(var_6 != -1) { // next anim ?
 		if(var_6 == -2) { // completly stop anim
 			stopAnim(currentProcessedActorIdx);
@@ -263,7 +265,6 @@ void processActor1(void) {
 			currentProcessedActorPtr->modX = 0;
 			currentProcessedActorPtr->modZ = 0;
 		}
-
 		initBufferAnim(bufferAnim + (bufferAnimCounter++) * 248, listBody->get(currentProcessedActorPtr->bodyNum));
 
 		if(bufferAnimCounter == 20)
