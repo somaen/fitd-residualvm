@@ -170,7 +170,7 @@ int32 makeProportional(int32 x1, int32 x2, int32 y1, int32 y2) {
 	return x1 + ((x2 - x1) * y2) / y1;
 }
 
-int32 computeAngleModificatorToPositionSub1(int32 ax) {
+int32 computeAngleModificatorToPositionSub1(int32 ax, int32 angleCompX, int32 angleCompZ) {
 	int32 xOut;
 	int32 yOut;
 
@@ -191,18 +191,14 @@ int32 computeAngleModificatorToPositionSub1(int32 ax) {
 }
 
 int32 computeAngleModificatorToPosition(int32 x1, int32 z1, int32 beta, int32 x2, int32 z2) {
-	int32 resultMin;
-	int32 resultMax;
+	int32 angleCompX = x2 - x1;
+	int32 angleCompZ = z2 - z1;
 
-	angleCompX = x2 - x1;
-	angleCompZ = z2 - z1;
-	angleCompBeta = beta;
-
-	resultMin = computeAngleModificatorToPositionSub1(beta - 4);
-	resultMax = computeAngleModificatorToPositionSub1(beta + 4);
+	int32 resultMin = computeAngleModificatorToPositionSub1(beta - 4, angleCompX, angleCompZ);
+	int32 resultMax = computeAngleModificatorToPositionSub1(beta + 4, angleCompX, angleCompZ);
 
 	if(resultMax == -1 && resultMin == 1) { // in the middle
-		return(computeAngleModificatorToPositionSub1(beta));
+		return(computeAngleModificatorToPositionSub1(beta, angleCompX, angleCompZ));
 	} else {
 		return(((resultMax + resultMin) + 1) >> 1);
 	}

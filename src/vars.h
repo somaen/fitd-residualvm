@@ -335,10 +335,6 @@ extern int16 renderPointList[6400];
 extern int32 numActorInList;
 extern int32 sortedActorTable[NUM_MAX_ACTOR];
 
-extern int32 angleCompX;
-extern int32 angleCompZ;
-extern int32 angleCompBeta;
-
 extern int32 bufferAnimCounter;
 
 extern int32 animMoveX;
