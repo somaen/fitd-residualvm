@@ -924,62 +924,45 @@ void updateAllActorAndObjectsSub1(int index) { // remove actor
 	}
 }
 
-bool pointRotateEnable = true;
+void pointRotate(int alpha, int beta, int gamma, int x, int y, int z, int *destX, int *destY, int *destZ) {
+	int pointRotateCosX = cosTable[alpha&0x3FF];
+	int pointRotateSinX = cosTable[((alpha&0x3FF) + 0x100) & 0x3FF];
 
-int pointRotateCosX;
-int pointRotateSinX;
-int pointRotateCosY;
-int pointRotateSinY;
-int pointRotateCosZ;
-int pointRotateSinZ;
+	int pointRotateCosY = cosTable[beta&0x3FF];
+	int pointRotateSinY = cosTable[((beta&0x3FF) + 0x100) & 0x3FF];
 
-void setupPointRotate(int alpha, int beta, int gamma) {
-	pointRotateEnable = true;
+	int pointRotateCosZ = cosTable[gamma&0x3FF];
+	int pointRotateSinZ = cosTable[((gamma&0x3FF) + 0x100) & 0x3FF];
 
-	pointRotateCosX = cosTable[alpha&0x3FF];
-	pointRotateSinX = cosTable[((alpha&0x3FF) + 0x100) & 0x3FF];
-
-	pointRotateCosY = cosTable[beta&0x3FF];
-	pointRotateSinY = cosTable[((beta&0x3FF) + 0x100) & 0x3FF];
-
-	pointRotateCosZ = cosTable[gamma&0x3FF];
-	pointRotateSinZ = cosTable[((gamma&0x3FF) + 0x100) & 0x3FF];
-}
-
-void pointRotate(int x, int y, int z, int *destX, int *destY, int *destZ) {
-	if(pointRotateEnable) {
-		{
-			int tempX = x;
-			int tempY = y;
-			x = ((((tempX * pointRotateSinZ) - (tempY * pointRotateCosZ))) >> 16) << 1;
-			y = ((((tempX * pointRotateCosZ) + (tempY * pointRotateSinZ))) >> 16) << 1;
-		}
-
-		{
-			int tempX = x;
-			int tempZ = z;
-
-			x = ((((tempX * pointRotateSinY) - (tempZ * pointRotateCosY))) >> 16) << 1;
-			z = ((((tempX * pointRotateCosY) + (tempZ * pointRotateSinY))) >> 16) << 1;
-		}
-
-		{
-			int tempY = y;
-			int tempZ = z;
-			y = ((((tempY * pointRotateSinX) - (tempZ * pointRotateCosX))) >> 16) << 1;
-			z = ((((tempY * pointRotateCosX) + (tempZ * pointRotateSinX))) >> 16) << 1;
-		}
-
-		*destX = x;
-		*destY = y;
-		*destZ = z;
+	{
+		int tempX = x;
+		int tempY = y;
+		x = ((((tempX * pointRotateSinZ) - (tempY * pointRotateCosZ))) >> 16) << 1;
+		y = ((((tempX * pointRotateCosZ) + (tempY * pointRotateSinZ))) >> 16) << 1;
 	}
+
+	{
+		int tempX = x;
+		int tempZ = z;
+		x = ((((tempX * pointRotateSinY) - (tempZ * pointRotateCosY))) >> 16) << 1;
+		z = ((((tempX * pointRotateCosY) + (tempZ * pointRotateSinY))) >> 16) << 1;
+	}
+
+	{
+		int tempY = y;
+		int tempZ = z;
+		y = ((((tempY * pointRotateSinX) - (tempZ * pointRotateCosX))) >> 16) << 1;
+		z = ((((tempY * pointRotateCosX) + (tempZ * pointRotateSinX))) >> 16) << 1;
+	}
+
+	*destX = x;
+	*destY = y;
+	*destZ = z;
 }
 
 void zvRotSub(int X, int Y, int Z, int alpha, int beta, int gamma) {
 	if(alpha || beta || gamma) {
-		setupPointRotate(alpha, beta, gamma);
-		pointRotate(X, Y, Z, &animMoveX, &animMoveY, &animMoveZ);
+		pointRotate(alpha, beta, gamma, X, Y, Z, &animMoveX, &animMoveY, &animMoveZ);
 	} else {
 		animMoveX = X;
 		animMoveY = Y;
