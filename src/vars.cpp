@@ -86,8 +86,6 @@ actorStruct actorTable[NUM_MAX_ACTOR];
 
 int16 currentCameraTarget;
 
-int32 fileSize;
-
 hqrEntryStruct *listBody;
 hqrEntryStruct *listAnim;
 hqrEntryStruct *listLife;
