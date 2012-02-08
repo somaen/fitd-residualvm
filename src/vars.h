@@ -212,9 +212,6 @@ extern int32 currentMenuTop;
 extern int32 currentMenuRight;
 extern int32 currentMenuBottom;
 
-extern textEntryStruct *tabTextes;
-extern char *systemTextes;
-
 extern char inputKey;
 extern char input1;
 extern char input2;

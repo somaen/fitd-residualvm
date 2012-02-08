@@ -31,6 +31,7 @@
 #include "resource.h"
 #include "osystem.h"
 #include "common.h"
+#include "textes.h"
 #include "main_loop.h"
 
 namespace Fitd {
@@ -78,7 +79,6 @@ enumCVars AITD2KnownCVars[] = {
 
 // TODO: Move this around to a usefull place:
 void makeIntroScreens();
-void allocTextes(void);
 void sysInitSub1(char *var0, char *var1);
 
 FitdEngine::FitdEngine() {
@@ -401,7 +401,7 @@ void FitdEngine::sysInit(void) {
 	}
 	//////////////////////////////////////////////
 
-	allocTextes();
+	g_textes = new Textes();
 
 	//  if(musicConfigured)
 	{

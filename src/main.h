@@ -48,7 +48,7 @@ void initVars();
 void configureHqrHero(hqrEntryStruct *hqrPtr, const char *name);
 void flushScreen(void);
 int parseAllSaves(int arg);
-textEntryStruct *getTextFromIdx(int index);
+
 void cleanupAndExit(void);
 void drawProjectedBox(int x1, int x2, int y1, int y2, int z1, int z2, int color, int transparency);
 void printTextSub6(hqrEntryStruct *hqrPtr, int index);

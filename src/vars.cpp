@@ -63,9 +63,6 @@ int32 currentMenuTop;
 int32 currentMenuRight;
 int32 currentMenuBottom;
 
-textEntryStruct *tabTextes;
-char *systemTextes;
-
 char inputKey = 0;
 char input1 = 0;
 char input2 = 0;

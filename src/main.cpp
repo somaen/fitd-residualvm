@@ -36,6 +36,7 @@
 #include "common.h"
 #include "version.h"
 #include "main_loop.h"
+#include "textes.h"
 #include "common/forbidden.h"
 
 namespace Fitd {
@@ -148,96 +149,6 @@ void sysInitSub1(char *var0, char *var1) {
 	screenSm5 = var1;
 }
 
-void allocTextes(void) {
-	int currentIndex;
-	char *currentPosInTextes;
-	int textCounter;
-	int stringIndex;
-	char *stringPtr;
-	int textLength;
-
-	tabTextes = (textEntryStruct *)malloc(NUM_MAX_TEXT_ENTRY * sizeof(textEntryStruct)); // 2000 = 250 * 8
-
-	ASSERT_PTR(tabTextes);
-
-	if(!tabTextes) {
-		theEnd(1, "TabTextes");
-	}
-
-	// setup languageNameString
-	if(g_fitd->getGameType() == GType_AITD3) {
-		strcpy(languageNameString, "TEXTES");
-	} else {
-		int i = 0;
-
-		while(languageNameTable[i]) {
-			char tempString[20];
-
-			strcpy(tempString, languageNameTable[i]);
-			strcat(tempString, ".PAK");
-
-			if(g_resourceLoader->getFileExists(tempString)) {
-				strcpy(languageNameString, languageNameTable[i]);
-				break;
-			}
-
-			i++;
-		}
-	}
-
-	if(!languageNameString[0]) {
-		error("Unable to detect language file..\n");
-	}
-
-	systemTextes = g_resourceLoader->loadPakSafe(languageNameString, 0); // todo: use real language name
-	textLength = getPakSize(languageNameString, 0);
-
-	for(currentIndex = 0; currentIndex < NUM_MAX_TEXT_ENTRY; currentIndex++) {
-		tabTextes[currentIndex].index = -1;
-		tabTextes[currentIndex].textPtr = NULL;
-		tabTextes[currentIndex].width = 0;
-	}
-
-	currentPosInTextes = systemTextes;
-
-	textCounter = 0;
-
-	while(currentPosInTextes < systemTextes + textLength) {
-		currentIndex = *(currentPosInTextes++);
-
-		if(currentIndex == 26)
-			break;
-
-		if(currentIndex == '@') { // start of string marker
-			stringIndex = 0;
-
-			while((currentIndex = *(currentPosInTextes++)) >= '0' && currentIndex <= '9') { // parse string number
-				stringIndex = stringIndex * 10 + currentIndex - 48;
-			}
-
-			if(currentIndex == ':') { // start of string
-				stringPtr = currentPosInTextes;
-
-				do {
-					currentPosInTextes ++;
-				} while((unsigned char)*(currentPosInTextes - 1) >= ' '); // detect the end of the string
-
-				*(currentPosInTextes - 1) = 0; // add the end of string
-
-				tabTextes[textCounter].index = stringIndex;
-				tabTextes[textCounter].textPtr = stringPtr;
-				tabTextes[textCounter].width = computeStringWidth(stringPtr);
-
-				textCounter++;
-			}
-
-			if(currentIndex == 26) {
-				return;
-			}
-		}
-	}
-}
-
 void freeAll(void) {
 	/*  HQR_Free(hqrUnk);
 
@@ -265,18 +176,6 @@ void freeAll(void) {
 	 free(aux2);*/
 
 	//TODO: implement all the code that restore the interrupts & all
-}
-
-textEntryStruct *getTextFromIdx(int index) {
-	int currentIndex;
-
-	for(currentIndex = 0; currentIndex < NUM_MAX_TEXT_ENTRY; currentIndex++) {
-		if(tabTextes[currentIndex].index == index) {
-			return(&tabTextes[currentIndex]);
-		}
-	}
-
-	return(NULL);
 }
 
 void fillBox(int x1, int y1, int x2, int y2, char color) { // fast recode. No RE
@@ -884,12 +783,6 @@ void initEngine() {
 	}
 }
 
-void initVarsSub1(void) {
-	for(int i = 0; i < 5; i++) {
-		messageTable[i].string = NULL;
-	}
-}
-
 void initVars() {
 	giveUp = 0;
 	if(g_fitd->getGameType() == GType_AITD1) {
@@ -926,7 +819,9 @@ void initVars() {
 
 	statusScreenAllowed = 1;
 
-	initVarsSub1();
+	for(int i = 0; i < 5; i++) {
+		messageTable[i].string = NULL;
+	}
 }
 
 void loadCamera(int cameraIdx) {
@@ -3419,7 +3314,7 @@ int drawTextOverlay(void) {
 void makeMessage(int messageIdx) {
 	textEntryStruct *messagePtr;
 
-	messagePtr = getTextFromIdx(messageIdx);
+	messagePtr = g_textes->getTextFromIdx(messageIdx);
 
 	if(messagePtr) {
 		for(int i = 0; i < 5; i++) {
