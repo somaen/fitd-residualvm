@@ -24,7 +24,11 @@
 #define _TEXTES_
 namespace Fitd {
 
-struct textEntryStruct;
+struct textEntryStruct {
+	int16 index;
+	char *textPtr;
+	int16 width;
+};
 
 class Textes {
 public:

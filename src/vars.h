@@ -39,11 +39,7 @@ struct point3dStruct {
 	int16 z;
 };
 
-struct textEntryStruct {
-	int16 index;
-	char *textPtr;
-	int16 width;
-};
+struct textEntryStruct;
 
 struct messageStruct {
 	textEntryStruct *string;
@@ -220,7 +216,6 @@ extern char input4;
 extern char button;
 
 extern char languageNameString[];
-extern const char *languageNameTable[];
 
 extern regularTextEntryStruct textTable[40];
 

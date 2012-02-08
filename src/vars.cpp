@@ -70,15 +70,6 @@ char input3;
 char input4;
 char button;
 
-const char *languageNameTable[] = {
-	"ENGLISH",
-	"FRANCAIS",
-	"ITALIANO",	
-	"ESPAGNOL",
-	"DEUTSCH",
-	NULL,
-};
-
 char languageNameString[20] = "";
 
 regularTextEntryStruct textTable[NUM_MAX_TEXT];

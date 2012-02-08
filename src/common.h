@@ -79,9 +79,6 @@
 #define INVENTORY_SIZE      30
 
 
-// 250
-#define NUM_MAX_TEXT_ENTRY  1000
-
 //////////////////
 
 #include "cvars.h"

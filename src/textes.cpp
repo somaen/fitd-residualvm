@@ -30,6 +30,18 @@ namespace Fitd {
 
 Textes *g_textes = NULL;
 
+// 250
+#define NUM_MAX_TEXT_ENTRY  1000
+
+const char *languageNameTable[] = {
+	"ENGLISH",
+	"FRANCAIS",
+	"ITALIANO",	
+	"ESPAGNOL",
+	"DEUTSCH",
+	NULL,
+};
+
 Textes::Textes() {
 	int currentIndex;
 	char *currentPosInTextes;
