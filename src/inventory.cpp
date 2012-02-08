@@ -28,6 +28,32 @@ namespace Fitd {
 int numInventoryActions;
 short int inventoryActionTable[5];
 
+int findObjectInInventory(int objIdx) {
+	int i;
+
+	for(i = 0; i < numObjInInventory; i++) {
+		if(inventory[i] == objIdx) {
+			return(i);
+		}
+	}
+
+	return(-1);
+}
+
+void removeObjFromInventory(int objIdx) {
+	int inventoryIdx;
+
+	inventoryIdx = findObjectInInventory(objIdx);
+
+	if(inventoryIdx != -1) {
+		memmove(&inventory[inventoryIdx], &inventory[inventoryIdx+1], (30 - inventoryIdx - 1) * 2);
+
+		numObjInInventory--;
+	}
+
+	objectTable[objIdx].flags2 &= 0x7FFF;
+}
+
 int drawTopStatusBox(int arg_0, int arg_2, int arg_4) {
 	int var_A = currentMenuTop + 1;
 	int var_6 = arg_0;

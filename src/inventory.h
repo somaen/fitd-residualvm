@@ -23,5 +23,6 @@
 namespace Fitd {
 
 void makeStatusScreen(void);
+void removeObjFromInventory(int objIdx);
 
 } // end of namespace Fitd

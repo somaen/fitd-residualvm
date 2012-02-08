@@ -54,8 +54,6 @@ int getCVarsIdx(enumCVars searchedType) { // TODO: optimize by reversing the tab
 
 }
 
-//int16 inventory[30];
-
 void updateInHand(int objIdx) {
 	int var_2;
 	int actorIdx;
@@ -1806,32 +1804,6 @@ void deleteSub(int actorIdx) {
 
 		//deleteSubSub();
 	}
-}
-
-int findObjectInInventory(int objIdx) {
-	int i;
-
-	for(i = 0; i < numObjInInventory; i++) {
-		if(inventory[i] == objIdx) {
-			return(i);
-		}
-	}
-
-	return(-1);
-}
-
-void removeObjFromInventory(int objIdx) {
-	int inventoryIdx;
-
-	inventoryIdx = findObjectInInventory(objIdx);
-
-	if(inventoryIdx != -1) {
-		memmove(&inventory[inventoryIdx], &inventory[inventoryIdx+1], (30 - inventoryIdx - 1) * 2);
-
-		numObjInInventory--;
-	}
-
-	objectTable[objIdx].flags2 &= 0x7FFF;
 }
 
 void deleteObject(int objIdx) {

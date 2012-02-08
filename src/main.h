@@ -41,7 +41,6 @@ void createActorList();
 void mainDraw(int mode);
 void getZvNormal(char *bodyPtr, ZVStruct *zvPtr);
 int checkForHardCol(ZVStruct *zvPtr, roomDataStruct *pRoomData);
-void removeObjFromInventory(int objIdx);
 void walkStep(int angle1, int angle2, int angle3);
 void throwStoppedAt(int x, int z);
 void initEngine(void);
