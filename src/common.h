@@ -23,10 +23,6 @@
 #ifndef _COMMON_H_
 #define _COMMON_H_
 
-#ifndef _WIN32
-#include "config.h"
-#endif
-
 #ifdef MACOSX
 #define UNIX
 #endif
@@ -47,15 +43,6 @@
 #include "common/endian.h"
 #endif
 
-#ifdef WIN32
-#include <search.h>
-#endif
-
-#ifdef _WIN32
-#include <windows.h>
-#include <assert.h>
-#endif
-
 #ifdef _DEBUG
 #define ASSERT(exp) assert(exp)
 #else
@@ -67,8 +54,6 @@
 #else
 #define ASSERT_PTR(exp)
 #endif
-
-#include "SDL.h"
 
 //////////////// GAME SPECIFIC DEFINES
 

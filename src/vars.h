@@ -26,7 +26,6 @@
 #include "osystem.h"
 #include "common/stream.h"
 
-#pragma pack(1)
 namespace Fitd {
 
 extern char *currentFoundBody;

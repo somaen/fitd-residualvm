@@ -28,6 +28,7 @@
 // 22 septembre 2003 14:25
 
 // seg002
+#include "SDL.h"
 #include "common/textconsole.h"
 
 #include "fitd.h"
