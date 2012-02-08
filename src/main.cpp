@@ -52,6 +52,19 @@ int input5;
 
 enumCVars *currentCVarTable = NULL;
 
+struct messageStruct {
+	textEntryStruct *string;
+	int16 time;
+};
+
+struct regularTextEntryStruct {
+	char *textPtr;
+	int16 width;
+};
+
+regularTextEntryStruct textTable[40];
+messageStruct messageTable[NUM_MAX_MESSAGE];
+
 int getCVarsIdx(enumCVars searchedType) { // TODO: optimize by reversing the table....
 	return g_fitd->getCVarsIdx(searchedType);
 
@@ -870,7 +883,6 @@ void setupSMCode(int centerX, int centerY, int x, int y, int z) {
 	cameraZ = z;
 }
 
-
 void updateAllActorAndObjectsSub1(int index) { // remove actor
 	actorStruct *actorPtr = &actorTable[index];
 
@@ -1282,7 +1294,6 @@ addObject:
 	//TODO: object update
 }
 
-
 void updateAllActorAndObjects() {
 	int i;
 	actorStruct *currentActor = actorTable;
@@ -1447,8 +1458,6 @@ void createActorList() {
 		actorPtr++;
 	}
 }
-
-
 
 int16 computeDistanceToPoint(int x1, int z1, int x2, int z2) {
 	int axBackup = x1;

@@ -72,8 +72,6 @@ char button;
 
 char languageNameString[20] = "";
 
-regularTextEntryStruct textTable[NUM_MAX_TEXT];
-
 int32 readVar;
 
 char *screenSm1;
@@ -99,8 +97,6 @@ objectStruct *objectTable;
 int16 *vars;
 
 int32 varSize;
-
-messageStruct messageTable[NUM_MAX_MESSAGE];
 
 int16 currentMusic;
 int32 action;
@@ -240,8 +236,6 @@ const char *listAnimSelect[] = {
 	"LISTANIM",
 	"LISTANI2",
 };
-
-saveEntry saveTable[40];
 
 int32 mainVar3 = 4000;
 int32 mainVar2 = -2000;

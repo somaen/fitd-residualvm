@@ -38,23 +38,6 @@ struct point3dStruct {
 	int16 z;
 };
 
-struct textEntryStruct;
-
-struct messageStruct {
-	textEntryStruct *string;
-	int16 time;
-};
-
-struct saveEntry {
-	void *ptr;
-	uint32 size;
-};
-
-struct regularTextEntryStruct {
-	char *textPtr;
-	int16 width;
-};
-
 struct ZVStruct {
 	int32 ZVX1;
 	int32 ZVX2;
@@ -216,8 +199,6 @@ extern char button;
 
 extern char languageNameString[];
 
-extern regularTextEntryStruct textTable[40];
-
 extern int32 readVar;
 
 extern char *screenSm1;
@@ -243,8 +224,6 @@ extern objectStruct *objectTable; // may be less
 extern int16 *vars;
 
 extern int32 varSize;
-
-extern messageStruct messageTable[5];
 
 extern int16 currentMusic;
 extern int32 action;
@@ -376,8 +355,6 @@ extern int16 hardColVar1;
 extern int16 hardColVar2;
 
 extern ZVStruct hardClip;
-
-extern saveEntry saveTable[];
 
 extern int32 mainVar3;
 extern int32 mainVar2;

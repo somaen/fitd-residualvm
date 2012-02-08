@@ -33,7 +33,13 @@
 
 namespace Fitd {
 
+struct saveEntry {
+	void *ptr;
+	uint32 size;
+};
+
 unsigned int currentSaveEntrySize;
+saveEntry saveTable[40];
 
 void *getSaveEntry(int index) {
 	currentSaveEntrySize = saveTable[index].size;
