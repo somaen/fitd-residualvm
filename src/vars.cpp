@@ -58,8 +58,6 @@ char unkScreenVar[320*200];
 
 char rgbaBuffer[320*200*4];
 
-//uint32 timer;
-
 int32 currentMenuLeft;
 int32 currentMenuTop;
 int32 currentMenuRight;

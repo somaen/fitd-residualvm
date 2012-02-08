@@ -8,21 +8,100 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- 
+
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- 
+
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
 
+#include "actor.h"
+
 #include "common.h"
 
 namespace Fitd {
+
+int checkLineProjectionWithActors(int actorIdx, int X, int Y, int Z, int beta, int room, int param) {
+	ZVStruct localZv;
+	int foundFlag = -2;
+	int tempX;
+	int tempZ;
+
+	localZv.ZVX1 = X - param;
+	localZv.ZVX2 = X + param;
+	localZv.ZVY1 = Y - param;
+	localZv.ZVY2 = Y + param;
+	localZv.ZVZ1 = Z - param;
+	localZv.ZVZ2 = Z + param;
+
+	walkStep(param * 2, 0, beta);
+
+	while(foundFlag == -2) {
+		localZv.ZVX1 += animMoveX;
+		localZv.ZVX2 += animMoveX;
+
+		localZv.ZVZ1 += animMoveY;
+		localZv.ZVZ2 += animMoveY;
+
+		tempX = X;
+		tempZ = Z;
+
+		X += animMoveX;
+		Z += animMoveY;
+
+		if(X > 20000 || X < -20000 || Z > 20000 || Z < -20000) {
+			foundFlag = -1;
+			break;
+		}
+
+		if(checkForHardCol(&localZv, &roomDataTable[room]) <= 0) {
+			foundFlag = -1;
+		} else {
+			actorStruct *currentActorPtr = actorTable;
+
+			int i;
+
+			for(i = 0; i < NUM_MAX_ACTOR; i++) {
+				if(currentActorPtr->field_0 != -1 && i != actorIdx && !(currentActorPtr->flags & 0x20)) {
+					ZVStruct *zvPtr = &currentActorPtr->zv;
+
+					if(room != currentActorPtr->room) {
+						ZVStruct localZv2;
+
+						copyZv(&localZv, &localZv2);
+						getZvRelativePosition(&localZv2, room, currentActorPtr->room);
+
+						if(!checkZvCollision(&localZv2, zvPtr)) {
+							currentActorPtr++;
+							continue;
+						}
+					} else {
+						if(!checkZvCollision(&localZv, zvPtr)) {
+							currentActorPtr++;
+							continue;
+						}
+					}
+
+					foundFlag = i;
+					break;
+				}
+
+				currentActorPtr++;
+			}
+		}
+	}
+
+	animMoveX = tempX;
+	animMoveY = Y;
+	animMoveZ = tempZ;
+
+	return(foundFlag);
+}
 
 void processAnimAction(void) {
 	switch(currentProcessedActorPtr->animActionType) {
