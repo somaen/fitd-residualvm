@@ -83,7 +83,7 @@ Textes::Textes() {
 		error("Unable to detect language file..\n");
 	}
 
-	_systemTextes = g_resourceLoader->loadPakSafe(languageNameString, 0); // todo: use real language name
+	char *systemTextes = g_resourceLoader->loadPakSafe(languageNameString, 0); // todo: use real language name
 	textLength = getPakSize(languageNameString, 0);
 
 	for(currentIndex = 0; currentIndex < NUM_MAX_TEXT_ENTRY; currentIndex++) {
@@ -92,11 +92,11 @@ Textes::Textes() {
 		_tabTextes[currentIndex].width = 0;
 	}
 
-	currentPosInTextes = _systemTextes;
+	currentPosInTextes = systemTextes;
 
 	textCounter = 0;
 
-	while(currentPosInTextes < _systemTextes + textLength) {
+	while(currentPosInTextes < systemTextes + textLength) {
 		currentIndex = *(currentPosInTextes++);
 
 		if(currentIndex == 26)
@@ -133,9 +133,7 @@ Textes::Textes() {
 }
 
 textEntryStruct *Textes::getTextFromIdx(int index) {
-	int currentIndex;
-
-	for(currentIndex = 0; currentIndex < NUM_MAX_TEXT_ENTRY; currentIndex++) {
+	for(int currentIndex = 0; currentIndex < NUM_MAX_TEXT_ENTRY; currentIndex++) {
 		if(_tabTextes[currentIndex].index == index) {
 			return(&_tabTextes[currentIndex]);
 		}

@@ -36,7 +36,6 @@ public:
 	textEntryStruct *getTextFromIdx(int index);
 private:
 	textEntryStruct *_tabTextes;
-	char *_systemTextes;
 };
 
 extern Textes *g_textes;
